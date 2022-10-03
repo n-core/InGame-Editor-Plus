@@ -25,8 +25,11 @@ LuaEvents.IGE_PingAllVersions.Add(OnPingAllVersions);
 
 function OnInitialize()
 	print("IGE_Initialize");
-	print("IGE:Gods and kings="..getstr(IGE_HasGodsAndKings));
-	print("IGE:Brave new world="..getstr(IGE_HasBraveNewWorld));
+	print("IGE: Gods & Kings, check = "..getstr(IGE_HasGodsAndKings));
+	print("IGE: Brave New World, check = "..getstr(IGE_HasBraveNewWorld));
+	print("IGE: Community Patch, check = "..getstr(IGE_HasCommunityPatch));
+	print("IGE: Vox Populi, check = "..getstr(IGE_HasVoxPopuli));
+	print("IGE: More Wonders for VP, check = "..getstr(IGE_HasMoreWondersVP));
 end
 LuaEvents.IGE_Initialize.Add(OnInitialize);
 
