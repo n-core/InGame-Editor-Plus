@@ -14,6 +14,7 @@ local strategicResourceItemManager = CreateInstanceManager("ListItemInstance", "
 local luxuryResourceItemManager = CreateInstanceManager("ListItemInstance", "Button", Controls.LuxuryResourceList );
 local bonusResourceItemManager = CreateInstanceManager("ListItemInstance", "Button", Controls.BonusResourceList );
 local naturalWonderItemManager= CreateInstanceManager("ListItemInstance", "Button", Controls.NaturalWonderList );
+--local pseudonaturalWonderItemManager= CreateInstanceManager("ListItemInstance", "Button", Controls.PseudoNaturalWonderList );
 local waterItemManager = CreateInstanceManager("ListItemInstance", "Button", Controls.WaterList );
 local terrainItemManager = CreateInstanceManager("ListItemInstance", "Button", Controls.TerrainList );
 local featureItemManager = CreateInstanceManager("ListItemInstance", "Button", Controls.FeatureList );
@@ -370,6 +371,7 @@ local function UpdateCore(data)
 	UpdateList(data.terrains,				terrainItemManager,				ClickHandler);
 	UpdateList(data.waterTerrains,			waterItemManager,				ClickHandler);
 	UpdateList(data.naturalWonders,			naturalWonderItemManager,		ClickHandler);
+	--UpdateList(data.pseudonaturalWonders,	pseudonaturalWonderItemManager,	ClickHandler);
 	UpdateList(data.bonusResources,			bonusResourceItemManager,		ClickHandler);
 	UpdateList(data.luxuryResources,		luxuryResourceItemManager,		ClickHandler);
 	UpdateList(data.strategicResources,		strategicResourceItemManager,	ClickHandler);

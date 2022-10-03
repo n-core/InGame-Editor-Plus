@@ -4,8 +4,13 @@ include("IGE_API_All");
 print("IGE_CitiesPanel");
 IGE = nil;
 
+local dummybuildingItemManagers = {};
+local beliefbuildingItemManagers = {};
 local buildingItemManagers = {};
+local nationalwonderItemManagers = {};
+local projectwonderItemManagers = {};
 local wonderItemManagers = {};
+local corporationHQItemManagers = {};
 local groupInstances = {};
 local eraItemManager = CreateInstanceManager("BuildingGroupInstance", "Stack", Controls.BuildingEraList );
 local unitsManager = CreateInstanceManager("ListItemInstance", "Button", Controls.UnitsOnPlotList );
@@ -42,13 +47,82 @@ function OnInitialize()
 
 	-- Create eras instances
 	for i, v in ipairs(data.eras) do
-		if #v.buildings + #v.wonders > 0 then
+		if IGE_HasVoxPopuli then 
+			if #v.dummybuildings + #v.beliefbuildings + #v.buildings + #v.corporationhqs + #v.nationalwonders + #v.projectwonders + #v.wonders > 0 then
 			local instance = eraItemManager:GetInstance();
-			if instance then
-				instance.Header:SetText(v.name);
-				groupInstances[i] = instance;
-				buildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.BuildingList );
-				wonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.WonderList );
+				if instance then
+					instance.Header:SetText(v.name);
+					groupInstances[i] = instance;
+					dummybuildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.DummyBuildingList );
+					beliefbuildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.BeliefBuildingList );
+					buildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.BuildingList );
+					corporationHQItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.CorporationHQList );
+					nationalwonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.NationalWonderList );
+					projectwonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.ProjectWonderList );
+					wonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.WonderList );
+				end
+			end
+		elseif IGE_HasCommunityPatch then 
+			if #v.dummybuildings + #v.beliefbuildings + #v.buildings + #v.nationalwonders + #v.projectwonders + #v.wonders > 0 then
+			local instance = eraItemManager:GetInstance();
+				if instance then
+					instance.Header:SetText(v.name);
+					groupInstances[i] = instance;
+					dummybuildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.DummyBuildingList );
+					beliefbuildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.BeliefBuildingList );
+					buildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.BuildingList );
+					nationalwonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.NationalWonderList );
+					projectwonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.ProjectWonderList );
+					wonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.WonderList );
+				end
+			end
+		elseif IGE_HasBraveNewWorld and IGE_HasGodsAndKings then
+			if #v.beliefbuildings + #v.buildings + #v.nationalwonders + #v.projectwonders + #v.wonders > 0 then
+			local instance = eraItemManager:GetInstance();
+				if instance then
+					instance.Header:SetText(v.name);
+					groupInstances[i] = instance;
+					beliefbuildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.BeliefBuildingList );
+					buildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.BuildingList );
+					nationalwonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.NationalWonderList );
+					projectwonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.ProjectWonderList );
+					wonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.WonderList );
+				end
+			end
+		elseif IGE_HasBraveNewWorld then
+			if #v.buildings + #v.nationalwonders + #v.projectwonders + #v.wonders > 0 then
+			local instance = eraItemManager:GetInstance();
+				if instance then
+					instance.Header:SetText(v.name);
+					groupInstances[i] = instance;
+					buildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.BuildingList );
+					nationalwonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.NationalWonderList );
+					projectwonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.ProjectWonderList );
+					wonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.WonderList );
+				end
+			end
+		elseif IGE_HasGodsAndKings then
+			if #v.beliefbuildings + #v.buildings + #v.nationalwonders + #v.wonders > 0 then
+			local instance = eraItemManager:GetInstance();
+				if instance then
+					instance.Header:SetText(v.name);
+					groupInstances[i] = instance;
+					beliefbuildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.BeliefBuildingList );
+					buildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.BuildingList );
+					nationalwonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.NationalWonderList );
+					wonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.WonderList );
+				end
+			end
+		else
+			if #v.buildings + #v.nationalwonders + #v.wonders > 0 then
+			local instance = eraItemManager:GetInstance();
+				if instance then
+					instance.Header:SetText(v.name);
+					groupInstances[i] = instance;
+					buildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.BuildingList );
+					nationalwonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.NationalWonderList );
+					wonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.WonderList );
+				end
 			end
 		end
 	end
@@ -240,13 +314,78 @@ local function UpdateCityUI()
 	Controls.CityNameBox:SetText(currentCity:GetName());
 
 	for i, era in ipairs(data.eras) do
-		if #era.buildings + #era.wonders > 0 then
-			local instance = groupInstances[i];
-			UpdateBuildingList(era.buildings, buildingItemManagers[i], instance, "");
-			UpdateBuildingList(era.wonders, wonderItemManagers[i], instance, "[ICON_CAPITAL]");
-			instance.BottomStack:CalculateSize();
-			local width = instance.BottomStack:GetSizeX();
-			instance.HeaderBackground:SetSizeX(width + 10);
+		if IGE_HasVoxPopuli then
+			if #era.dummybuildings + #era.beliefbuildings + #era.buildings + #era.corporationhqs + #era.nationalwonders + #era.projectwonders + #era.wonders > 0 then
+				local instance = groupInstances[i];
+				UpdateBuildingList(era.dummybuildings, dummybuildingItemManagers[i], instance, "");
+				UpdateBuildingList(era.beliefbuildings, beliefbuildingItemManagers[i], instance, "[ICON_PEACE]");
+				UpdateBuildingList(era.buildings, buildingItemManagers[i], instance, "");
+				UpdateBuildingList(era.corporationhqs, corporationHQItemManagers[i], instance, "[ICON_CITY_STATE]");
+				UpdateBuildingList(era.nationalwonders, nationalwonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				UpdateBuildingList(era.projectwonders, projectwonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				UpdateBuildingList(era.wonders, wonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				instance.BottomStack:CalculateSize();
+				local width = instance.BottomStack:GetSizeX();
+				instance.HeaderBackground:SetSizeX(width + 10);
+			end
+		elseif IGE_HasCommunityPatch then
+			if #era.dummybuildings + #era.beliefbuildings + #era.buildings + #era.nationalwonders + #era.projectwonders + #era.wonders > 0 then
+				local instance = groupInstances[i];
+				UpdateBuildingList(era.dummybuildings, dummybuildingItemManagers[i], instance, "");
+				UpdateBuildingList(era.beliefbuildings, beliefbuildingItemManagers[i], instance, "[ICON_PEACE]");
+				UpdateBuildingList(era.buildings, buildingItemManagers[i], instance, "");
+				UpdateBuildingList(era.nationalwonders, nationalwonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				UpdateBuildingList(era.projectwonders, projectwonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				UpdateBuildingList(era.wonders, wonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				instance.BottomStack:CalculateSize();
+				local width = instance.BottomStack:GetSizeX();
+				instance.HeaderBackground:SetSizeX(width + 10);
+			end
+		elseif IGE_HasBraveNewWorld and IGE_HasGodsAndKings then
+			if #era.beliefbuildings + #era.buildings + #era.nationalwonders + #era.projectwonders + #era.wonders > 0 then
+				local instance = groupInstances[i];
+				UpdateBuildingList(era.beliefbuildings, beliefbuildingItemManagers[i], instance, "[ICON_PEACE]");
+				UpdateBuildingList(era.buildings, buildingItemManagers[i], instance, "");
+				UpdateBuildingList(era.nationalwonders, nationalwonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				UpdateBuildingList(era.projectwonders, projectwonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				UpdateBuildingList(era.wonders, wonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				instance.BottomStack:CalculateSize();
+				local width = instance.BottomStack:GetSizeX();
+				instance.HeaderBackground:SetSizeX(width + 10);
+			end
+		elseif IGE_HasBraveNewWorld then
+			if #era.buildings + #era.nationalwonders + #era.projectwonders + #era.wonders > 0 then
+				local instance = groupInstances[i];
+				UpdateBuildingList(era.buildings, buildingItemManagers[i], instance, "");
+				UpdateBuildingList(era.nationalwonders, nationalwonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				UpdateBuildingList(era.projectwonders, projectwonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				UpdateBuildingList(era.wonders, wonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				instance.BottomStack:CalculateSize();
+				local width = instance.BottomStack:GetSizeX();
+				instance.HeaderBackground:SetSizeX(width + 10);
+			end
+		elseif IGE_HasGodsAndKings then
+			if #era.beliefbuildings + #era.buildings + #era.nationalwonders + #era.wonders > 0 then
+				local instance = groupInstances[i];
+				UpdateBuildingList(era.beliefbuildings, beliefbuildingItemManagers[i], instance, "[ICON_PEACE]");
+				UpdateBuildingList(era.buildings, buildingItemManagers[i], instance, "");
+				UpdateBuildingList(era.nationalwonders, nationalwonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				UpdateBuildingList(era.wonders, wonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				instance.BottomStack:CalculateSize();
+				local width = instance.BottomStack:GetSizeX();
+				instance.HeaderBackground:SetSizeX(width + 10);
+			end
+		else
+			if #era.buildings + #era.nationalwonders + #era.wonders > 0 then
+				local instance = groupInstances[i];
+				UpdateBuildingList(era.buildings, buildingItemManagers[i], instance, "");
+				UpdateBuildingList(era.nationalwonders, nationalwonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				UpdateBuildingList(era.wonders, wonderItemManagers[i], instance, "[ICON_CAPITAL]");
+				instance.BottomStack:CalculateSize();
+				local width = instance.BottomStack:GetSizeX();
+				instance.HeaderBackground:SetSizeX(width + 10);
+			end
+			
 		end
 	end	
 

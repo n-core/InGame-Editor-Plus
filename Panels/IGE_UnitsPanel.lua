@@ -27,6 +27,19 @@ civilianClasses["UNITCLASS_SETTLER"] = true;
 civilianClasses["UNITCLASS_WORKER"] = true;
 civilianClasses["UNITCLASS_WORKBOAT"] = true;
 
+if IGE_HasBraveNewWorld then
+	civilianClasses["UNITCLASS_ARCHAEOLOGIST"] = true;
+	civilianClasses["UNITCLASS_CARAVAN"] = true;
+	civilianClasses["UNITCLASS_CARGO_SHIP"] = true;
+end
+
+if IGE_HasVoxPopuli then
+	civilianClasses["UNITCLASS_EMISSARY"] = true;
+	civilianClasses["UNITCLASS_ENVOY"] = true;
+	civilianClasses["UNITCLASS_DIPLOMAT"] = true;
+	civilianClasses["UNITCLASS_AMBASSADOR"] = true;
+end
+
 
 --===============================================================================================
 -- CORE EVENTS

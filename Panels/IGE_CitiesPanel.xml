@@ -22,8 +22,13 @@
 					<Label ID="Header" Anchor="C,C"  Offset="0,-2" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" FontStyle="Shadow" String="TXT_KEY_IGE_ERA"/>
 				</Image>
 				<Stack ID="BottomStack" StackGrowth="Right">
-					<Container ID="BuildingList" Anchor="L,T" Size="140,370" Offset="5,5"/>
-					<Container ID="WonderList" Anchor="L,T" Size="140,370" Offset="10,5"/>
+					<Container ID="DummyBuildingList" Anchor="L,T" Size="140,370" Offset="0,5"/>
+					<Container ID="BeliefBuildingList" Anchor="L,T" Size="140,370" Offset="5,5"/>
+					<Container ID="BuildingList" Anchor="L,T" Size="140,370" Offset="10,5"/>
+					<Container ID="CorporationHQList" Anchor="L,T" Size="140,370" Offset="15,5"/>
+					<Container ID="NationalWonderList" Anchor="L,T" Size="140,370" Offset="20,5"/>
+					<Container ID="WonderList" Anchor="L,T" Size="140,370" Offset="25,5"/>
+					<Container ID="ProjectWonderList" Anchor="L,T" Size="140,370" Offset="30,5"/>
 				</Stack>
 			</Stack>
 
