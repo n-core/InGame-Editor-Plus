@@ -268,13 +268,24 @@ end
 -------------------------------------------------------------------------------------------------
 function CanHaveNaturalWonder(plot, wonder)
 	-- Gibraltar
-	if wonder.type == "FEATURE_GIBRALTAR" then 
-		return plot:IsCoastalLand() 
+	if IGE_HasMoreWondersVP then
+		if wonder.type == "FEATURE_GIBRALTAR" or wonder.type == "FEATURE_CAUSEWAY_B" then
+			return plot:IsCoastalLand();
+		end
+	else
+		if wonder.type == "FEATURE_GIBRALTAR" then 
+			return plot:IsCoastalLand(); 
+		end
 	end
 
-	-- Krakatoa and Reef are on waters
-	if wonder.type == "FEATURE_VOLCANO" or wonder.type == "FEATURE_REEF" then
-		return plot:IsWater() and not plot:IsLake();
+	if IGE_HasMoreWondersVP then
+		if wonder.type == "FEATURE_VOLCANO" or wonder.type == "FEATURE_REEF" or wonder.type == "FEATURE_NEW_REEF" or wonder.type == "FEATURE_CAUSEWAY_A" or wonder.type == "FEATURE_BERMUDA_A" or wonder.type == "FEATURE_BERMUDA_B" or wonder.type == "FEATURE_BERMUDA_C" or wonder.type == "FEATURE_LUMI_BAY" then
+			return plot:IsWater() and not plot:IsLake();
+		end
+	else
+		if wonder.type == "FEATURE_VOLCANO" or wonder.type == "FEATURE_REEF" then
+			return plot:IsWater() and not plot:IsLake();
+		end
 	end
 
 	-- Others on firm lands
@@ -454,6 +465,93 @@ function SetFeature(feature, plot)
 				print("unknown wonder");
 				plot:SetPlotType(PlotTypes.PLOT_MOUNTAIN);
 				plot:SetTerrainType(TerrainTypes.TERRAIN_PLAINS);
+			end
+			CheckConsistency(plot)
+		end
+		if IGE_HasMoreWondersVP and feature.pseudonaturalWonder then
+			if feature.type == "FEATURE_NEW_REEF" then
+				if not isOcean then return end
+				plot:SetTerrainType(TerrainTypes.TERRAIN_COAST);
+
+			elseif feature.type == "FEATURE_SALAR_A" then
+				plot:SetPlotType(PlotTypes.PLOT_LAND);
+				if terrainType ~= TerrainTypes.TERRAIN_DESERT then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_DESERT);
+				end
+
+			elseif feature.type == "FEATURE_SALAR_B" then
+				plot:SetPlotType(PlotTypes.PLOT_LAND);
+				if terrainType ~= TerrainTypes.TERRAIN_DESERT then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_DESERT);
+				end
+
+			elseif feature.type == "FEATURE_CAUSEWAY_A" then
+				if not isOcean then return end
+				plot:SetTerrainType(TerrainTypes.TERRAIN_COAST);
+
+			elseif feature.type == "FEATURE_CAUSEWAY_B" then
+				if not plot:IsCoastalLand() and not isOcean then return end
+				plot:SetPlotType(PlotTypes.PLOT_LAND);
+				plot:SetTerrainType(TerrainTypes.TERRAIN_TUNDRA);
+
+			elseif feature.type == "FEATURE_MT_EVEREST" then
+				plot:SetPlotType(PlotTypes.PLOT_LAND);
+				plot:SetTerrainType(TerrainTypes.TERRAIN_SNOW);
+
+			elseif feature.type == "FEATURE_RETBA" then
+				plot:SetPlotType(PlotTypes.PLOT_LAND);
+				if terrainType ~= TerrainTypes.TERRAIN_DESERT and terrainType ~= TerrainTypes.TERRAIN_PLAINS and terrainType ~= TerrainTypes.TERRAIN_GRASS then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_PLAINS);
+				end
+
+			elseif feature.type == "FEATURE_BERMUDA_A" then
+				if not isOcean then return end
+				plot:SetPlotType(PlotTypes.PLOT_OCEAN);
+				plot:SetTerrainType(TerrainTypes.TERRAIN_OCEAN);
+
+			elseif feature.type == "FEATURE_BERMUDA_B" then
+				if not isOcean then return end
+				plot:SetPlotType(PlotTypes.PLOT_OCEAN);
+				plot:SetTerrainType(TerrainTypes.TERRAIN_OCEAN);
+
+			elseif feature.type == "FEATURE_BERMUDA_C" then
+				if not isOcean then return end
+				plot:SetPlotType(PlotTypes.PLOT_OCEAN);
+				plot:SetTerrainType(TerrainTypes.TERRAIN_OCEAN);
+
+			elseif feature.type == "FEATURE_LUMI_BAY" then
+				if not isOcean then return end
+				plot:SetPlotType(PlotTypes.PLOT_OCEAN);
+				plot:SetTerrainType(TerrainTypes.TERRAIN_COAST);
+
+			elseif feature.type == "FEATURE_DALLOL" then
+				plot:SetPlotType(PlotTypes.PLOT_LAND);
+				if terrainType ~= TerrainTypes.TERRAIN_DESERT and terrainType ~= TerrainTypes.TERRAIN_PLAINS then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_DESERT);
+				end
+
+			elseif feature.type == "FEATURE_MT_PAEKTU" then
+				plot:SetPlotType(PlotTypes.PLOT_LAND);
+				plot:SetTerrainType(TerrainTypes.TERRAIN_TUNDRA);
+
+			elseif feature.type == "FEATURE_EYE_OF_SAHARA_A" then
+				plot:SetPlotType(PlotTypes.PLOT_LAND);
+				if terrainType ~= TerrainTypes.TERRAIN_DESERT then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_DESERT);
+				end
+
+			elseif feature.type == "FEATURE_EYE_OF_SAHARA_B" then
+				plot:SetPlotType(PlotTypes.PLOT_LAND);
+				if terrainType ~= TerrainTypes.TERRAIN_DESERT then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_DESERT);
+				end
+
+			elseif feature.type == "FEATURE_EYE_OF_SAHARA_C" then
+				plot:SetPlotType(PlotTypes.PLOT_LAND);
+				if terrainType ~= TerrainTypes.TERRAIN_DESERT then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_DESERT);
+				end
+
 			end
 			CheckConsistency(plot)
 		end
