@@ -1,14 +1,48 @@
 -- Released under GPL v3
 --------------------------------------------------------------
-if Map.GetPlot(0,0).GetCulture then	--Removed in G&K
+-------------------------------------------------------------------------------------------------
+local function IsModActive(iModID)
+	for i, mod in pairs(Modding.GetActivatedMods()) do
+		if (mod.ID == iModID) then
+			return true
+		end
+	end
+	return false
+end
+if Map.GetPlot(0,0).GetCulture then	--Check if you have Gods & Kings DLC
 	IGE_HasGodsAndKings = false;
 else
 	IGE_HasGodsAndKings = true;
 end
-if Map.GetPlot(0,0).GetArchaeologyArtifactEra then -- Added in BNW
+
+if Map.GetPlot(0,0).GetArchaeologyArtifactEra then --Check if you have Brave New World DLC
 	IGE_HasBraveNewWorld = true;
 else
 	IGE_HasBraveNewWorld = false;
+end
+
+--add check for Community Patch or Pick 'n' Mix - Various Mod Components (both shares the same ModID)
+local communityPatchID = "d1b6328c-ff44-4b0d-aad7-c657f83610cd";
+if IsModActive(communityPatchID) then --Check if Community Patch or Pick 'n' Mix - Various Mod Components is enabled
+	IGE_HasCommunityPatch = true;
+else
+	IGE_HasCommunityPatch = false;
+end
+
+--add check for Vox Populi
+local voxPopuliID = "8411a7a8-dad3-4622-a18e-fcc18324c799";
+if IsModActive(voxPopuliID) then --Check if Vox Populi is enabled
+	IGE_HasVoxPopuli = true;
+else
+	IGE_HasVoxPopuli = false;
+end
+
+--add check for More Wonders for VP mod
+local moreWondersVPID = "3e151552-1683-4881-b736-8ee89226f599";
+if IsModActive(moreWondersVPID) then --Check if More Wonders for VP is enabled
+	IGE_HasMoreWondersVP = true;
+else
+	IGE_HasMoreWondersVP = false;
 end
 
 -------------------------------------------------------------------------------------------------
@@ -162,4 +196,3 @@ function DefaultSort(a, b)
 		return Locale.Compare(a.name, b.name) == -1;
 	end
 end
-
