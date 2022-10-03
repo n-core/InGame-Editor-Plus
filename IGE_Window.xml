@@ -120,7 +120,7 @@
 	</Grid>
 	
 	<!-- Main button -->
-	<TextButton ID="MainButton" Anchor="R,T" Offset="340,6" Font="TwCenMT20" NormalState="Beige_Black" MouseOver="White_Black" ButtonDown="Beige_Black_Alpha"
+	<TextButton ID="MainButton" Anchor="R,T" Offset="643,6" Font="TwCenMT20" NormalState="Beige_Black" MouseOver="White_Black" ButtonDown="Beige_Black_Alpha"
 				String="TXT_KEY_IGE_IGE" ToolTip="TXT_KEY_IGE_IGE_HELP"/>
 
 	<!-- Edge scrolling -->
