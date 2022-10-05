@@ -111,6 +111,12 @@
 		<Row Tag="TXT_KEY_IGE_SHOW_UNKNOWN_RESOURCES_HELP">
 			<Text>Affiche les ressources révélées grâce à des technologies qui vous sont encore inconnues</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_DISABLE_STRATEGIC_VIEW">
+			<Text>Désactiver la carte stratégique IGE</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DISABLE_STRATEGIC_VIEW_HELP">
+			<Text>Lorsque IGE est ouvert, il remplace la carte stratégique par un clone qui réagit à tout changement de terrain. Sur certains ordinateurs, cela peut provoquer des plantages lorsque vous zoomez loin.</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_AUTO_SAVE_HELP">
 			<Text>Sauvegarde le jeu en tant que 'IGEn' chaque fois qu'IGE est ouvert.[NEWLINE][COLOR_POSITIVE_TEXT]Désactivez cette option pour grandement réduire le temps de chargement d'IGE.[ENDCOLOR]</Text>
 		</Row>
@@ -161,6 +167,12 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_STRATEGIC_RESOURCE_QTY">
 			<Text>Quantité de cette ressource.</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT_FEATURE">
+			<Text>[COLOR_NEGATIVE_TEXT]Il y a une ville sur cet hexagone ![ENDCOLOR][NEWLINE][COLOR_NEGATIVE_TEXT]Impossible de placer des caractéristiques ![ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT_IMPROVEMENT">
+			<Text>[COLOR_NEGATIVE_TEXT]Il y a une ville sur cet hexagone ![ENDCOLOR][NEWLINE][COLOR_NEGATIVE_TEXT]Impossible de placer des aménagements ![ENDCOLOR]</Text>
 		</Row>
 
 
@@ -267,17 +279,17 @@
 		<Row Tag="TXT_KEY_IGE_EXPAND_CITY_BUTTON_HELP">
 			<Text>Étendre la surface culturelle de la ville d'une case.</Text>
 		</Row>
-		<Row Tag="TXT_KEY_IGE_NEVER_LOST_CITY_CB_HELP">
-			<Text>Marque cette cité comme fondée par la civilisation active et jamais perdue (pour prévenir une défaite par domination).</Text>
-		</Row>
 		<Row Tag="TXT_KEY_IGE_NEVER_LOST_CITY_CB">
 			<Text>Mienne (toujours)</Text>
 		</Row>
-		<Row Tag="TXT_KEY_IGE_RECONQUERED_CITY_CB_HELP">
-			<Text>Marque cette cité comme fondée par la civilisation active, puis perdue et reconquise.</Text>
+		<Row Tag="TXT_KEY_IGE_NEVER_LOST_CITY_CB_HELP">
+			<Text>Marque cette cité comme fondée par la civilisation active et jamais perdue (pour prévenir une défaite par domination).</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_RECONQUERED_CITY_CB">
 			<Text>Mienne (reconquise)</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RECONQUERED_CITY_CB_HELP">
+			<Text>Marque cette cité comme fondée par la civilisation active, puis perdue et reconquise.</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_OCCUPIED_CITY_CB_HELP">
 			<Text>Marque cette cité comme capturée à un autre joueur.</Text>
@@ -285,14 +297,17 @@
 		<Row Tag="TXT_KEY_IGE_OCCUPIED_CITY_CB">
 			<Text>Occupée</Text>
 		</Row>
-		<Row Tag="TXT_KEY_IGE_PUPPET_CITY_CB_HELP">
-			<Text>Marque cette cité comme fantoche.</Text>
-		</Row>
 		<Row Tag="TXT_KEY_IGE_PUPPET_CITY_CB">
 			<Text>Fantoche</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_PUPPET_CITY_CB_HELP">
+			<Text>Marque cette cité comme fantoche.</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_NO_RELIGION">
 			<Text>Pas de religion</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_HOLY_CITY_BUG">
+			<Text>[COLOR_NEGATIVE_TEXT]Peut supprimer le statut de ville sainte.[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_FOLLOWERS">
 			<Text>Adeptes du {1_Religion}.</Text>
@@ -320,6 +335,21 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_MOVE_UNIT_CANCEL">
 			<Text>Annuler</Text>
+		</Row>
+		<!--<Row Tag="TXT_KEY_IGE_INTELLIGENCE_AGENCY_WARNING">
+			<Text>[COLOR_NEGATIVE_TEXT]Do not add this building multiple times to acquire more spies than possible! This would result in game corruption.[ENDCOLOR]</Text>
+		</Row>-->
+		<Row Tag="TXT_KEY_IGE_RELIGIOUS_BUILDINGS">
+			<Text>Edifices religieux</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_PROJECT_WONDERS">
+			<Text>Les merveilles du Congrès mondial</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DUMMY_BUILDINGS">
+			<Text>Bâtiments factices</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_BUILDINGS">
+			<Text>Bâtiments de la société</Text>
 		</Row>
 
 
@@ -519,6 +549,12 @@
 		<Row Tag="TXT_KEY_IGE_CIVILIAN_UNITS">
 			<Text>Unités civiles</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_GREAT_PEOPLE_UNITS">
+			<Text>Unités de personnes formidables</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DIPLOMACY_UNITS">
+			<Text>Unités diplomatiques</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_UNITS_LEVEL">
 			<Text>Niveau des unités créées.</Text>
 		</Row>
@@ -577,13 +613,30 @@
 			<Text>Palette européenne.</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_NATIONAL_WONDER">
-			<Text>[COLOR_CYAN]Merveille nationale[ENDCOLOR]</Text>
+			<Text>[COLOR:125:250:250:255]Merveille nationale[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_WONDER">
 			<Text>[COLOR_CYAN]Merveille[ENDCOLOR]</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_RELIGIOUS_BUILDING_SUBTITLE">
+			<Text>[COLOR:200:200:250:255]Édifice Religieux[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_PROJECT_WONDER_SUBTITLE">
+			<Text>[COLOR:45:150:50:255]Merveille du Congrès Mondial[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DUMMY_BUILDING_SUBTITLE">
+			<Text>[COLOR_LIGHT_GREY]Bâtiment Factice[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_HQ_SUBTITLE">
+			<Text>[COLOR_YIELD_FOOD]Siège Social[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_OFFICE_SUBTITLE">
+			<Text>[COLOR:250:170:120:255]Bureau de la Société[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_FRANCHISE_SUBTITLE">
+			<Text>[COLOR:220:150:90:255]Franchise de Société[ENDCOLOR]</Text>
+		</Row>
 
-		
 		<!--IGE_TechsPanel.xml-->
 		<Row Tag="TXT_KEY_IGE_TECH_PREREQ">
 			<Text>PRÉREQUIS :</Text>
@@ -615,6 +668,5 @@
 		<Row Tag="TXT_KEY_IGE_SAVED_AS">
 			<Text>Partie sauvegardée sous "{1_FileName}".</Text>
 		</Row>
-
 	</Language_fr_FR>
 </GameData>

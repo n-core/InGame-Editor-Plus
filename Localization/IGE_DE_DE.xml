@@ -66,6 +66,9 @@
 		<Row Tag="TXT_KEY_IGE_PLOT_SELECTION_PROMPT">
 			<Text>[COLOR_POSITIVE_TEXT]Linksklicke auf ein Geländefeld um es auszuwählen.[ENDCOLOR]</Text>
 		</Row>
+		<!--<Row Tag="TXT_KEY_IGE_PLOT_SELECTION_HINT">
+			<Text>[COLOR_POSITIVE_TEXT]Use the strategic map (F10) for a map reactive to all terrain modifications.[ENDCOLOR]</Text>
+		</Row>-->
 
 
 		<!--IGE_Window.xml-->
@@ -96,12 +99,24 @@
 		<Row Tag="TXT_KEY_IGE_AUTO_SAVE">
 			<Text>Autom. Speichern beim Öffnen</Text>
 		</Row>
-		<!--Row Tag="TXT_KEY_IGE_SHOW_UNKNOWN_RESOURCES">
+		<!--<Row Tag="TXT_KEY_IGE_CLEAN_UP_FILES">
+			<Text>Clean up redundant files</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CLEAN_UP_FILES_HELP">
+			<Text>This option will allow IGE to delete older IGE files ("IGE1", etc) that all have the same name.[NEWLINE][COLOR_NEGATIVE_TEXT]Deleting files may cause crashes on some computers (yet another civ5 bug).[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_SHOW_UNKNOWN_RESOURCES">
 			<Text>strat. Ressourcen verstecken</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_SHOW_UNKNOWN_RESOURCES_HELP">
 			<Text>Versteckt alle strat. Ressourcen die noch nicht von der aktiven Zivilisation erforscht wurden.</Text>
-		</Row-->
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DISABLE_STRATEGIC_VIEW">
+			<Text>Disable IGE strategic map</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DISABLE_STRATEGIC_VIEW_HELP">
+			<Text>When IGE is opened, it replaces the strategic map with a clone that reacts to any terrain change. On some computers, it may cause crashes when you zoom far away.</Text>
+		</Row>-->
 		<Row Tag="TXT_KEY_IGE_AUTO_SAVE_HELP">
 			<Text>Speichert das Spiel als 'IGE(Zahl)' jedesmal wenn IGE geöffnet wird.[NEWLINE][COLOR_POSITIVE_TEXT]Deaktiviere dies um die Ladegeschwindigkeit von IGE zu verbessern.[ENDCOLOR]</Text>
 		</Row>
@@ -152,6 +167,12 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_STRATEGIC_RESOURCE_QTY">
 			<Text>Anzahl der strat. Ressource.</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT_FEATURE">
+			<Text>[COLOR_NEGATIVE_TEXT]Es gibt eine Stadt auf diesem Geländefeld![ENDCOLOR][NEWLINE][COLOR_NEGATIVE_TEXT]Geländearten können nicht platziert werden![ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT_IMPROVEMENT">
+			<Text>[COLOR_NEGATIVE_TEXT]Es gibt eine Stadt auf diesem Geländefeld![ENDCOLOR][NEWLINE][COLOR_NEGATIVE_TEXT]Verbesserungen können nicht platziert werden![ENDCOLOR]</Text>
 		</Row>
 
 
@@ -285,6 +306,9 @@
 		<Row Tag="TXT_KEY_IGE_NO_RELIGION">
 			<Text>Keine Religion</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_HOLY_CITY_BUG">
+			<Text>[COLOR_NEGATIVE_TEXT]Kann den Status der heiligen Stadt entfernen.[ENDCOLOR]</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_FOLLOWERS">
 			<Text>Anhänger von {1_Religion}.</Text>
 		</Row>
@@ -312,8 +336,21 @@
 		<Row Tag="TXT_KEY_IGE_MOVE_UNIT_CANCEL">
 			<Text>Abbrechen</Text>
 		</Row>
-
-
+		<!--<Row Tag="TXT_KEY_IGE_INTELLIGENCE_AGENCY_WARNING">
+			<Text>[COLOR_NEGATIVE_TEXT]Fügen Sie dieses Gebäude nicht mehrmals hinzu, um mehr Spione als möglich zu erhalten! Dies würde zu einer Beschädigung des Spiels führen.[ENDCOLOR]</Text>
+		</Row>-->
+		<Row Tag="TXT_KEY_IGE_RELIGIOUS_BUILDINGS">
+			<Text>Religiöse Gebäude</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_PROJECT_WONDERS">
+			<Text>Wunder des Weltkongresses</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DUMMY_BUILDINGS">
+			<Text>Gefälschte Gebäude</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_BUILDINGS">
+			<Text>Konzerngebäude</Text>
+		</Row>
 
 
 		<!--IGE_PlayersPanel.xml-->
@@ -512,6 +549,12 @@
 		<Row Tag="TXT_KEY_IGE_CIVILIAN_UNITS">
 			<Text>Zivile Einheiten</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_GREAT_PEOPLE_UNITS">
+			<Text>Tolle Menscheneinheiten</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DIPLOMACY_UNITS">
+			<Text>Diplomatische Einheiten</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_UNITS_LEVEL">
 			<Text>Level der erschaffenen Einheiten.</Text>
 		</Row>
@@ -542,9 +585,9 @@
 		<Row Tag="TXT_KEY_IGE_COAST_OR_LAKE">
 			<Text>Küste oder See</Text>
 		</Row>
-		<!--Row Tag="TXT_KEY_IGE_COAST_OR_LAKE_HELP">
-			<Text>Dies erschafft ein Küstenfeld oder See.</Text>
-		</Row-->
+		<Row Tag="TXT_KEY_IGE_COAST_OR_LAKE_HELP">
+			<Text>Dies erschafft ein Küstenfeld oder See.[NEWLINE]Seen sind Wasserflächen, die kleiner als neun Felder sind.</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_AFRICA">
 			<Text>Afrika</Text>
 		</Row>
@@ -570,10 +613,28 @@
 			<Text>Europäisches Feld</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_NATIONAL_WONDER">
-			<Text>[COLOR_CYAN]Nationales Wunder[ENDCOLOR]</Text>
+			<Text>[COLOR:125:250:250:255]Nationales Wunder[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_WONDER">
 			<Text>[COLOR_CYAN]Wunder[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RELIGIOUS_BUILDING_SUBTITLE">
+			<Text>[COLOR:200:200:250:255]Religiöses Gebäude[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_PROJECT_WONDER_SUBTITLE">
+			<Text>[COLOR:45:150:50:255]Wunder des Weltkongresses[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DUMMY_BUILDING_SUBTITLE">
+			<Text>[COLOR_LIGHT_GREY]Gefälschtes Gebäude[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_HQ_SUBTITLE">
+			<Text>[COLOR_YIELD_FOOD]Konzernzentrale[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_OFFICE_SUBTITLE">
+			<Text>[COLOR:250:170:120:255]Gesellschaftsbüro[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_FRANCHISE_SUBTITLE">
+			<Text>[COLOR:220:150:90:255]Franchiseunternehmen[ENDCOLOR]</Text>
 		</Row>
 
 		<!--IGE_TechsPanel.xml-->
@@ -595,7 +656,6 @@
 		<Row Tag="TXT_KEY_IGE_TECHS_COMPATIBILITY_NIGHTS">
 			<Text>Civilization Nights</Text>
 		</Row>
-		
 
 
 		<!--IGE_API_Misc.lua -->
@@ -604,6 +664,9 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_NO_YIELD_CHANGE_TEMPLATE">
 			<Text>Kein Bonus von {1_Cause}</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_SAVED_AS">
+			<Text>Spiel gespeichert als '{1_FileName}'.</Text>
 		</Row>
 	</Language_de_DE>
 </GameData>
