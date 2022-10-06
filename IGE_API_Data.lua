@@ -714,10 +714,13 @@ local function SetErasData(data)
 		dummybuildings = {},
 		beliefbuildings = {},
 		buildings = {},
+		freebuildings = {},
 		wonders={},
 		nationalwonders={},
 		projectwonders={},
-		corporationhqs={},
+		corphqs={},
+		corpoffices={},
+		corpfranchises={},
 		units={},
 		techs={}
 	};
@@ -736,15 +739,24 @@ local function SetErasData(data)
 		item.priority = counter;
 		item.visible = true;
 		item.buildings = {};
-		item.beliefbuildings = {};
+		item.freebuildings = {};
 		item.wonders = {};
 		item.nationalwonders = {};
-		item.projectwonders = {};
-		item.corporationhqs = {};
 		item.techs = {};
 		item.units = {};
+		if IGE_HasGodsAndKings then
+			item.beliefbuildings = {};
+		end
+		if IGE_HasBraveNewWorld then
+			item.projectwonders = {};
+		end
 		if IGE_HasCommunityPatch then
 			item.dummybuildings = {};
+		end
+		if IGE_HasVoxPopuli then
+			item.corphqs = {};
+			item.corpoffices = {};
+			item.corpfranchises = {};
 		end
 
 		table.insert(data.eras, item);
@@ -794,15 +806,24 @@ function SetTechnologiesData(data)
 		item.visible = true;
 		item.condition = "PrereqTech = '" .. row.Type .. "'";
 		item.units = {};
-		item.beliefbuildings = {};
 		item.buildings = {};
+		item.freebuildings = {};
 		item.wonders = {};
 		item.nationalwonders = {};
-		item.projectwonders = {};
-		item.corporationhqs = {};
 		item.prereqs = {};
+		if IGE_HasGodsAndKings then
+			item.beliefbuildings = {};
+		end
+		if IGE_HasBraveNewWorld then
+			item.projectwonders = {};
+		end
 		if IGE_HasCommunityPatch then
 			item.dummybuildings = {};
+		end
+		if IGE_HasVoxPopuli then
+			item.corphqs = {};
+			item.corpoffices = {};
+			item.corpfranchises = {};
 		end
 
 		if item.disable then
@@ -968,6 +989,10 @@ function SetUnitsData(data)
 		item.class = row.Class;
 		item.combatClass = row.CombatClass;
 		item.isGreatPeople = (row.Special == "SPECIALUNIT_PEOPLE");
+		item.landunits = (row.Domain == "DOMAIN_LAND");
+		item.seaunits = (row.Domain == "DOMAIN_SEA");
+		item.airunits = (row.Domain == "DOMAIN_AIR");
+		item.settlingunits = (row.DefaultUnitAI == "UNITAI_SETTLE");
 		item.promotions = {};
 		item.visible = true;
 		item.enabled = true;
@@ -990,26 +1015,24 @@ function SetUnitsData(data)
 			end
 		end
 
-		-- Religious units
+		--Diplomacy units
+		item.diplomacy = ((row.DefaultUnitAI == "UNITAI_MESSENGER") or (row.DefaultUnitAI == "UNITAI_DIPLOMAT"));
+
+		--new method, to support new religious units
+		if IGE_HasGodsAndKings then
+			-- Religious units
+			item.religious = (row.ReligiousStrength > 0);
+		end
+
+		--keep old method here, just in case
+		--[[ Religious units
 		item.religious = (	(item.class == "UNITCLASS_MISSIONARY") or
 							(item.class == "UNITCLASS_PROPHET") or
 							(item.class == "UNITCLASS_INQUISITOR")
-						);
-
-		--[[ Space Ship units
-		item.spaceunits = (	(item.class == "UNITCLASS_SS_COCKPIT") or
-							(item.class == "UNITCLASS_SS_STASIS_CHAMBER") or
-							(item.class == "UNITCLASS_SS_ENGINE") or
-							(item.class == "UNITCLASS_SS_BOOSTER")
 						);]]
 
-		--[[ Diplomacy units
-		item.diplomacy = (	(item.class == "UNITCLASS_EMISSARY") or
-							(item.class == "UNITCLASS_ENVOY") or
-							(item.class == "UNITCLASS_DIPLOMAT") or
-							(item.class == "UNITCLASS_AMBASSADOR") or
-							(item.class == "UNITCLASS_GREAT_DIPLOMAT")
-						);]]
+		-- Space Ship units
+		item.spaceunits = (row.CombatClass == "UNITCOMBAT_SPACESHIP_PART");
 
 		-- Help text
 		item.help = GetIGEHelpTextForUnit(row, activePlayer).."[NEWLINE]"
@@ -1062,10 +1085,13 @@ function SetBuildingsData(data)
 	data.dummybuildings = {};
 	data.beliefbuildings = {};
 	data.buildings = {};
+	data.freebuildings = {};
 	data.wonders = {};
 	data.nationalwonders = {};
 	data.projectwonders = {};
-	data.corporationhqs = {};
+	data.corphqs = {};
+	data.corpoffices = {};
+	data.corpfranchises = {};
 
  	for row in GameInfo.Buildings() do
 		local valid = true;
@@ -1077,20 +1103,8 @@ function SetBuildingsData(data)
 		item.class = row.BuildingClass;
 		item.visible = true;
 		item.enabled = true;
-		if IGE_HasGodsAndKings then
-			item.beliefbuildings = ((row.FaithCost > 0) and (row.Cost == -1));
-		end
-		if IGE_HasBraveNewWorld then
-			item.isProjectWonder = ((row.WonderSplashImage) and (row.UnlockedByLeague));
-		end
-		if IGE_HasCommunityPatch then
-			item.dummybuildings = (row.IsDummy == 1);
-		end
-		if IGE_HasVoxPopuli then
-			item.isCorporationHQs = ((row.PrereqTech == nil) and (row.WonderSplashImage));
-		end
+		item.isFree = ((row.Cost == -1) and (row.PrereqTech == nil));
 		item.isWonder = ((row.WonderSplashImage) and (row.PrereqTech ~= nil));
-
 		-- NoLimit / MaxPlayerInstances flag
 		local classRow = GameInfo.BuildingClasses("Type = '"..item.class.."'")();
 		if classRow then
@@ -1101,6 +1115,22 @@ function SetBuildingsData(data)
 			valid = false;
 		end
 		
+		if IGE_HasGodsAndKings then
+			item.beliefbuildings = ((row.FaithCost > 0) and (row.Cost == -1) and not (item.isNationalWonder));
+		end
+		if IGE_HasBraveNewWorld then
+			item.isProjectWonder = ((row.WonderSplashImage) and (row.UnlockedByLeague));
+		end
+		if IGE_HasCommunityPatch then
+			item.dummybuildings = (row.IsDummy == 1);
+		end
+		if IGE_HasVoxPopuli then
+			item.isPotalaPalace = (row.PolicyType == "POLICY_LHASA");
+			item.isCorpHQ = ((row.IsCorporation == 1) and (row.PrereqTech == nil) and (row.WonderSplashImage) and (not row.UnlockedByLeague));
+			item.corpoffices = ((row.IsCorporation == 1) and (row.Cost > 0) and (not row.WonderSplashImage));
+			item.corpfranchises = ((row.IsCorporation == 1) and (row.Cost == -1) and (not row.WonderSplashImage));
+		end
+
 		-- Help
 		item.help = GetHelpTextForBuilding(item.ID, true, false, false).."[NEWLINE]";
 		AppendIDAndTypeToHelp(item)
@@ -1109,12 +1139,24 @@ function SetBuildingsData(data)
 			item.subtitle = L("TXT_KEY_IGE_NATIONAL_WONDER");
 		elseif item.isWonder then
 			item.subtitle = L("TXT_KEY_IGE_WONDER");
+		elseif (IGE_HasGodsAndKings) and (item.beliefbuildings) then
+			item.subtitle = L("TXT_KEY_IGE_RELIGIOUS_BUILDING_SUBTITLE");
+		elseif (IGE_HasBraveNewWorld) and (item.isProjectWonder) then
+			item.subtitle = L("TXT_KEY_IGE_PROJECT_WONDER_SUBTITLE");
+		elseif (IGE_HasVoxPopuli) and (item.isCorpHQ) then
+			item.subtitle = L("TXT_KEY_IGE_CORPORATION_HQ_SUBTITLE");
+		elseif (IGE_HasVoxPopuli) and (item.corpoffices) then
+			item.subtitle = L("TXT_KEY_IGE_CORPORATION_OFFICE_SUBTITLE");
+		elseif (IGE_HasVoxPopuli) and (item.corpfranchises) then
+			item.subtitle = L("TXT_KEY_IGE_CORPORATION_FRANCHISE_SUBTITLE");
+		elseif (IGE_HasCommunityPatch) and ((item.dummybuildings) or (item.isFree)) then
+			item.subtitle = L("TXT_KEY_IGE_DUMMY_BUILDING_SUBTITLE");
 		else
 			item.subtitle = "";
 		end
 
 		-- WARNING
-		if item.type == "BUILDING_INTELLIGENCE_AGENCY" then
+		if item.class == "BUILDINGCLASS_INTELLIGENCE_AGENCY" then
 			item.note = L("TXT_KEY_IGE_INTELLIGENCE_AGENCY_WARNING")
 		end
 
@@ -1129,7 +1171,7 @@ function SetBuildingsData(data)
 			local civilization = GameInfo.Civilizations[item.civilizationType];
 			if civilization then
 				item.civilizationName = L(GameInfo.Civilizations[item.civilizationType].ShortDescription);
-				item.subtitle = item.subtitle..item.civilizationName;
+				item.subtitle = item.subtitle .. ' [COLOR:255:245:150:255](' .. item.civilizationName .. ')[ENDCOLOR]';
 			else
 				ReportBadRef("Civilization_BuildingClassOverrides", overriding.CivilizationType, item.type);
 				valid = false;
@@ -1142,18 +1184,26 @@ function SetBuildingsData(data)
 			if tech then
 				item.prereq = tech;
 				item.era = tech.era;
-				if (IGE_HasBraveNewWorld) and (item.isProjectWonder) then
-					table.insert(tech.projectwonders, item);
-				elseif (IGE_HasVoxPopuli) and (item.isCorporationHQs) then
-					table.insert(tech.corporationhqs, item);
-				elseif (IGE_HasCommunityPatch) and (item.dummybuildings) then
+				if (IGE_HasCommunityPatch) and (item.dummybuildings) then
 					table.insert(tech.dummybuildings, item);
-				elseif (IGE_HasGodsAndKings) and (item.beliefbuildings) then
-					table.insert(tech.beliefbuildings, item);
-				elseif item.isWonder then
-					table.insert(tech.wonders, item);
 				elseif item.isNationalWonder then
 					table.insert(tech.nationalwonders, item);
+				elseif (IGE_HasGodsAndKings) and (item.beliefbuildings) then
+					table.insert(tech.beliefbuildings, item);
+				elseif (IGE_HasVoxPopuli) and (item.isPotalaPalace) then
+					table.insert(tech.wonders, item);
+				elseif item.isWonder then
+					table.insert(tech.wonders, item);
+				elseif (IGE_HasVoxPopuli) and (item.isCorpHQ) then
+					table.insert(tech.corphqs, item);
+				elseif (IGE_HasVoxPopuli) and (item.corpoffices) then
+					table.insert(tech.corpoffices, item);
+				elseif (IGE_HasVoxPopuli) and (item.corpfranchises) then
+					table.insert(tech.corpfranchises, item);
+				elseif (IGE_HasBraveNewWorld) and (item.isProjectWonder) then
+					table.insert(tech.projectwonders, item);
+				elseif item.isFree then
+					table.insert(tech.freebuildings, item);
 				else
 					table.insert(tech.buildings, item);
 				end
@@ -1167,24 +1217,36 @@ function SetBuildingsData(data)
 
 		-- Insert
 		if valid then
-			if (IGE_HasBraveNewWorld) and (item.isProjectWonder) then
-				table.insert(data.projectwonders, item);
-				table.insert(item.era.projectwonders, item);
-			elseif (IGE_HasVoxPopuli) and (item.isCorporationHQs) then
-				table.insert(data.corporationhqs, item);
-				table.insert(item.era.corporationhqs, item);
-			elseif (IGE_HasCommunityPatch) and (item.dummybuildings) then
+			if (IGE_HasCommunityPatch) and (item.dummybuildings) then
 				table.insert(data.dummybuildings, item);
 				table.insert(item.era.dummybuildings, item);
-			elseif (IGE_HasGodsAndKings) and (item.beliefbuildings) then
-				table.insert(data.beliefbuildings, item);
-				table.insert(item.era.beliefbuildings, item);
-			elseif item.isWonder then
-				table.insert(data.wonders, item);
-				table.insert(item.era.wonders, item);
 			elseif item.isNationalWonder then
 				table.insert(data.nationalwonders, item);
 				table.insert(item.era.nationalwonders, item);
+			elseif (IGE_HasGodsAndKings) and (item.beliefbuildings) then
+				table.insert(data.beliefbuildings, item);
+				table.insert(item.era.beliefbuildings, item);
+			elseif (IGE_HasVoxPopuli) and (item.isPotalaPalace) then
+				table.insert(data.wonders, item);
+				table.insert(item.era.wonders, item);
+			elseif item.isWonder then
+				table.insert(data.wonders, item);
+				table.insert(item.era.wonders, item);
+			elseif (IGE_HasVoxPopuli) and (item.corpoffices) then
+				table.insert(data.corpoffices, item);
+				table.insert(item.era.corpoffices, item);
+			elseif (IGE_HasVoxPopuli) and (item.corpfranchises) then
+				table.insert(data.corpfranchises, item);
+				table.insert(item.era.corpfranchises, item);
+			elseif (IGE_HasVoxPopuli) and (item.isCorpHQ) then
+				table.insert(data.corphqs, item);
+				table.insert(item.era.corphqs, item);
+			elseif (IGE_HasBraveNewWorld) and (item.isProjectWonder) then
+				table.insert(data.projectwonders, item);
+				table.insert(item.era.projectwonders, item);
+			elseif item.isFree then
+				table.insert(data.freebuildings, item);
+				table.insert(item.era.freebuildings, item);
 			else
 				table.insert(data.buildings, item);
 				table.insert(item.era.buildings, item);
@@ -1199,7 +1261,9 @@ function SetBuildingsData(data)
 		table.sort(data.projectwonders, DefaultSort);
 	end
 	if IGE_HasVoxPopuli then
-		table.sort(data.corporationhqs, DefaultSort);
+		table.sort(data.corphqs, DefaultSort);
+		table.sort(data.corpoffices, DefaultSort);
+		table.sort(data.corpfranchises, DefaultSort);
 	end
 	if IGE_HasCommunityPatch then
 		table.sort(data.dummybuildings, DefaultSort);
@@ -1207,6 +1271,7 @@ function SetBuildingsData(data)
 	if IGE_HasGodsAndKings then
 		table.sort(data.beliefbuildings, DefaultSort);
 	end
+	table.sort(data.freebuildings, DefaultSort);
 	table.sort(data.buildings, DefaultSort);
 end
 
