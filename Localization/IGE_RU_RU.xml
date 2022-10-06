@@ -116,7 +116,6 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_DISABLE_STRATEGIC_VIEW_HELP">
 			<Text>Когда IGE открыт, он заменяет обычную карту клоном стратегической, которая лучше реагирует на редактирование ландшафта, но может приводить к крашам при большой отдалении.</Text>
-
 		</Row>
 		<Row Tag="TXT_KEY_IGE_AUTO_SAVE_HELP">
 			<Text>Сохраняет игру как 'IGEn' при каждом открытии IGE, где n - номер сохранения.[NEWLINE][COLOR_POSITIVE_TEXT]Отключите эту опцию чтобы ускорить загрузку IGE.[ENDCOLOR]</Text>
@@ -168,6 +167,15 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_STRATEGIC_RESOURCE_QTY">
 			<Text>Количество стратегических ресурсов.</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT">
+			<Text>[COLOR_NEGATIVE_TEXT]На этой клетке целый город![ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_FEATURE">
+			<Text>[COLOR_NEGATIVE_TEXT]Невозможно разместить особенности![ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_IMPROVEMENT">
+			<Text>[COLOR_NEGATIVE_TEXT]Не могу размещать улучшения![ENDCOLOR]</Text>
 		</Row>
 
 
@@ -301,6 +309,9 @@
 		<Row Tag="TXT_KEY_IGE_NO_RELIGION">
 			<Text>Нет религии</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_HOLY_CITY_BUG">
+			<Text>[COLOR_NEGATIVE_TEXT]Может снять статус священного города.[ENDCOLOR]</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_FOLLOWERS">
 			<Text>Последователи {1_Religion}.</Text>
 		</Row>
@@ -331,8 +342,18 @@
 		<Row Tag="TXT_KEY_IGE_INTELLIGENCE_AGENCY_WARNING">
 			<Text>[COLOR_NEGATIVE_TEXT]Не добавляйте это здание несколько раз в целях получить больше шпионов, чем возможно! Это может привести к крашу игры (серьёзному).[ENDCOLOR]</Text>
 		</Row>
-		
-
+		<Row Tag="TXT_KEY_IGE_RELIGIOUS_BUILDINGS">
+			<Text>Религиозные постройки</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_PROJECT_WONDERS">
+			<Text>Мировой конгресс удивляет</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DUMMY_BUILDINGS">
+			<Text>Поддельные здания</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_BUILDINGS">
+			<Text>Здания корпорации</Text>
+		</Row>
 
 
 		<!--IGE_PlayersPanel.xml-->
@@ -531,6 +552,12 @@
 		<Row Tag="TXT_KEY_IGE_CIVILIAN_UNITS">
 			<Text>Особые юниты</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_GREAT_PEOPLE_UNITS">
+			<Text>Юниты Великих Людей</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DIPLOMACY_UNITS">
+			<Text>Подразделения дипломатии</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_UNITS_LEVEL">
 			<Text>Уровень создаваемых юнитов.</Text>
 		</Row>
@@ -589,10 +616,28 @@
 			<Text>Tileset Европы</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_NATIONAL_WONDER">
-			<Text>[COLOR_CYAN]Национальное чудо природы[ENDCOLOR]</Text>
+			<Text>[COLOR:125:250:250:255]Национальное чудо природы[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_WONDER">
 			<Text>[COLOR_CYAN]Чудо природы[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RELIGIOUS_BUILDING_SUBTITLE">
+			<Text>[COLOR:220:230:255:255]Религиозное здание[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_PROJECT_WONDER_SUBTITLE">
+			<Text>[COLOR:45:150:50:255]Всемирный Конгресс Чудо[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DUMMY_BUILDING_SUBTITLE">
+			<Text>[COLOR_LIGHT_GREY]Поддельное здание[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_HQ_SUBTITLE">
+			<Text>[COLOR_YIELD_FOOD]Штаб-квартира корпорации[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_OFFICE_SUBTITLE">
+			<Text>[COLOR:250:170:120:255]Офис корпорации[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_FRANCHISE_SUBTITLE">
+			<Text>[COLOR:220:150:90:255]Франшиза Корпорации[ENDCOLOR]</Text>
 		</Row>
 
 		<!--IGE_TechsPanel.xml-->

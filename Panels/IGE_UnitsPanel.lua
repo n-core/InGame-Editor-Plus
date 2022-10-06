@@ -13,6 +13,14 @@ local religiousUnits = {};
 local religiousUnitManager = nil;
 local religiousGroupInstance = nil;
 
+local greatPeopleUnits = {};
+local greatPeopleUnitManager = nil;
+local greatPeopleGroupInstance = nil;
+
+local diplomacyUnits = {};
+local diplomacyUnitManager = nil;
+local diplomacyGroupInstance = nil;
+
 local groupInstances = {};
 local unitItemManagers = {};
 local eraItemManager = CreateInstanceManager("GroupInstance", "Stack", Controls.EraList );
@@ -23,7 +31,7 @@ local currentUnit = nil;
 local currentLevel = 1;
 
 local civilianClasses = {}
-civilianClasses["UNITCLASS_SETTLER"] = true;
+--civilianClasses["UNITCLASS_SETTLER"] = true;
 civilianClasses["UNITCLASS_WORKER"] = true;
 civilianClasses["UNITCLASS_WORKBOAT"] = true;
 
@@ -33,13 +41,27 @@ if IGE_HasBraveNewWorld then
 	civilianClasses["UNITCLASS_CARGO_SHIP"] = true;
 end
 
-if IGE_HasVoxPopuli then
-	civilianClasses["UNITCLASS_EMISSARY"] = true;
-	civilianClasses["UNITCLASS_ENVOY"] = true;
-	civilianClasses["UNITCLASS_DIPLOMAT"] = true;
-	civilianClasses["UNITCLASS_AMBASSADOR"] = true;
+local archaeologyClasses = {}
+if IGE_HasBraveNewWorld then
+	archaeologyClasses["UNITCLASS_ARCHAEOLOGIST"] = true;
 end
 
+local settlerClasses = {}
+local colonistClasses = {}
+local pioneerClasses = {}
+local envoyClasses = {}
+local emissaryClasses = {}
+local diplomatClasses = {}
+local ambassadorClasses = {}
+if IGE_HasVoxPopuli then
+	settlerClasses["UNITCLASS_SETTLER"] = true;
+	colonistClasses["UNITCLASS_COLONIST"] = true;
+	pioneerClasses["UNITCLASS_PIONEER"] = true;
+	envoyClasses["UNITCLASS_ENVOY"] = true;
+	emissaryClasses["UNITCLASS_EMISSARY"] = true;
+	diplomatClasses["UNITCLASS_DIPLOMAT"] = true;
+	ambassadorClasses["UNITCLASS_AMBASSADOR"] = true;
+end
 
 --===============================================================================================
 -- CORE EVENTS
@@ -62,6 +84,21 @@ function OnInitialize()
 	if civilianGroupInstance then
 		civilianUnitManager = CreateInstanceManager("ListItemInstance", "Button", civilianGroupInstance.List );
 		civilianGroupInstance.Header:SetText(L("TXT_KEY_IGE_CIVILIAN_UNITS"));
+	end
+
+	greatPeopleGroupInstance = eraItemManager:GetInstance();
+	if greatPeopleGroupInstance then
+		greatPeopleUnitManager = CreateInstanceManager("ListItemInstance", "Button", greatPeopleGroupInstance.List );
+		greatPeopleGroupInstance.Header:SetText(L("TXT_KEY_IGE_GREAT_PEOPLE_UNITS"));
+	end
+
+	if IGE_HasVoxPopuli then
+		diplomacyGroupInstance = eraItemManager:GetInstance();
+		if diplomacyGroupInstance then
+			diplomacyUnitManager = CreateInstanceManager("ListItemInstance", "Button", diplomacyGroupInstance.List );
+			diplomacyGroupInstance.Header:SetText(L("TXT_KEY_IGE_DIPLOMACY_UNITS"));
+		end
+		
 	end
 
 	if IGE_HasGodsAndKings then
@@ -111,11 +148,32 @@ function OnInitialize()
 						end
 					end
 				end
-			elseif civilianClasses[unit.class] or unit.isGreatPeople then
+			elseif unit.diplomacy then
+				table.remove(units0, i);
+				table.insert(diplomacyUnits, unit);
+				if emissaryClasses[unit.class] then unit.priority = 99 
+				elseif envoyClasses[unit.class] then unit.priority = 97 
+				elseif diplomatClasses[unit.class] then unit.priority = 95 
+				elseif ambassadorClasses[unit.class] then unit.priority = 93 
+				end
+			elseif unit.isGreatPeople then
+				table.remove(units0, i);
+				table.insert(greatPeopleUnits, unit);
+			elseif unit.settlingunits or civilianClasses[unit.class] then
 				table.remove(units0, i);
 				table.insert(civilianUnits, unit);
-				if civilianClasses[unit.class] then unit.priority = 100 end
+				if settlerClasses[unit.class] then unit.priority = 150 
+				elseif pioneerClasses[unit.class] then unit.priority = 135 
+				elseif colonistClasses[unit.class] then unit.priority = 120 
+				elseif unit.settlingunits and ((not settlerClasses[unit.class]) or (not pioneerClasses[unit.class]) or (not colonistClasses[unit.class])) then unit.priority = 110 
+				elseif civilianClasses[unit.class]and (not archaeologyClasses[unit.class]) then unit.priority = 100 
+				elseif archaeologyClasses[unit.class] then unit.priority = 90 
+				end
 			else
+				if unit.landunits then unit.priority = 80 
+				elseif unit.seaunits then unit.priority = 70 
+				elseif unit.airunits then unit.priority = 60 
+				end
 				i = i + 1;
 			end
 		end
@@ -279,7 +337,7 @@ function UpdateUnitList(units, itemManager, instance)
 
 	-- Resize
 	local width = instance.List:GetSizeX();
-	instance.HeaderBackground:SetSizeX(width + 10);
+	instance.HeaderBackground:SetSizeX(width + 15);
 end
 
 -------------------------------------------------------------------------------------------------
@@ -310,6 +368,12 @@ function OnUpdate()
 		end
 
 		UpdateUnitList(religiousUnits, religiousUnitManager, religiousGroupInstance);
+	end
+
+	UpdateUnitList(greatPeopleUnits, greatPeopleUnitManager, greatPeopleGroupInstance);
+	-- Diplomacy units
+	if IGE_HasVoxPopuli then
+		UpdateUnitList(diplomacyUnits, diplomacyUnitManager, diplomacyGroupInstance);
 	end
 
 	-- Units

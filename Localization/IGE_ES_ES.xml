@@ -168,6 +168,15 @@
 		<Row Tag="TXT_KEY_IGE_STRATEGIC_RESOURCE_QTY">
 			<Text>Cantidad de recursos estratégicos.</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT">
+			<Text>[COLOR_NEGATIVE_TEXT]¡Hay una ciudad en esta casilla![ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_FEATURE">
+			<Text>[COLOR_NEGATIVE_TEXT]¡No se pueden colocar accidentes![ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_IMPROVEMENT">
+			<Text>[COLOR_NEGATIVE_TEXT]¡No se pueden colocar mejoras![ENDCOLOR]</Text>
+		</Row>
 
 
 		<!--IGE_TerrainPanel.lua-->
@@ -300,6 +309,9 @@
 		<Row Tag="TXT_KEY_IGE_NO_RELIGION">
 			<Text>Sin religión</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_HOLY_CITY_BUG">
+			<Text>[COLOR_NEGATIVE_TEXT]Puede quitar el estatus de ciudad santa.[ENDCOLOR]</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_FOLLOWERS">
 			<Text>Seguidores de {1_Religion}.</Text>
 		</Row>
@@ -327,8 +339,21 @@
 		<Row Tag="TXT_KEY_IGE_MOVE_UNIT_CANCEL">
 			<Text>Cancelar</Text>
 		</Row>
-		
-
+		<!--<Row Tag="TXT_KEY_IGE_INTELLIGENCE_AGENCY_WARNING">
+			<Text>[COLOR_NEGATIVE_TEXT]Fügen Sie dieses Gebäude nicht mehrmals hinzu, um mehr Spione als möglich zu erhalten! Dies würde zu einer Beschädigung des Spiels führen.[ENDCOLOR]</Text>
+		</Row>-->
+		<Row Tag="TXT_KEY_IGE_RELIGIOUS_BUILDINGS">
+			<Text>Edificios religiosos</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_PROJECT_WONDERS">
+			<Text>Maravillas del Congreso Mundial</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DUMMY_BUILDINGS">
+			<Text>Edificios falsos</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_BUILDINGS">
+			<Text>Edificios de la corporación</Text>
+		</Row>
 
 
 		<!--IGE_PlayersPanel.xml-->
@@ -527,6 +552,12 @@
 		<Row Tag="TXT_KEY_IGE_CIVILIAN_UNITS">
 			<Text>Unidades civiles</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_GREAT_PEOPLE_UNITS">
+			<Text>Grandes unidades de personas</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DIPLOMACY_UNITS">
+			<Text>Unidades de diplomacia</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_UNITS_LEVEL">
 			<Text>Nivel de las unidades creadas.</Text>
 		</Row>
@@ -558,7 +589,7 @@
 			<Text>Costa o lago</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_COAST_OR_LAKE_HELP">
-			<Text>Creara una costa o un lago según corresponda.</Text>
+			<Text>Creara una costa o un lago según corresponda.[NEWLINE]Los lagos son áreas de agua de menos de nueve hexágonos.</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_AFRICA">
 			<Text>África</Text>
@@ -585,10 +616,28 @@
 			<Text>Terreno Europeo</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_NATIONAL_WONDER">
-			<Text>[COLOR_CYAN]Maravilla Nacional[ENDCOLOR]</Text>
+			<Text>[COLOR:125:250:250:255]Maravilla Nacional[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_WONDER">
 			<Text>[COLOR_CYAN]Maravilla[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RELIGIOUS_BUILDING_SUBTITLE">
+			<Text>[COLOR:220:230:255:255]Edificio Religioso[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_PROJECT_WONDER_SUBTITLE">
+			<Text>[COLOR:45:150:50:255]Maravilla del Congreso Mundial[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_DUMMY_BUILDING_SUBTITLE">
+			<Text>[COLOR_LIGHT_GREY]Edificio Falso[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_HQ_SUBTITLE">
+			<Text>[COLOR_YIELD_FOOD]Sede de la Corporación[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_OFFICE_SUBTITLE">
+			<Text>[COLOR:250:170:120:255]Oficina de la Corporación[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CORPORATION_FRANCHISE_SUBTITLE">
+			<Text>[COLOR:220:150:90:255]Franquicia Corporativa[ENDCOLOR]</Text>
 		</Row>
 
 		<!--IGE_TechsPanel.xml-->

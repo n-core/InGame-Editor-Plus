@@ -81,8 +81,16 @@
 			</Container>
 
 			<Stack ID="FeaturesStack" StackGrowth="Right">
-				<Container ID="FeatureList" Anchor="L,T" Size="160,380" Offset="0,0"/>
-				<Container ID="NaturalWonderList" Anchor="L,T" Size="160,380" Offset="10,0"/>
+				<!-- If a city is selected, disable feature lists -->
+				<Container ID="CityOnPlotFeatureWarning" Anchor="L,T" Size="full,full" >
+					<Label ID="CityOnPlotFeature" Anchor="C,C" Offset="0,-10" String="TXT_KEY_IGE_CITY_ON_PLOT" Font="TwCenMT20" FontStyle="Shadow" />
+					<Label ID="CannotPlaceFeature" Anchor="C,C" Offset="0,15" String="TXT_KEY_IGE_CANNOT_PLACE_FEATURE" Font="TwCenMT20" FontStyle="Shadow" />
+				</Container>
+				
+				<Stack ID="FeatureItems" Anchor="L,T" StackGrowth="Right">
+					<Container ID="FeatureList" Anchor="L,T" Size="100,380" Offset="0,0"/>
+					<Container ID="NaturalWonderList" Anchor="L,T" Size="160,380" Offset="10,0"/>
+				</Stack>
 			</Stack>
 
 			<Stack ID="ResourcesStack" StackGrowth="Right">
@@ -104,26 +112,30 @@
 			</Stack>
 
 			<Stack ID="ImprovementsStack" StackGrowth="Right">
-				<!-- Great improvements & routes -->
-				<Stack Offset="0,0" Size="160,380" StackGrowth="Bottom">
-					<Container ID="RouteList" Anchor="L,T" Size="140,380" Offset="0,0" />
-				</Stack>
-
-				<Stack Offset="10,0" Size="140,10" StackGrowth="Bottom">
+				<!-- Routes -->
+				<Container ID="RouteList" Anchor="L,T" Size="100,380" Offset="0,0" />
+				<!-- If a city is selected, disable improvement lists -->
+				<Container ID="CityOnPlotImprovementWarning" Anchor="L,T" Size="full,full" >
+					<Label ID="CityOnPlotImprovement" Anchor="C,C" Offset="0,1" String="TXT_KEY_IGE_CITY_ON_PLOT" Font="TwCenMT20" FontStyle="Shadow" />
+					<Label ID="CannotPlaceImprovement" Anchor="C,C" Offset="0,26" String="TXT_KEY_IGE_CANNOT_PLACE_IMPROVEMENT" Font="TwCenMT20" FontStyle="Shadow" />
+				</Container>
+				<Stack ID="ImprovementItems" Anchor="L,T" StackGrowth="Right">
+					<!-- Great improvements -->
 					<Container ID="GreatImprovementList" Anchor="L,T" Size="140,380" Offset="0,0" />
+					<!-- Improvements -->
+					<Stack ID="ImprovementsInnerStack" Anchor="L,T" Offset="10,0" Size="140, 420" StackGrowth="Bottom">
+						<Container ID="ImprovementList" Anchor="L,T" Size="140,350" Offset="0,0" />
+						<CheckBox ID="PillageCB" String="TXT_KEY_IGE_PILLAGE_CB" TextAnchorSide="Right" TextOffset="30,0" Anchor="L,T" Offset="0,15" ToolTip="TXT_KEY_IGE_PILLAGE_CB_HELP" />
+					</Stack>
 				</Stack>
 
-				<!-- Improvements -->
-				<Stack ID="ImprovementsInnerStack" Anchor="L,T" Offset="10,0" Size="140, 420" StackGrowth="Bottom">
-					<Container ID="ImprovementList" Anchor="L,T" Size="140,350" Offset="0,0" />
-					<CheckBox ID="PillageCB" String="TXT_KEY_IGE_PILLAGE_CB" TextAnchorSide="Right" TextOffset="30,0" Anchor="L,T" Offset="0,15" ToolTip="TXT_KEY_IGE_PILLAGE_CB_HELP" />
-				</Stack>
+
 			</Stack>
 
 			<Stack ID="OthersContainer" Size="160,380" StackGrowth="Bottom">
-				<Container ID="FogList" Anchor="L,T" Size="160,380" Offset="0,0" />
-				<Container ID="OwnershipList" Anchor="L,T" Size="160,380" Offset="0,30" />
-				<Container ID="ArtList" Anchor="L,T" Size="160,380" Offset="0,30" />
+				<Container ID="FogList" Anchor="L,T" Size="140,380" Offset="0,0" />
+				<Container ID="OwnershipList" Anchor="L,T" Size="140,380" Offset="0,30" />
+				<Container ID="ArtList" Anchor="L,T" Size="140,380" Offset="0,30" />
 			</Stack>
 		</Container>
 	</Container>

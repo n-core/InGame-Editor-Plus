@@ -5,32 +5,30 @@
     <ProjectGuid>{66eadccc-2daf-466b-b97f-59a8942741ce}</ProjectGuid>
     <Name>InGame Editor+</Name>
     <Guid>170c8ed1-b516-4fe2-b571-befeac39d220</Guid>
-    <ModVersion>41</ModVersion>
-    <Stability>Beta</Stability>
+    <ModVersion>42</ModVersion>
+    <Stability>Stable</Stability>
     <Teaser>[COLOR_GREEN]Change terrain, units, cities, ...[ENDCOLOR]</Teaser>
-    <Description>[ICON_CAPITAL] IGE [ICON_CAPITAL][NEWLINE]
-An in-game editor to alter the map and many other things on the fly.
+    <Description>[ICON_CAPITAL] IGE [ICON_CAPITAL]
+[NEWLINE]An in-game editor to alter the map and many other things on the fly.
 [NEWLINE]
-http://forums.civfanatics.com/showthread.php?t=436912
+[NEWLINE][COLOR_GREEN]Frequent problems[ENDCOLOR]
+[NEWLINE][ICON_BULLET] IGE does not load/appear in-game. [COLOR_NEGATIVE_TEXT]Do NOT[ENDCOLOR] click back. Click [COLOR_POSITIVE_TEXT]Next[ENDCOLOR]. [COLOR_NEGATIVE_TEXT]Do NOT[ENDCOLOR] click back. Click [COLOR_POSITIVE_TEXT]Solo[ENDCOLOR].
+[NEWLINE][ICON_BULLET] IGE does not load/appear in-game (bis). You've enabled another mod that's incompatible with save game you tried to reload. Civ V disabled all mods
+[NEWLINE][ICON_BULLET] The UI is messed up/I have weird bugs. [COLOR_NEGATIVE_TEXT]*Delete*[ENDCOLOR] older versions and empty your cache folder ([COLOR:160:170:180:255]/My Documents/My Games/Civ V/cache[ENDCOLOR]).
+[NEWLINE][ICON_BULLET] Game crashes when I select another player in IGE. Right-click the IGE button and enable '[COLOR_POSITIVE_TEXT]safe mode[ENDCOLOR]'.
 [NEWLINE]
+[NEWLINE][COLOR_GREEN]Translation credits[ENDCOLOR]
+[NEWLINE][ICON_BULLET]Chinese: Ne Ko Chan, Yche2990
+[NEWLINE][ICON_BULLET]German: al Qamar
+[NEWLINE][ICON_BULLET]Spanish: Emerald Viper
+[NEWLINE][ICON_BULLET]Italian: Error404
+[NEWLINE][ICON_BULLET]Russian: Zodiak69
+[NEWLINE][ICON_BULLET]Japanese: CJ_GOROH
 [NEWLINE]
-[COLOR_GREEN]Frequent problems[ENDCOLOR][NEWLINE]
-[ICON_BULLET] IGE does not load/appear in-game. Do NOT click back. Click Next. Do NOT click back. Click Solo.[NEWLINE]
-[ICON_BULLET] IGE does not load/appear in-game (bis). You enabled another mod incompatible with savegame you tried to reload. Civ5 disabled all mods[NEWLINE]
-[ICON_BULLET] The UI is messed up/I have weird bugs. *Delete* older versions and empty your cache folder (My Documents/My Games/Civ5/cache)[NEWLINE]
-[ICON_BULLET] Civ5 crashes when I select another player in IGE. Right-click the IGE label and enable 'safe mode'.[NEWLINE]
-[NEWLINE]
-[COLOR_GREEN]Translation credits[ENDCOLOR][NEWLINE]
-[ICON_BULLET]Chinese: Ne Ko Chan, Yche2990[NEWLINE]
-[ICON_BULLET]German: al Qamar[NEWLINE]
-[ICON_BULLET]Spanish: Emerald Viper[NEWLINE]
-[ICON_BULLET]Italian: Error404[NEWLINE]
-[ICON_BULLET]Russian: Zodiak69[NEWLINE]
-[ICON_BULLET]Japanese: CJ_GOROH[NEWLINE]
-[NEWLINE]
-[NEWLINE]
-[NEWLINE]"[COLOR:240:225:60:255]Plus[ENDCOLOR]" version forked by [COLOR:40:250:140:255]N.Core[ENDCOLOR] that adds more QoL changes to the mod.
-[NEWLINE]This version is specifically designed for [COLOR:250:220:30:255]Community Patch Project[ENDCOLOR].</Description>
+[NEWLINE][ICON_CAPITAL] [COLOR:250:215:60:255]IGE+ Version[ENDCOLOR] [ICON_CAPITAL]
+[NEWLINE]"[COLOR:250:215:60:255]Plus[ENDCOLOR]" version forked by [COLOR:40:250:140:255]N.Core[ENDCOLOR] that adds more QoL changes to the mod.
+[NEWLINE]This version added the capability to take advantage additional contents from [COLOR:255:200:10:255]Community Patch Project[ENDCOLOR].
+[NEWLINE]Also adds support for [COLOR:150:160:255:255]More Wonders for VP[ENDCOLOR] mod by [COLOR:240:120:130:255]adan_enslavo[ENDCOLOR].</Description>
     <Authors>DonQuiche, N.Core</Authors>
     <SpecialThanks>CivFanatics, the folks lurking there, Ne Ko Chan and the translators</SpecialThanks>
     <AffectsSavedGames>false</AffectsSavedGames>
