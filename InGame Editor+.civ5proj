@@ -9,26 +9,26 @@
     <Stability>Beta</Stability>
     <Teaser>[COLOR_GREEN]Change terrain, units, cities, ...[ENDCOLOR]</Teaser>
     <Description>[ICON_CAPITAL] IGE [ICON_CAPITAL]
-      [NEWLINE]An in-game editor to alter the map and many other things on the fly.
-      [NEWLINE]
-      [NEWLINE][COLOR_GREEN]Frequent problems[ENDCOLOR]
-      [NEWLINE][ICON_BULLET] IGE does not load/appear in-game. [COLOR_NEGATIVE_TEXT]Do NOT[ENDCOLOR] click back. Click [COLOR_POSITIVE_TEXT]Next[ENDCOLOR]. [COLOR_NEGATIVE_TEXT]Do NOT[ENDCOLOR] click back. Click [COLOR_POSITIVE_TEXT]Solo[ENDCOLOR].
-      [NEWLINE][ICON_BULLET] IGE does not load/appear in-game (bis). You've enabled another mod that's incompatible with save game you tried to reload. Civ V disabled all mods
-      [NEWLINE][ICON_BULLET] The UI is messed up/I have weird bugs. [COLOR_NEGATIVE_TEXT]*Delete*[ENDCOLOR] older versions and empty your cache folder ([COLOR:160:170:180:255]/My Documents/My Games/Civ V/cache[ENDCOLOR]).
-      [NEWLINE][ICON_BULLET] Game crashes when I select another player in IGE. Right-click the IGE button and enable '[COLOR_POSITIVE_TEXT]safe mode[ENDCOLOR]'.
-      [NEWLINE]
-      [NEWLINE][COLOR_GREEN]Translation credits[ENDCOLOR]
-      [NEWLINE][ICON_BULLET]Chinese: Ne Ko Chan, Yche2990
-      [NEWLINE][ICON_BULLET]German: al Qamar
-      [NEWLINE][ICON_BULLET]Spanish: Emerald Viper
-      [NEWLINE][ICON_BULLET]Italian: Error404
-      [NEWLINE][ICON_BULLET]Russian: Zodiak69
-      [NEWLINE][ICON_BULLET]Japanese: CJ_GOROH
-      [NEWLINE]
-      [NEWLINE][ICON_CAPITAL] [COLOR:250:215:60:255]IGE+ Version[ENDCOLOR] [ICON_CAPITAL]
-      [NEWLINE]"[COLOR:250:215:60:255]Plus[ENDCOLOR]" version forked by [COLOR:40:250:140:255]N.Core[ENDCOLOR] that adds more QoL changes to the mod.
-      [NEWLINE]This version added the capability to take advantage additional contents from [COLOR:255:200:10:255]Community Patch Project[ENDCOLOR].
-      [NEWLINE]Also adds support for [COLOR:150:160:255:255]More Wonders for VP[ENDCOLOR] mod by [COLOR:240:120:130:255]adan_enslavo[ENDCOLOR].</Description>
+[NEWLINE]An in-game editor to alter the map and many other things on the fly.
+[NEWLINE]
+[NEWLINE][COLOR_GREEN]Frequent problems[ENDCOLOR]
+[NEWLINE][ICON_BULLET] IGE does not load/appear in-game. [COLOR_NEGATIVE_TEXT]Do NOT[ENDCOLOR] click back. Click [COLOR_POSITIVE_TEXT]Next[ENDCOLOR]. [COLOR_NEGATIVE_TEXT]Do NOT[ENDCOLOR] click back. Click [COLOR_POSITIVE_TEXT]Solo[ENDCOLOR].
+[NEWLINE][ICON_BULLET] IGE does not load/appear in-game (bis). You've enabled another mod that's incompatible with save game you tried to reload. Civ V disabled all mods
+[NEWLINE][ICON_BULLET] The UI is messed up/I have weird bugs. [COLOR_NEGATIVE_TEXT]*Delete*[ENDCOLOR] older versions and empty your cache folder ([COLOR:160:170:180:255]/My Documents/My Games/Civ V/cache[ENDCOLOR]).
+[NEWLINE][ICON_BULLET] Game crashes when I select another player in IGE. Right-click the IGE button and enable '[COLOR_POSITIVE_TEXT]safe mode[ENDCOLOR]'.
+[NEWLINE]
+[NEWLINE][COLOR_GREEN]Translation credits[ENDCOLOR]
+[NEWLINE][ICON_BULLET]Chinese: Ne Ko Chan, Yche2990
+[NEWLINE][ICON_BULLET]German: al Qamar
+[NEWLINE][ICON_BULLET]Spanish: Emerald Viper
+[NEWLINE][ICON_BULLET]Italian: Error404
+[NEWLINE][ICON_BULLET]Russian: Zodiak69
+[NEWLINE][ICON_BULLET]Japanese: CJ_GOROH
+[NEWLINE]
+[NEWLINE][ICON_CAPITAL] [COLOR:250:215:60:255]IGE+ Version[ENDCOLOR] [ICON_CAPITAL]
+[NEWLINE]"[COLOR:250:215:60:255]Plus[ENDCOLOR]" version forked by [COLOR:40:250:140:255]N.Core[ENDCOLOR] that adds more QoL changes to the mod.
+[NEWLINE]This version added the capability to take advantage additional contents from [COLOR:255:200:10:255]Community Patch Project[ENDCOLOR].
+[NEWLINE]Also adds support for [COLOR:150:160:255:255]More Wonders for VP[ENDCOLOR] mod by [COLOR:240:120:130:255]adan_enslavo[ENDCOLOR].</Description>
     <Authors>DonQuiche, N.Core</Authors>
     <SpecialThanks>CivFanatics, the folks lurking there, Ne Ko Chan and the translators</SpecialThanks>
     <AffectsSavedGames>false</AffectsSavedGames>
