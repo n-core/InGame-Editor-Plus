@@ -168,11 +168,14 @@
 		<Row Tag="TXT_KEY_IGE_STRATEGIC_RESOURCE_QTY">
 			<Text>Cantidad de recursos estratégicos.</Text>
 		</Row>
-		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT_FEATURE">
-			<Text>[COLOR_NEGATIVE_TEXT]¡Hay una ciudad en esta casilla![ENDCOLOR][NEWLINE][COLOR_NEGATIVE_TEXT]¡No se pueden colocar accidentes![ENDCOLOR]</Text>
+		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT">
+			<Text>[COLOR_NEGATIVE_TEXT]¡Hay una ciudad en esta casilla![ENDCOLOR]</Text>
 		</Row>
-		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT_IMPROVEMENT">
-			<Text>[COLOR_NEGATIVE_TEXT]¡Hay una ciudad en esta casilla![ENDCOLOR][NEWLINE][COLOR_NEGATIVE_TEXT]¡No se pueden colocar mejoras![ENDCOLOR]</Text>
+		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_FEATURE">
+			<Text>[COLOR_NEGATIVE_TEXT]¡No se pueden colocar accidentes![ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_IMPROVEMENT">
+			<Text>[COLOR_NEGATIVE_TEXT]¡No se pueden colocar mejoras![ENDCOLOR]</Text>
 		</Row>
 
 
@@ -619,7 +622,7 @@
 			<Text>[COLOR_CYAN]Maravilla[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_RELIGIOUS_BUILDING_SUBTITLE">
-			<Text>[COLOR:200:200:250:255]Edificio Religioso[ENDCOLOR]</Text>
+			<Text>[COLOR:220:230:255:255]Edificio Religioso[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_PROJECT_WONDER_SUBTITLE">
 			<Text>[COLOR:45:150:50:255]Maravilla del Congreso Mundial[ENDCOLOR]</Text>

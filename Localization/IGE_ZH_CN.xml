@@ -168,11 +168,14 @@
 		<Row Tag="TXT_KEY_IGE_STRATEGIC_RESOURCE_QTY">
 			<Text>产量</Text>
 		</Row>
-		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT_FEATURE">
-			<Text>[COLOR_NEGATIVE_TEXT]在这个指定的地块上有一座城市！[ENDCOLOR][NEWLINE][COLOR_NEGATIVE_TEXT]不能放置表面！[ENDCOLOR]</Text>
+		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT">
+			<Text>[COLOR_NEGATIVE_TEXT]在这个指定的地块上有一座城市！[ENDCOLOR]</Text>
 		</Row>
-		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT_IMPROVEMENT">
-			<Text>[COLOR_NEGATIVE_TEXT]在这个指定的地块上有一座城市！[ENDCOLOR][NEWLINE][COLOR_NEGATIVE_TEXT]不能放置区域设施！[ENDCOLOR]</Text>
+		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_FEATURE">
+			<Text>[COLOR_NEGATIVE_TEXT]不能放置表面！[ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_IMPROVEMENT">
+			<Text>[COLOR_NEGATIVE_TEXT]不能放置区域设施！[ENDCOLOR]</Text>
 		</Row>
 
 
@@ -619,7 +622,7 @@
 			<Text>[COLOR_CYAN]奇观建筑[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_RELIGIOUS_BUILDING_SUBTITLE">
-			<Text>[COLOR:200:200:250:255]宗教建筑[ENDCOLOR]</Text>
+			<Text>[COLOR:220:230:255:255]宗教建筑[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_PROJECT_WONDER_SUBTITLE">
 			<Text>[COLOR:45:150:50:255]世界大会奇迹[ENDCOLOR]</Text>

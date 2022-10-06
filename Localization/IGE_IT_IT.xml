@@ -168,11 +168,14 @@
 		<Row Tag="TXT_KEY_IGE_STRATEGIC_RESOURCE_QTY">
 			<Text>Quantità della risorsa strategica</Text>
 		</Row>
-		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT_FEATURE">
-			<Text>[COLOR_NEGATIVE_TEXT]C'è una città su questo esagono![ENDCOLOR][NEWLINE][COLOR_NEGATIVE_TEXT]Impossibile posizionare le caratteristiche![ENDCOLOR]</Text>
+		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT">
+			<Text>[COLOR_NEGATIVE_TEXT]C'è una città su questo esagono![ENDCOLOR]</Text>
 		</Row>
-		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT_IMPROVEMENT">
-			<Text>[COLOR_NEGATIVE_TEXT]C'è una città su questo esagono![ENDCOLOR][NEWLINE][COLOR_NEGATIVE_TEXT]Impossibile inserire miglioramenti![ENDCOLOR]</Text>
+		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_FEATURE">
+			<Text>[COLOR_NEGATIVE_TEXT]Impossibile posizionare le caratteristiche![ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_IMPROVEMENT">
+			<Text>[COLOR_NEGATIVE_TEXT]Impossibile inserire miglioramenti![ENDCOLOR]</Text>
 		</Row>
 
 
@@ -619,7 +622,7 @@
 			<Text>[COLOR_CYAN]Meraviglie[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_RELIGIOUS_BUILDING_SUBTITLE">
-			<Text>[COLOR:200:200:250:255]Edificio Religioso[ENDCOLOR]</Text>
+			<Text>[COLOR:220:230:255:255]Edificio Religioso[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_PROJECT_WONDER_SUBTITLE">
 			<Text>[COLOR:45:150:50:255]Meraviglia del Congresso Mondiale[ENDCOLOR]</Text>

@@ -168,11 +168,14 @@
 		<Row Tag="TXT_KEY_IGE_STRATEGIC_RESOURCE_QTY">
 			<Text>戦略資源の個数。</Text>
 		</Row>
-		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT_FEATURE">
-			<Text>[COLOR_NEGATIVE_TEXT]この広場に街がある！[ENDCOLOR][NEWLINE][COLOR_NEGATIVE_TEXT]特性を配置できません![ENDCOLOR]</Text>
+		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT">
+			<Text>[COLOR_NEGATIVE_TEXT]この広場に街がある！[ENDCOLOR]</Text>
 		</Row>
-		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT_IMPROVEMENT">
-			<Text>[COLOR_NEGATIVE_TEXT]この広場に街がある！[ENDCOLOR][NEWLINE][COLOR_NEGATIVE_TEXT]資源利用施設を配置できません![ENDCOLOR]</Text>
+		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_FEATURE">
+			<Text>[COLOR_NEGATIVE_TEXT]特性を配置できません![ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_IMPROVEMENT">
+			<Text>[COLOR_NEGATIVE_TEXT]資源利用施設を配置できません![ENDCOLOR]</Text>
 		</Row>
 
 
@@ -619,7 +622,7 @@
 			<Text>[COLOR_CYAN]世界遺産[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_RELIGIOUS_BUILDING_SUBTITLE">
-			<Text>[COLOR:200:200:250:255]宗教的な建物[ENDCOLOR]</Text>
+			<Text>[COLOR:220:230:255:255]宗教的な建物[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_PROJECT_WONDER_SUBTITLE">
 			<Text>[COLOR:45:150:50:255]世界会議の不思議[ENDCOLOR]</Text>

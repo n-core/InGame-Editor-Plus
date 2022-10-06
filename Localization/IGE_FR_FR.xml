@@ -168,11 +168,14 @@
 		<Row Tag="TXT_KEY_IGE_STRATEGIC_RESOURCE_QTY">
 			<Text>Quantité de cette ressource.</Text>
 		</Row>
-		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT_FEATURE">
-			<Text>[COLOR_NEGATIVE_TEXT]Il y a une ville sur cet hexagone ![ENDCOLOR][NEWLINE][COLOR_NEGATIVE_TEXT]Impossible de placer des caractéristiques ![ENDCOLOR]</Text>
+		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT">
+			<Text>[COLOR_NEGATIVE_TEXT]Il y a une ville sur cet hexagone ![ENDCOLOR]</Text>
 		</Row>
-		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT_IMPROVEMENT">
-			<Text>[COLOR_NEGATIVE_TEXT]Il y a une ville sur cet hexagone ![ENDCOLOR][NEWLINE][COLOR_NEGATIVE_TEXT]Impossible de placer des aménagements ![ENDCOLOR]</Text>
+		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_FEATURE">
+			<Text>[COLOR_NEGATIVE_TEXT]Impossible de placer des caractéristiques ![ENDCOLOR]</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_IMPROVEMENT">
+			<Text>[COLOR_NEGATIVE_TEXT]Impossible de placer des aménagements ![ENDCOLOR]</Text>
 		</Row>
 
 
@@ -619,7 +622,7 @@
 			<Text>[COLOR_CYAN]Merveille[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_RELIGIOUS_BUILDING_SUBTITLE">
-			<Text>[COLOR:200:200:250:255]Édifice Religieux[ENDCOLOR]</Text>
+			<Text>[COLOR:220:230:255:255]Édifice Religieux[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_PROJECT_WONDER_SUBTITLE">
 			<Text>[COLOR:45:150:50:255]Merveille du Congrès Mondial[ENDCOLOR]</Text>
