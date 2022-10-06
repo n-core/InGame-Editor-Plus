@@ -14,7 +14,6 @@ local strategicResourceItemManager = CreateInstanceManager("ListItemInstance", "
 local luxuryResourceItemManager = CreateInstanceManager("ListItemInstance", "Button", Controls.LuxuryResourceList );
 local bonusResourceItemManager = CreateInstanceManager("ListItemInstance", "Button", Controls.BonusResourceList );
 local naturalWonderItemManager= CreateInstanceManager("ListItemInstance", "Button", Controls.NaturalWonderList );
---local pseudonaturalWonderItemManager= CreateInstanceManager("ListItemInstance", "Button", Controls.PseudoNaturalWonderList );
 local waterItemManager = CreateInstanceManager("ListItemInstance", "Button", Controls.WaterList );
 local terrainItemManager = CreateInstanceManager("ListItemInstance", "Button", Controls.TerrainList );
 local featureItemManager = CreateInstanceManager("ListItemInstance", "Button", Controls.FeatureList );
@@ -29,6 +28,7 @@ local groups = {};
 local editData = {};
 local paintData = {};
 local currentPlot = nil;
+local currentCity = nil;
 local editSound = "AS2D_BUILD_UNIT";
 local selectedStrategicResource = nil;
 local clickHandler = nil;
@@ -371,7 +371,6 @@ local function UpdateCore(data)
 	UpdateList(data.terrains,				terrainItemManager,				ClickHandler);
 	UpdateList(data.waterTerrains,			waterItemManager,				ClickHandler);
 	UpdateList(data.naturalWonders,			naturalWonderItemManager,		ClickHandler);
-	--UpdateList(data.pseudonaturalWonders,	pseudonaturalWonderItemManager,	ClickHandler);
 	UpdateList(data.bonusResources,			bonusResourceItemManager,		ClickHandler);
 	UpdateList(data.luxuryResources,		luxuryResourceItemManager,		ClickHandler);
 	UpdateList(data.strategicResources,		strategicResourceItemManager,	ClickHandler);
@@ -399,6 +398,46 @@ local function UpdateCore(data)
 	local selectionPrompt = isEditing and (currentPlot == nil);
 	Controls.PromptContainer:SetHide(not selectionPrompt);
 	Controls.ScrollPanel:SetHide(selectionPrompt);
+
+	if isEditing then
+		currentCity = currentPlot:GetPlotCity();
+		local isCity = (currentCity == nil);
+
+		Controls.CityOnPlotFeatureWarning:SetHide(isCity);
+		Controls.CityOnPlotImprovementWarning:SetHide(isCity);
+		Controls.WaterList:SetHide(not isCity);
+		Controls.FeatureItems:SetHide(not isCity);
+		Controls.ImprovementItems:SetHide(not isCity);
+		Controls.OwnershipList:SetHide(not isCity);
+	
+		Controls.ImprovementsStack:CalculateSize(currentCity);
+		Controls.ImprovementsStack:ReprocessAnchoring(currentCity);
+		Controls.FeaturesStack:CalculateSize(currentCity);
+		Controls.FeaturesStack:ReprocessAnchoring(currentCity);
+		
+		local improvementwidth = Controls.ImprovementItems:GetSizeX();
+		local improvementheight = Controls.ImprovementItems:GetSizeY();
+		Controls.CityOnPlotImprovementWarning:SetSizeX(improvementwidth);
+		Controls.CityOnPlotImprovementWarning:SetSizeY(improvementheight);
+		
+		local featurewidth = Controls.FeatureItems:GetSizeX();
+		local featureheight = Controls.FeatureItems:GetSizeY();
+		Controls.CityOnPlotFeatureWarning:SetSizeX(featurewidth);
+		Controls.CityOnPlotFeatureWarning:SetSizeY(featureheight);
+
+	elseif not isEditing then
+		Controls.CityOnPlotFeatureWarning:SetHide(true);
+		Controls.CityOnPlotImprovementWarning:SetHide(true);
+		Controls.WaterList:SetHide(false);
+		Controls.FeatureItems:SetHide(false);
+		Controls.ImprovementItems:SetHide(false);
+		Controls.OwnershipList:SetHide(false);
+
+		Controls.ImprovementsStack:CalculateSize();
+		Controls.ImprovementsStack:ReprocessAnchoring();
+		Controls.FeaturesStack:CalculateSize();
+		Controls.FeaturesStack:ReprocessAnchoring();
+	end
 
 	-- Update groups size
 	local groupCount = 0;
