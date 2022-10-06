@@ -5,8 +5,8 @@
     <ProjectGuid>{66eadccc-2daf-466b-b97f-59a8942741ce}</ProjectGuid>
     <Name>InGame Editor+</Name>
     <Guid>170c8ed1-b516-4fe2-b571-befeac39d220</Guid>
-    <ModVersion>41</ModVersion>
-    <Stability>Beta</Stability>
+    <ModVersion>42</ModVersion>
+    <Stability>Stable</Stability>
     <Teaser>[COLOR_GREEN]Change terrain, units, cities, ...[ENDCOLOR]</Teaser>
     <Description>[ICON_CAPITAL] IGE [ICON_CAPITAL]
 [NEWLINE]An in-game editor to alter the map and many other things on the fly.
