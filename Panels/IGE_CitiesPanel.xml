@@ -22,13 +22,72 @@
 					<Label ID="Header" Anchor="C,C"  Offset="0,-2" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" FontStyle="Shadow" String="TXT_KEY_IGE_ERA"/>
 				</Image>
 				<Stack ID="BottomStack" StackGrowth="Right">
-					<Container ID="DummyBuildingList" Anchor="L,T" Size="140,370" Offset="0,5"/>
-					<Container ID="BeliefBuildingList" Anchor="L,T" Size="140,370" Offset="5,5"/>
-					<Container ID="BuildingList" Anchor="L,T" Size="140,370" Offset="10,5"/>
-					<Container ID="CorporationHQList" Anchor="L,T" Size="140,370" Offset="15,5"/>
-					<Container ID="NationalWonderList" Anchor="L,T" Size="140,370" Offset="20,5"/>
-					<Container ID="WonderList" Anchor="L,T" Size="140,370" Offset="25,5"/>
-					<Container ID="ProjectWonderList" Anchor="L,T" Size="140,370" Offset="30,5"/>
+					<Container ID="BuildingList" Anchor="L,T" Size="140,370" Offset="0,5"/>
+					<Container ID="NationalWonderList" Anchor="L,T" Size="180,370" Offset="5,5"/>
+					<Container ID="WonderList" Anchor="L,T" Size="180,370" Offset="10,5"/>
+				</Stack>
+			</Stack>
+
+			<Image ID="Separator" Anchor="L,T" Offset="0,0" Texture="Assets/UI/Art/Controls/9 Grids/Divider4.dds" TextureOffset="2,0" Size="2,390" Hidden="0"/>
+		</Stack>
+	</Instance>
+	
+	<Instance Name="DummyGroupInstance" >
+		<Stack ID="Stack" StackGrowth="Right" Offset="0,0">
+			<Stack ID="SubStack" StackGrowth="Bottom">
+				<Image ID="HeaderBackground" Anchor="L,C" Size="160,24" Offset="0,0" Texture="CivilopediaButtons272x27.dds" TextureOffset="0,3">
+					<Label ID="Header" Anchor="C,C"  Offset="0,-2" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" FontStyle="Shadow" String="TXT_KEY_IGE_DUMMY_BUILDINGS"/>
+				</Image>
+				<Stack ID="BottomStack" StackGrowth="Right">
+					<Container ID="DummyBuildingList" Anchor="L,T" Size="115,370" Offset="0,5"/>
+					<Container ID="FreeBuildingList" Anchor="L,T" Size="115,370" Offset="5,5"/>
+				</Stack>
+			</Stack>
+
+			<Image ID="Separator" Anchor="L,T" Offset="0,0" Texture="Assets/UI/Art/Controls/9 Grids/Divider4.dds" TextureOffset="2,0" Size="2,390" Hidden="0"/>
+		</Stack>
+	</Instance>
+	
+	<Instance Name="BeliefGroupInstance" >
+		<Stack ID="Stack" StackGrowth="Right" Offset="0,0">
+			<Stack ID="SubStack" StackGrowth="Bottom">
+				<Image ID="HeaderBackground" Anchor="L,C" Size="160,24" Offset="0,0" Texture="CivilopediaButtons272x27.dds" TextureOffset="0,3">
+					<Label ID="Header" Anchor="C,C"  Offset="0,-2" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" FontStyle="Shadow" String="TXT_KEY_IGE_RELIGIOUS_BUILDINGS"/>
+				</Image>
+				<Stack ID="BottomStack" StackGrowth="Right">
+					<Container ID="BeliefBuildingList" Anchor="L,T" Size="120,370" Offset="0,5"/>
+				</Stack>
+			</Stack>
+
+			<Image ID="Separator" Anchor="L,T" Offset="0,0" Texture="Assets/UI/Art/Controls/9 Grids/Divider4.dds" TextureOffset="2,0" Size="2,390" Hidden="0"/>
+		</Stack>
+	</Instance>
+	
+	<Instance Name="CorpGroupInstance" >
+		<Stack ID="Stack" StackGrowth="Right" Offset="0,0">
+			<Stack ID="SubStack" StackGrowth="Bottom">
+				<Image ID="HeaderBackground" Anchor="L,C" Size="160,24" Offset="0,0" Texture="CivilopediaButtons272x27.dds" TextureOffset="0,3">
+					<Label ID="Header" Anchor="C,C"  Offset="0,-2" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" FontStyle="Shadow" String="TXT_KEY_IGE_CORPORATION_BUILDINGS"/>
+				</Image>
+				<Stack ID="BottomStack" StackGrowth="Right">
+					<Container ID="CorpFranchiseList" Anchor="C,T" Size="140,370" Offset="0,5"/>
+					<Container ID="CorpOfficeList" Anchor="C,T" Size="180,370" Offset="5,5"/>
+					<Container ID="CorpHQList" Anchor="C,T" Size="220,370" Offset="10,5"/>
+				</Stack>
+			</Stack>
+
+			<Image ID="Separator" Anchor="L,T" Offset="0,0" Texture="Assets/UI/Art/Controls/9 Grids/Divider4.dds" TextureOffset="2,0" Size="2,390" Hidden="0"/>
+		</Stack>
+	</Instance>
+	
+	<Instance Name="ProjectGroupInstance" >
+		<Stack ID="Stack" StackGrowth="Right" Offset="0,0">
+			<Stack ID="SubStack" StackGrowth="Bottom">
+				<Image ID="HeaderBackground" Anchor="L,C" Size="200,24" Offset="0,0" Texture="CivilopediaButtons272x27.dds" TextureOffset="0,3">
+					<Label ID="Header" Anchor="C,C"  Offset="0,-2" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" FontStyle="Shadow" String="TXT_KEY_IGE_PROJECT_WONDERS"/>
+				</Image>
+				<Stack ID="BottomStack" StackGrowth="Right">
+					<Container ID="ProjectWonderList" Anchor="C,T" Size="200,370" Offset="0,5"/>
 				</Stack>
 			</Stack>
 
@@ -107,7 +166,7 @@
 					<Label ID="NoCityOnPlot" Anchor="L,T" Offset="200,200" String="TXT_KEY_IGE_NO_CITY_ON_PLOT" Font="TwCenMT20" FontStyle="Shadow" />
 
 					<!-- City -->
-					<Stack ID="CityEdition" Anchor="L,T" Size="160,390" Offset="20,20" StackGrowth="Right">
+					<Stack ID="CityEdition" Anchor="L,T" Size="160,390" Offset="10,20" StackGrowth="Right">
 						<Stack ID="CityProperties" Anchor="L,T" Size="160,390" Offset="0,0" StackGrowth="Bottom">
 							<EditBox ID="CityNameBox" Offset="0,0" Anchor="C,T" Size="140,16" TextAlign="C,C" Font="TwCenMT18"  EditMode="1" NumberInput="0" MaxLength="20" />
 
@@ -170,7 +229,31 @@
 							<Stack ID="ConversionStack" Anchor="L,T" Offset="-5,10" Size="160,full" StackGrowth="Bottom"/>
 						</Stack>
 
-						<Container ID="BuildingContainer" Anchor="L,T" Offset="30,0" Size="full,full">
+						<Container ID="BeliefContainer" Anchor="L,T" Offset="31,0" Size="full,full">
+							<Stack ID="BeliefList" StackGrowth="Right" Size="full,390"/>
+							<Image ID="BeliefTopBorder" Anchor="L,T" Size="full,3" Texture="CivilopediaButtons272x27.dds" />
+							<Image Anchor="L,T" Size="2,390" Texture="Assets/UI/Art/Controls/9 Grids/Divider4.dds" TextureOffset="2,0"/>
+						</Container>
+
+						<Container ID="DummyContainer" Anchor="L,T" Offset="30,0" Size="full,full">
+							<Stack ID="DummyList" StackGrowth="Right" Size="full,390"/>
+							<Image ID="DummyTopBorder" Anchor="L,T" Size="full,3" Texture="CivilopediaButtons272x27.dds" />
+							<Image Anchor="L,T" Size="2,390" Texture="Assets/UI/Art/Controls/9 Grids/Divider4.dds" TextureOffset="2,0"/>
+						</Container>
+
+						<Container ID="CorpContainer" Anchor="L,T" Offset="32,0" Size="full,full">
+							<Stack ID="CorpList" StackGrowth="Right" Size="full,390"/>
+							<Image ID="CorpTopBorder" Anchor="L,T" Size="full,3" Texture="CivilopediaButtons272x27.dds" />
+							<Image Anchor="L,T" Size="2,390" Texture="Assets/UI/Art/Controls/9 Grids/Divider4.dds" TextureOffset="2,0"/>
+						</Container>
+
+						<Container ID="ProjectContainer" Anchor="L,T" Offset="33,0" Size="full,full">
+							<Stack ID="ProjectList" StackGrowth="Right" Size="full,390"/>
+							<Image ID="ProjectTopBorder" Anchor="L,T" Size="full,3" Texture="CivilopediaButtons272x27.dds" />
+							<Image Anchor="L,T" Size="2,390" Texture="Assets/UI/Art/Controls/9 Grids/Divider4.dds" TextureOffset="2,0"/>
+						</Container>
+
+						<Container ID="BuildingContainer" Anchor="L,T" Offset="34,0" Size="full,full">
 							<Stack ID="BuildingEraList" StackGrowth="Right" Size="full,390"/>
 							<Image ID="CityTopBorder" Anchor="L,T" Size="full,3" Texture="CivilopediaButtons272x27.dds" />
 							<Image Anchor="L,T" Size="2,390" Texture="Assets/UI/Art/Controls/9 Grids/Divider4.dds" TextureOffset="2,0"/>
