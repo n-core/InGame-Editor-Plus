@@ -45,7 +45,11 @@ local features = {};
 local isWonder = {}
 for row in GameInfo.Features() do
 	features[row.ID] = {}
-	isWonder[row.ID] = row.NaturalWonder;
+	if IGE_HasCommunityPatch then
+		isWonder[row.ID] = (row.NaturalWonder) or (row.PseudoNaturalWonder == 1);
+	else
+		isWonder[row.ID] = row.NaturalWonder;
+	end
 	if row.ArtDefineTag and row.ArtDefineTag ~= "" then
 		for subRow in GameInfo.ArtDefine_StrategicView{StrategicViewType=row.ArtDefineTag} do
 			features[row.ID][-1] = subRow.Asset;
