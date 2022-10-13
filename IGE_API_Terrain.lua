@@ -269,21 +269,32 @@ end
 function CanHaveNaturalWonder(plot, wonder)
 	-- Gibraltar
 	if IGE_HasMoreWondersVP then
-		if wonder.type == "FEATURE_GIBRALTAR" or wonder.type == "FEATURE_CAUSEWAY_B" then
+		if	wonder.type == "FEATURE_GIBRALTAR" or
+			wonder.type == "FEATURE_CAUSEWAY_B" then
 			return plot:IsCoastalLand();
 		end
 	else
-		if wonder.type == "FEATURE_GIBRALTAR" then 
+		if	wonder.type == "FEATURE_GIBRALTAR" then 
 			return plot:IsCoastalLand(); 
 		end
 	end
 
 	if IGE_HasMoreWondersVP then
-		if wonder.type == "FEATURE_VOLCANO" or wonder.type == "FEATURE_REEF" or wonder.type == "FEATURE_NEW_REEF" or wonder.type == "FEATURE_CAUSEWAY_A" or wonder.type == "FEATURE_BERMUDA_A" or wonder.type == "FEATURE_BERMUDA_B" or wonder.type == "FEATURE_BERMUDA_C" or wonder.type == "FEATURE_LUMI_BAY" then
+		if	wonder.type == "FEATURE_VOLCANO" or
+			wonder.type == "FEATURE_REEF" or
+			wonder.type == "FEATURE_NEW_REEF_A" or
+			wonder.type == "FEATURE_NEW_REEF_B" or
+			wonder.type == "FEATURE_NEW_REEF_C" or
+			wonder.type == "FEATURE_CAUSEWAY_A" or
+			wonder.type == "FEATURE_BERMUDA_A" or
+			wonder.type == "FEATURE_BERMUDA_B" or
+			wonder.type == "FEATURE_BERMUDA_C" or
+			wonder.type == "FEATURE_LUMI_BAY" then
 			return plot:IsWater() and not plot:IsLake();
 		end
 	else
-		if wonder.type == "FEATURE_VOLCANO" or wonder.type == "FEATURE_REEF" then
+		if	wonder.type == "FEATURE_VOLCANO" or
+			wonder.type == "FEATURE_REEF" then
 			return plot:IsWater() and not plot:IsLake();
 		end
 	end
@@ -469,8 +480,19 @@ function SetFeature(feature, plot)
 			CheckConsistency(plot)
 		end
 		if IGE_HasMoreWondersVP and feature.pseudonaturalWonder then
-			if feature.type == "FEATURE_NEW_REEF" then
+			if feature.type == "FEATURE_NEW_REEF_A" then
 				if not isOcean then return end
+				plot:SetPlotType(PlotTypes.PLOT_OCEAN);
+				plot:SetTerrainType(TerrainTypes.TERRAIN_COAST);
+
+			elseif feature.type == "FEATURE_NEW_REEF_B" then
+				if not isOcean then return end
+				plot:SetPlotType(PlotTypes.PLOT_OCEAN);
+				plot:SetTerrainType(TerrainTypes.TERRAIN_COAST);
+
+			elseif feature.type == "FEATURE_NEW_REEF_C" then
+				if not isOcean then return end
+				plot:SetPlotType(PlotTypes.PLOT_OCEAN);
 				plot:SetTerrainType(TerrainTypes.TERRAIN_COAST);
 
 			elseif feature.type == "FEATURE_SALAR_A" then
