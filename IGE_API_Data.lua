@@ -4,6 +4,27 @@
 BUG_NoGraphicalUpdate = L("TXT_KEY_IGE_NO_GRAPHICAL_UPDATE");
 BUG_SavegameCorruption = L("TXT_KEY_IGE_SAVE_GAME_CORRUPTION");
 
+-- use existing texts
+local lakeName = L("TXT_KEY_PLOTROLL_LAKE");
+local riverName = L("TXT_KEY_PLOTROLL_RIVER");
+local freshWaterName = L("TXT_KEY_PLOTROLL_FRESH_WATER");
+local coastName = L(GameInfo.Terrains["TERRAIN_COAST"].Description);
+
+-- new suffix texts
+local plotName = L("TXT_KEY_IGE_PLOT_NAME");
+local globalName = L("TXT_KEY_IGE_GLOBAL_NAME");
+local unimprovedName = L("TXT_KEY_IGE_UNIMPROVED_NAME");
+local seaName = L("TXT_KEY_IGE_SEA_NAME");
+local naturalWonderName = L("TXT_KEY_FEATURE_NATURAL_WONDER");
+local noFreshWaterName = L("TXT_KEY_IGE_NO_FRESH_WATER_NAME");
+
+-- new cause texts
+local toCause = L("TXT_KEY_IGE_CAUSE_TO");
+local fromCause = L("TXT_KEY_IGE_CAUSE_FROM");
+local withCause = L("TXT_KEY_IGE_CAUSE_WITH");
+local adjacentToCause = L("TXT_KEY_IGE_CAUSE_ADJACENT_TO");
+local toAdjacentCause = L("TXT_KEY_IGE_CAUSE_TO_ADJACENT");
+
 local largeSize = 64;
 local smallSize = 45;
 
@@ -32,7 +53,57 @@ function AppendIDAndTypeToHelp(item)
 	elseif item.help ~= "" then
 		item.help = item.help.."[NEWLINE]"
 	end
-	item.help = item.help.."[COLOR_LIGHT_GREY]ID="..item.ID..", Type="..item.type.."[ENDCOLOR]"
+	item.help = item.help.."[COLOR_LIGHT_GREY]ID = "..item.ID.."[ENDCOLOR]".."[NEWLINE]".."[COLOR_LIGHT_GREY]Type = "..item.type.."[ENDCOLOR]"
+end
+
+-------------------------------------------------------------------------------------------------
+function AppendIDToHelp(item)
+	if not item.help then
+		item.help = ""
+	elseif item.help ~= "" then
+		item.help = item.help.."[NEWLINE]"
+	end
+	item.help = item.help.."[COLOR_LIGHT_GREY]ID = "..item.ID.."[ENDCOLOR]"
+end
+
+-------------------------------------------------------------------------------------------------
+function AppendTypeToHelp(item)
+	if not item.help then
+		item.help = ""
+	elseif item.help ~= "" then
+		item.help = item.help.."[NEWLINE]"
+	end
+	item.help = item.help.."[COLOR_LIGHT_GREY]Type = "..item.type.."[ENDCOLOR]"
+end
+
+-------------------------------------------------------------------------------------------------
+function AppendPlotTypeToHelp(item)
+	if not item.help then
+		item.help = ""
+	elseif item.help ~= "" then
+		item.help = item.help.."[NEWLINE]"
+	end
+	item.help = item.help.."[COLOR_LIGHT_GREY]Type = "..item.plotType.."[ENDCOLOR]"
+end
+
+-------------------------------------------------------------------------------------------------
+function AppendClassToHelp(item)
+	if not item.help then
+		item.help = ""
+	elseif item.help ~= "" then
+		item.help = item.help.."[NEWLINE]"
+	end
+	item.help = item.help.."[COLOR_LIGHT_GREY]Class = "..item.class.."[ENDCOLOR]"
+end
+
+-------------------------------------------------------------------------------------------------
+function AppendDomainToHelp(item)
+	if not item.help then
+		item.help = ""
+	elseif item.help ~= "" then
+		item.help = item.help.."[NEWLINE]"
+	end
+	item.help = item.help.."[COLOR_LIGHT_GREY]Domain = "..item.domain.."[ENDCOLOR]"
 end
 
 -------------------------------------------------------------------------------------------------
@@ -123,19 +194,18 @@ function SetTerrainsData(data)
 	data.waterTerrains = {};
 	data.terrains = {};
 
-	local lakeName = L("TXT_KEY_PLOTROLL_LAKE")
-	local coastName = L(GameInfo.Terrains["TERRAIN_COAST"].Description)
-
 	for row in GameInfo.Terrains() do	
 		local item = {};
 		local name = L(row.Description);
 		local isCoast = (row.Type == "TERRAIN_COAST")
+		local coastSuffix = isCoast and coastName or nil
 		item.ID = row.ID
 		item.name = name
 		item.type = row.Type
 		item.water = row.Water
 		item.condition = "TerrainType = '" .. row.Type .. "'";
 		item.action = SetTerrain;
+		item.showYieldMod = true;
 		item.visible = item.ID < 7;
 		item.selected = false;
 		item.enabled = true;
@@ -146,15 +216,62 @@ function SetTerrainsData(data)
 		-- Texture
 		item.textureOffset, item.texture = IconLookup( row.PortraitIndex, largeSize, row.IconAtlas );	
 		item.smallTextureOffset, item.smallTexture = IconLookup( row.PortraitIndex, smallSize, row.IconAtlas );	
-		
-		-- Sea yield changes
+
+		-- Yield changes from Technologies
+		if IGE_HasCommunityPatch then
+			for row in GameInfo.Terrain_TechYieldChanges(item.condition) do
+				local tech = GameInfo.Technologies[row.TechType]
+				if tech then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(tech.Description), type = "TECH", cause = fromCause });
+				else
+					ReportBadRef("Terrain_TechYieldChanges", row.TechType, item.type);
+				end
+			end
+
+			-- this table does not exists on CP yet, I'm waiting for the feature to be added
+			--[[for row in GameInfo.Terrain_EraYieldChanges(item.condition) do
+				local era = GameInfo.Eras[row.EraType]
+				if era then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(era.Description), type = "ERA", cause = fromCause });
+				else
+					ReportBadRef("Terrain_EraYieldChanges", row.EraType, item.type);
+				end
+			end]]
+		end
+
+		-- Yield changes from Buildings
+		if IGE_HasGodsAndKings then
+			for row in GameInfo.Building_TerrainYieldChanges(item.condition) do
+				local building = GameInfo.Buildings[row.BuildingType]
+				if building then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING", cause = fromCause });
+				else
+					ReportBadRef("Building_TerrainYieldChanges", row.BuildingType, item.type);
+				end
+			end
+		end
+
+		-- River yield changes from Buildings
+		if not item.water then
+			for row in GameInfo.Building_RiverPlotYieldChanges() do
+				if IsValidBuilding(row.BuildingType) then
+					local building = GameInfo.Buildings[row.BuildingType];
+					if building then
+						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING", cause = fromCause, suffix = riverName });
+					else
+						ReportBadRef("Building_RiverPlotYieldChanges", row.BuildingType, item.type);
+					end
+				end
+			end
+		end
+
+		-- Sea yield changes from Buildings
 		if item.water then
-			local coastSuffix = isCoast and coastName or nil
 			for row in GameInfo.Building_SeaPlotYieldChanges() do
 				if IsValidBuilding(row.BuildingType) then
 					local building = GameInfo.Buildings[row.BuildingType];
 					if building then
-						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING", suffix = coastSuffix });
+						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING", cause = fromCause, suffix = coastSuffix });
 					else
 						ReportBadRef("Building_SeaPlotYieldChanges", row.BuildingType, item.type);
 					end
@@ -162,15 +279,75 @@ function SetTerrainsData(data)
 			end
 		end
 
-		-- Lake yield changes
+		-- Lake yield changes from Buildings
 		if isCoast then
 			for row in GameInfo.Building_LakePlotYieldChanges() do
 				if IsValidBuilding(row.BuildingType) then
 					local building = GameInfo.Buildings[row.BuildingType];
 					if building then
-						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING", suffix = lakeName });
+						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING", cause = fromCause, suffix = lakeName });
 					else
 						ReportBadRef("Building_LakePlotYieldChanges", row.BuildingType, item.type);
+					end
+				end
+			end
+		end
+
+		-- Yield changes from Policies
+		if IGE_HasCommunityPatch then
+			for row in GameInfo.Policy_TerrainYieldChanges(item.condition) do
+				local policy = GameInfo.Policies[row.PolicyType]
+				if policy then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(policy.Description), type = "POLICY", cause = fromCause });
+				else
+					ReportBadRef("Policy_TerrainYieldChanges", row.PolicyType, item.type);
+				end
+			end
+		end
+
+		-- Yield changes from Beliefs
+		if IGE_HasGodsAndKings then
+			for row in GameInfo.Belief_TerrainYieldChanges(item.condition) do
+				local belief = GameInfo.Beliefs[row.BeliefType]
+				if belief then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(belief.ShortDescription), type = "BELIEF", cause = fromCause });
+				else
+					ReportBadRef("Belief_TerrainYieldChanges", row.BeliefType, item.type);
+				end
+			end
+		end
+
+		if IGE_HasCommunityPatch then
+			-- Lake yield changes from Beliefs
+			if isCoast then
+				for row in GameInfo.Belief_LakePlotYield() do
+					local belief = GameInfo.Beliefs[row.BeliefType]
+					if belief then
+						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(belief.ShortDescription), type = "BELIEF", cause = fromCause, suffix = lakeName });
+					else
+						ReportBadRef("Belief_LakePlotYield", row.BeliefType, item.type);
+					end
+				end
+			end
+
+		-- Yield changes from Traits
+			for row in GameInfo.Trait_TerrainYieldChanges(item.condition) do
+				local trait = GameInfo.Traits[row.TraitType]
+				if trait then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(trait.ShortDescription), type = "TRAIT", cause = fromCause });
+				else
+					ReportBadRef("Trait_TerrainYieldChanges", row.TraitType, item.type);
+				end
+			end
+
+		-- Sea yield changes from Traits
+			if item.water then
+				for row in GameInfo.Trait_SeaPlotYieldChanges() do
+					local trait = GameInfo.Traits[row.TraitType]
+					if trait then
+						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(trait.ShortDescription), type = "TRAIT", cause = fromCause, suffix = coastSuffix });
+					else
+						ReportBadRef("Trait_SeaPlotYieldChanges", row.TraitType, item.type);
 					end
 				end
 			end
@@ -263,15 +440,72 @@ function SetPlotTypesData(data)
 	local hills = data.terrainsByTypes.TERRAIN_HILL;
 	local grass = data.terrainsByTypes.TERRAIN_GRASS;
 	local mountains = data.terrainsByTypes.TERRAIN_MOUNTAIN;
-	data.types[0] = { ID = 0, type = PlotTypes.PLOT_LAND, name = L("TXT_KEY_IGE_FLAT_LAND"), texture = tex, textureOffset = Vector2(0, 0) }
-	data.types[1] = { ID = 1, type = PlotTypes.PLOT_HILLS, name = hills.name, texture = tex, textureOffset = Vector2(64, 0) }
-	data.types[2] = { ID = 2, type = PlotTypes.PLOT_MOUNTAIN, name = mountains.name, texture = tex, textureOffset = Vector3(128, 0) }
+	data.types[0] = { ID = 0, type = PlotTypes.PLOT_LAND, plotType = "PLOT_LAND", name = L("TXT_KEY_IGE_FLAT_LAND"), texture = tex, textureOffset = Vector2(0, 0) }
+	data.types[1] = { ID = 1, type = PlotTypes.PLOT_HILLS, plotType = "PLOT_HILLS", name = hills.name, texture = tex, textureOffset = Vector2(64, 0) }
+	data.types[2] = { ID = 2, type = PlotTypes.PLOT_MOUNTAIN, plotType = "PLOT_MOUNTAIN", name = mountains.name, texture = tex, textureOffset = Vector3(128, 0) }
 
 	for i, v in ipairs(data.types) do
 		v.action = SetPlotType;
 		v.visible = true;
 		v.enabled = true;
 		v.note = BUG_NoGraphicalUpdate;
+		v.condition = "PlotType = '" .. v.plotType .. "'";
+		v.showYieldMod = true;
+		v.yieldChanges = {};
+		v.yields = {};
+
+		-- Yields
+		if IGE_HasCommunityPatch then
+			for row in GameInfo.Plot_Yields(v.condition) do
+				v.yields[row.YieldType] = row.Yield;
+			end
+			v.subtitle = GetYieldString(v);
+
+		-- Yield changes
+		-- Yield changes from Buildings
+			for row in GameInfo.Building_PlotYieldChanges(v.condition) do
+				local building = GameInfo.Buildings[row.BuildingType]
+				if building then
+					table.insert(v.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING", cause = fromCause });
+				else
+					ReportBadRef("Building_PlotYieldChanges", row.BuildingType, v.type);
+				end
+			end
+
+		-- Yield changes from Policies
+			for row in GameInfo.Policy_PlotYieldChanges(v.condition) do
+				local policy = GameInfo.Policies[row.PolicyType]
+				if policy then
+					table.insert(v.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(policy.Description), type = "POLICY", cause = fromCause });
+				else
+					ReportBadRef("Policy_PlotYieldChanges", row.PolicyType, v.type);
+				end
+			end
+
+		-- Yield changes from Beliefs
+			for row in GameInfo.Belief_PlotYieldChanges(v.condition) do
+				local belief = GameInfo.Beliefs[row.BeliefType]
+				if belief then
+					table.insert(v.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(belief.Description), type = "BELIEF", cause = fromCause });
+				else
+					ReportBadRef("Belief_PlotYieldChanges", row.BeliefType, v.type);
+				end
+			end
+
+		-- Yield changes from Traits
+			for row in GameInfo.Trait_PlotYieldChanges(v.condition) do
+				local trait = GameInfo.Traits[row.TraitType]
+				if trait then
+					table.insert(v.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(trait.Description), type = "TRAIT", cause = fromCause });
+				else
+					ReportBadRef("Trait_PlotYieldChanges", row.TraitType, v.type);
+				end
+			end
+		end
+
+		v.help = GetYieldChangeString(v);
+		AppendIDToHelp(v)
+		AppendPlotTypeToHelp(v)
 	end
 
 	hills.subtitle = GetYieldString(hills);
@@ -295,11 +529,12 @@ function SetFeaturesData(data, options)
 		item.naturalWonder = row.NaturalWonder;
 		if IGE_HasCommunityPatch then
 			item.pseudonaturalWonder = row.PseudoNaturalWonder == 1;
-			item.showYieldMod = (not row.NaturalWonder) or (not row.PseudoNaturalWonder == 1);
+			item.showYieldMod = true;
 		else
 			item.showYieldMod = not row.NaturalWonder;
 		end
 		item.condition = "FeatureType = '" .. row.Type .. "'";
+		item.nwCondition = "Type = '" .. row.Type .. "'";
 		item.action = SetFeature;
 		item.requiresFlatLands = row.RequiresFlatlands;
 		item.requiresRiver = row.RequiresRiver;
@@ -314,6 +549,14 @@ function SetFeaturesData(data, options)
 		item.textureOffset, item.texture = IconLookup( row.PortraitIndex, largeSize, row.IconAtlas );	
 		item.smallTextureOffset, item.smallTexture = IconLookup( row.PortraitIndex, smallSize, row.IconAtlas );	
 
+		-- Check if it's a natural wonder (for YieldChangesNaturalWonder)
+		local isNaturalWonder = false;
+		for row in GameInfo.Features(item.nwCondition) do
+			if row.NaturalWonder --[[or row.PseudoNaturalWonder == 1]] then -- I had to disable the thing because the tables isn't affecting PseudoNaturalWonder
+				isNaturalWonder = true;
+			end
+		end
+
 		-- Yields
 		for row in GameInfo.Feature_YieldChanges(item.condition) do
 			item.yields[row.YieldType] = row.Yield;
@@ -323,14 +566,149 @@ function SetFeaturesData(data, options)
 		end
 		item.subtitle = GetYieldString(item);
 
-		-- Yield changes
+		if IGE_HasCommunityPatch then
+
+		-- Yield changes from Technologies
+			for row in GameInfo.Feature_TechYieldChanges(item.condition) do
+				local tech = GameInfo.Technologies[row.TechType]
+				if tech then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(tech.Description), type = "TECH", cause = fromCause });
+				else
+					ReportBadRef("Feature_TechYieldChanges", row.TechType, item.type);
+				end
+			end
+
+		-- Yield changes from Eras
+			-- these tables does not exists on CP yet, I'm waiting for the feature to be added
+			--[[for row in GameInfo.Feature_EraYieldChanges(item.condition) do
+				local era = GameInfo.Eras[row.EraType]
+				if era then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(era.Description), type = "ERA", cause = fromCause });
+				else
+					ReportBadRef("Feature_EraYieldChanges", row.EraType, item.type);
+				end
+			end
+			for row in GameInfo.Feature_YieldPerEra( item.condition ) do
+				table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = "Per each era", type = "ERA", cause = fromCause });
+			end]]
+			for row in GameInfo.Feature_EraYieldChanges( item.condition ) do
+				table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L("TXT_KEY_IGE_EACH_ERA_NAME"), type = "ERA", cause = fromCause });
+			end
+
+		-- Plot yield changes from adjacent Features
+			for row in GameInfo.Plot_AdjacentFeatureYieldChanges(item.condition) do
+				local plot = GameInfo.Plots[row.PlotType];
+				if plot then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(plot.Description), type = "PLOT", cause = toAdjacentCause, suffix = plotName });
+				else
+					ReportBadRef("Plot_AdjacentFeatureYieldChanges", row.PlotType, item.type);
+				end
+			end
+
+		-- Yield changes from Improvements
+			for row in GameInfo.Improvement_FeatureYieldChanges(item.condition) do
+				local improvement = GameInfo.Improvements[row.ImprovementType]
+				if improvement then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(improvement.Description), type = "IMPROVEMENT", cause = withCause });
+				else
+					ReportBadRef("Improvement_FeatureYieldChanges", row.ImprovementType, item.type);
+				end
+			end
+		end
+
+		-- Yield changes from Buildings
 		for row in GameInfo.Building_FeatureYieldChanges(item.condition) do
 			if IsValidBuilding(row.BuildingType) then
 				local building = GameInfo.Buildings[row.BuildingType];
 				if building then
-					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING" });
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING", cause = fromCause });
 				else
 					ReportBadRef("Building_FeatureYieldChanges", row.BuildingType, item.type);
+				end
+			end
+		end
+
+		-- Yield changes from Policies
+		if IGE_HasCommunityPatch then
+			for row in GameInfo.Policy_FeatureYieldChanges(item.condition) do
+				local policy = GameInfo.Policies[row.PolicyType];
+				if policy then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(policy.Description), type = "POLICY", cause = fromCause });
+				else
+					ReportBadRef("Policy_FeatureYieldChanges", row.PolicyType, item.type);
+				end
+			end
+			if isNaturalWonder then
+				for row in GameInfo.Policy_YieldChangesNaturalWonder() do
+					local policy = GameInfo.Policies[row.PolicyType];
+					if policy then
+						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(policy.Description), type = "POLICY", cause = fromCause, suffix = naturalWonderName });
+					else
+						ReportBadRef("Policy_YieldChangesNaturalWonder", row.PolicyType, item.type);
+					end
+				end
+			end
+		end
+
+		-- Yield changes from Beliefs
+		if IGE_HasGodsAndKings then
+			for row in GameInfo.Belief_FeatureYieldChanges(item.condition) do
+				local belief = GameInfo.Beliefs[row.BeliefType];
+				if belief then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(belief.ShortDescription), type = "BELIEF", cause = fromCause });
+				else
+					ReportBadRef("Belief_FeatureYieldChanges", row.BeliefType, item.type);
+				end
+			end
+
+			if isNaturalWonder then
+				for row in GameInfo.Belief_YieldChangeNaturalWonder() do
+					local belief = GameInfo.Beliefs[row.BeliefType];
+					if belief then
+						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(belief.ShortDescription), type = "BELIEF", cause = fromCause, suffix = naturalWonderName });
+					else
+						ReportBadRef("Belief_YieldChangeNaturalWonder", row.BeliefType, item.type);
+					end
+				end
+			end
+		end
+		if IGE_HasCommunityPatch then
+			for row in GameInfo.Belief_UnimprovedFeatureYieldChanges(item.condition) do
+				local belief = GameInfo.Beliefs[row.BeliefType];
+				if belief then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(belief.ShortDescription), type = "BELIEF", cause = fromCause, suffix = unimprovedName });
+				else
+					ReportBadRef("Belief_UnimprovedFeatureYieldChanges", row.BeliefType, item.type);
+				end
+			end
+
+		-- Yield changes from Traits
+			for row in GameInfo.Trait_FeatureYieldChanges(item.condition) do
+				local trait = GameInfo.Traits[row.TraitType]
+				if trait then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(trait.ShortDescription), type = "TRAIT", cause = fromCause });
+				else
+					ReportBadRef("Trait_FeatureYieldChanges", row.TraitType, item.type);
+				end
+			end
+		end
+		if IGE_HasGodsAndKings then
+			if isNaturalWonder then
+				for row in GameInfo.Trait_YieldChangesNaturalWonder() do
+					local trait = GameInfo.Traits[row.TraitType]
+					if trait then
+						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(trait.ShortDescription), type = "TRAIT", cause = fromCause, suffix = naturalWonderName });
+					else
+						ReportBadRef("Trait_YieldChangesNaturalWonder", row.TraitType, item.type);
+					end
+				end
+			end
+			for row in GameInfo.Trait_UnimprovedFeatureYieldChanges(item.condition) do
+				local trait = GameInfo.Traits[row.TraitType]
+				if trait then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(trait.ShortDescription), type = "TRAIT", cause = fromCause, suffix = unimprovedName });
+				else
+					ReportBadRef("Trait_UnimprovedFeatureYieldChanges", row.TraitType, item.type);
 				end
 			end
 		end
@@ -398,8 +776,10 @@ function SetResourcesData(data, options)
 		item.type = row.Type;
 		item.hills = row.Hills;
 		item.flatLands = row.Flatlands;
+		item.class = row.ResourceClassType;
 		item.iconString = row.IconString;
 		item.condition = "ResourceType = '" .. row.Type .. "'";
+		item.resCondition = "Type = '" .. row.Type .. "'";
 		item.action = SetResource;
 		item.usage = row.ResourceUsage;
 		item.showYieldMod = true;
@@ -427,15 +807,25 @@ function SetResourcesData(data, options)
 		item.subtitle = GetYieldString(item);
 
 		-- Valid terrains
-		local maritime = true;
+		local maritime = false;
 		for row in GameInfo.Resource_TerrainBooleans(item.condition) do
-			if row.TerrainType ~= "TERRAIN_COAST" and row.TerrainType ~= "TERRAIN_OCEAN" then maritime = false; end
+			if	row.TerrainType == "TERRAIN_COAST" or
+				row.TerrainType == "TERRAIN_OCEAN" then
+					maritime = true;
+			end
 			local terrain = data.terrainsByTypes[row.TerrainType];
 			if terrain then
 				item.validTerrains[terrain.ID] = terrain;
 			else
 				ReportBadRef("Resource_TerrainBooleans", row.TerrainType, item.type);
 			end
+		end
+
+		-- Custom method for calling Lake resources from Better Lakes for VP and Tropical Fish from More Wonders for VP
+		for row in GameInfo.Resources(item.resCondition) do
+			if	row.Type == "RESOURCE_IA_LAKE_FISH" or
+				row.Type == "RESOURCE_IA_SALT_LAKE" or
+				row.Type == "RESOURCE_TROPICAL_FISH" then maritime = true; end
 		end
 
 		-- Valid features
@@ -454,7 +844,7 @@ function SetResourcesData(data, options)
 		for row in GameInfo.Improvement_ResourceType_Yields(item.condition) do
 			local improvement = GameInfo.Improvements[row.ImprovementType];
 			if improvement then
-				table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(improvement.Description), type = "IMPROVEMENT" });
+				table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(improvement.Description), type = "IMPROVEMENT", cause = withCause });
 				improvementBringsBonus = true;
 			else
 				ReportBadRef("Improvement_ResourceType_Yields", row.ImprovementType, item.type);
@@ -466,17 +856,19 @@ function SetResourcesData(data, options)
 			if improvementData then
 				local improvement = GameInfo.Improvements[improvementData.ImprovementType];
 				if improvement then
-					table.insert(item.yieldChanges, { yield = 0, name = L(improvement.Description), type = "IMPROVEMENT" });
+					table.insert(item.yieldChanges, { yield = 0, name = L(improvement.Description), type = "IMPROVEMENT", cause = withCause });
 				else
 					ReportBadRef("Improvement_ResourceTypes", improvementData.ImprovementType, item.type);
 				end
 			end
 		end
+
+		-- Yield changes from Buildings
 		for row in GameInfo.Building_ResourceYieldChanges(item.condition) do
 			if IsValidBuilding(row.BuildingType) then
 				local building = GameInfo.Buildings[row.BuildingType];
 				if building then
-					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING" });
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING", cause = fromCause });
 				else
 					ReportBadRef("Building_ResourceYieldChanges", row.BuildingType, item.type);
 				end
@@ -487,7 +879,7 @@ function SetResourcesData(data, options)
 				if IsValidBuilding(row.BuildingType) then
 					local building = GameInfo.Buildings[row.BuildingType];
 					if building then
-						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING" });
+						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING", cause = fromCause, suffix = seaName });
 					else
 						ReportBadRef("Building_SeaResourceYieldChanges", row.BuildingType, item.type);
 					end
@@ -498,14 +890,69 @@ function SetResourcesData(data, options)
 			if IsValidBuilding(row.BuildingType) then
 				local building = GameInfo.Buildings[row.BuildingType];
 				if building then
-					table.insert(item.yieldChanges, { yieldType = "YIELD_CULTURE", yield = row.CultureChange, name = L(building.Description), type = "BUILDING" });
+					table.insert(item.yieldChanges, { yieldType = "YIELD_CULTURE", yield = row.CultureChange, name = L(building.Description), cause = fromCause, type = "BUILDING" });
 				else
 					ReportBadRef("Building_ResourceCultureChanges", row.BuildingType, item.type);
 				end
 			end
 		end
+		if IGE_HasCommunityPatch then
+			for row in GameInfo.Building_ResourceYieldChangesGlobal(item.condition) do
+				if IsValidBuilding(row.BuildingType) then
+					local building = GameInfo.Buildings[row.BuildingType];
+					if building then
+						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING_GLOBAL", cause = fromCause, suffix = globalName });
+					else
+						ReportBadRef("Building_ResourceYieldChangesGlobal", row.BuildingType, item.type);
+					end
+				end
+			end
+
+		-- Yield changes from Corporations
+			for row in GameInfo.Corporation_ResourceYieldChanges(item.condition) do
+				local corporation = GameInfo.Corporations[row.CorporationType];
+				if corporation then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(corporation.Description), type = "CORPORATION", cause = fromCause });
+				else
+					ReportBadRef("Corporation_ResourceYieldChanges", row.CorporationType, item.type);
+				end
+			end
+		-- Yield changes from Policies
+			for row in GameInfo.Policy_ResourceYieldChanges(item.condition) do
+				local policy = GameInfo.Policies[row.PolicyType];
+				if policy then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(policy.Description), type = "POLICY", cause = fromCause });
+				else
+					ReportBadRef("Policy_ResourceYieldChanges", row.PolicyType, item.type);
+				end
+			end
+		end
+
+		-- Yield changes from Beliefs
+		if IGE_HasGodsAndKings then
+			for row in GameInfo.Belief_ResourceYieldChanges(item.condition) do
+				local belief = GameInfo.Beliefs[row.BeliefType];
+				if belief then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(belief.ShortDescription), type = "BELIEF", cause = fromCause });
+				else
+					ReportBadRef("Belief_ResourceYieldChanges", row.BeliefType, item.type);
+				end
+			end
+		end
+		if IGE_HasCommunityPatch then
+			for row in GameInfo.Trait_ResourceYieldChanges(item.condition) do
+				local trait = GameInfo.Traits[row.TraitType]
+				if trait then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(trait.ShortDescription), type = "TRAIT", cause = fromCause });
+				else
+					ReportBadRef("Trait_ResourceYieldChanges", row.TraitType, item.type);
+				end
+			end
+		end
+
 		item.help = GetYieldChangeString(item);
 		AppendIDAndTypeToHelp(item)
+		AppendClassToHelp(item)
 
 		-- Warnings
 		local valid = item.type ~= "RESOURCE_ARTIFACTS" and item.type ~= "RESOURCE_HIDDEN_ARTIFACTS"
@@ -623,11 +1070,11 @@ function SetImprovementsData(data, options)
 			end
 		end
 
-		-- Yield changes
+		-- Yield changes from Technologies
 		for row in GameInfo.Improvement_TechYieldChanges(item.condition) do
 			local tech = GameInfo.Technologies[row.TechType]
 			if tech then
-				table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(tech.Description), type = "TECH" });
+				table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(tech.Description), type = "TECH", cause = fromCause });
 			else
 				ReportBadRef("Improvement_TechYieldChanges", row.TechType, item.type);
 			end
@@ -635,7 +1082,7 @@ function SetImprovementsData(data, options)
 		for row in GameInfo.Improvement_TechNoFreshWaterYieldChanges(item.condition) do
 			local tech = GameInfo.Technologies[row.TechType]
 			if tech then
-				table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(tech.Description).." (no fresh water)", type = "TECH" });
+				table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(tech.Description), type = "TECH", cause = fromCause, suffix = noFreshWaterName });
 			else
 				ReportBadRef("Improvement_TechNoFreshWaterYieldChanges", row.TechType, item.type);
 			end
@@ -643,17 +1090,130 @@ function SetImprovementsData(data, options)
 		for row in GameInfo.Improvement_TechFreshWaterYieldChanges(item.condition) do
 			local tech = GameInfo.Technologies[row.TechType]
 			if tech then
-				table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(tech.Description).." (fresh water)", type = "TECH" });
+				table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(tech.Description), type = "TECH", cause = fromCause, suffix = freshWaterName });
 			else
 				ReportBadRef("Improvement_TechFreshWaterYieldChanges", row.TechType, item.type);
 			end
 		end
+
+		if IGE_HasCommunityPatch then
+			-- Yield changes from adjacent to Terrains
+			for row in GameInfo.Improvement_AdjacentTerrainYieldChanges(item.condition) do
+				local terrain = GameInfo.Terrains[row.TerrainType]
+				if terrain then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(terrain.Description), type = "TERRAIN", cause = adjacentToCause });
+				else
+					ReportBadRef("Improvement_AdjacentTerrainYieldChanges", row.TerrainType, item.type);
+				end
+			end
+
+			-- Yield changes from adjacent to Features
+			for row in GameInfo.Improvement_AdjacentFeatureYieldChanges(item.condition) do
+				local feature = GameInfo.Features[row.FeatureType]
+				if feature then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(feature.Description), type = "FEATURE", cause = adjacentToCause });
+				else
+					ReportBadRef("Improvement_AdjacentFeatureYieldChanges", row.FeatureType, item.type);
+				end
+			end
+
+		-- Yield changes from adjacent to Resources
+			for row in GameInfo.Improvement_AdjacentResourceYieldChanges(item.condition) do
+				local resource = GameInfo.Resources[row.ResourceType];
+				if resource then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(resource.Description), type = "RESOURCE", cause = adjacentToCause });
+				else
+					ReportBadRef("Improvement_AdjacentResourceYieldChanges", row.ResourceType, item.type);
+				end
+			end
+
+		-- Yield changes from adjacent to other Improvements
+			for row in GameInfo.Improvement_AdjacentImprovementYieldChanges(item.condition) do
+				local improvement = GameInfo.Improvements[row.OtherImprovementType];
+				if improvement then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(improvement.Description), type = "IMPROVEMENT", cause = adjacentToCause });
+				else
+					ReportBadRef("Improvement_AdjacentImprovementYieldChanges", row.OtherImprovementType, item.type);
+				end
+			end
+		end
+
+		-- Yield changes from Routes
+		for row in GameInfo.Improvement_RouteYieldChanges(item.condition) do
+			local route = GameInfo.Routes[row.RouteType];
+			if route then
+				table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(route.Description), type = "ROUTE", cause = withCause });
+			else
+				ReportBadRef("Improvement_RouteYieldChanges", row.RouteType, item.type);
+			end
+		end
+
+		-- Yield changes from Buildings
+		if IGE_HasCommunityPatch then
+			for row in GameInfo.Building_ImprovementYieldChanges(item.condition) do
+				if IsValidBuilding(row.BuildingType) then
+					local building = GameInfo.Buildings[row.BuildingType];
+					if building then
+						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING", cause = fromCause });
+					else
+						ReportBadRef("Building_ImprovementYieldChanges", row.BuildingType, item.type);
+					end
+				end
+			end
+			for row in GameInfo.Building_ImprovementYieldChangesGlobal(item.condition) do
+				if IsValidBuilding(row.BuildingType) then
+					local building = GameInfo.Buildings[row.BuildingType];
+					if building then
+						table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(building.Description), type = "BUILDING_GLOBAL", cause = fromCause, suffix = globalName });
+					else
+						ReportBadRef("Building_ImprovementYieldChangesGlobal", row.BuildingType, item.type);
+					end
+				end
+			end
+		end
+
+		-- Yield changes from Policies
+		for row in GameInfo.Policy_ImprovementYieldChanges(item.condition) do
+			local policy = GameInfo.Policies[row.PolicyType];
+			if policy then
+				table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(policy.Description), type = "POLICY", cause = fromCause });
+			else
+				ReportBadRef("Policy_ImprovementYieldChanges", row.PolicyType, item.type);
+			end
+		end
+
+		-- Yield changes from Beliefs
+		if IGE_HasGodsAndKings then
+			for row in GameInfo.Belief_ImprovementYieldChanges(item.condition) do
+				local belief = GameInfo.Beliefs[row.BeliefType];
+				if belief then
+					table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(belief.ShortDescription), cause = fromCause, type = "BELIEF" });
+				else
+					ReportBadRef("Belief_ImprovementYieldChanges", row.BeliefType, item.type);
+				end
+			end
+		end
+
+		-- Yield changes from Traits
+		for row in GameInfo.Trait_ImprovementYieldChanges(item.condition) do
+			local trait = GameInfo.Traits[row.TraitType]
+			if trait then
+				table.insert(item.yieldChanges, { yieldType = row.YieldType, yield = row.Yield, name = L(trait.ShortDescription), cause = fromCause, type = "TRAIT" });
+			else
+				ReportBadRef("Trait_ImprovementYieldChanges", row.TraitType, item.type);
+			end
+		end
+
 		item.help = GetYieldChangeString(item);
 		AppendIDAndTypeToHelp(item)
 
 		-- Insert in tables
-		if item.builtByGreatPerson or item.type == "IMPROVEMENT_CITY_RUINS" or item.type == "IMPROVEMENT_BARBARIAN_CAMP" or item.type == "IMPROVEMENT_GOODY_HUT" then	
-			table.insert(data.greatImprovements, item);	-- GP's item, ruins, antic ruins, barbarian camp
+		if	item.builtByGreatPerson or
+			item.type == "IMPROVEMENT_CITY_RUINS" or
+			item.type == "IMPROVEMENT_BARBARIAN_CAMP" or
+			item.type == "IMPROVEMENT_GOODY_HUT" or
+			item.type == "IMPROVEMENT_JFD_MACHU_PICCHU" then	
+			table.insert(data.greatImprovements, item);	-- GP's item, ruins, ancient ruins, barbarian camp (+mountain city with CP)
 		else
 			table.insert(data.improvements, item);
 		end
@@ -988,6 +1548,7 @@ function SetUnitsData(data)
 		item.type = row.Type;
 		item.class = row.Class;
 		item.combatClass = row.CombatClass;
+		item.domain = row.Domain;
 		item.isGreatPeople = (row.Special == "SPECIALUNIT_PEOPLE");
 		item.landunits = (row.Domain == "DOMAIN_LAND");
 		item.seaunits = (row.Domain == "DOMAIN_SEA");
@@ -1015,6 +1576,14 @@ function SetUnitsData(data)
 			end
 		end
 
+		-- Space Ship units
+		item.spaceunits = (row.CombatClass == "UNITCOMBAT_SPACESHIP_PART");
+
+		-- Hide Space Ship units if Science Victory is disabled
+		if Game.IsOption(GameOptionTypes.GAMEOPTION_NO_SCIENCE) then
+			if item.combatClass == "UNITCOMBAT_SPACESHIP_PART" then valid = false end 
+		end
+
 		--Diplomacy units
 		item.diplomacy = ((row.DefaultUnitAI == "UNITAI_MESSENGER") or (row.DefaultUnitAI == "UNITAI_DIPLOMAT"));
 
@@ -1031,12 +1600,12 @@ function SetUnitsData(data)
 							(item.class == "UNITCLASS_INQUISITOR")
 						);]]
 
-		-- Space Ship units
-		item.spaceunits = (row.CombatClass == "UNITCOMBAT_SPACESHIP_PART");
 
 		-- Help text
 		item.help = GetIGEHelpTextForUnit(row, activePlayer).."[NEWLINE]"
 		AppendIDAndTypeToHelp(item)
+		AppendClassToHelp(item)
+		AppendDomainToHelp(item)
 
 		-- Prereq and era
 		if row.PrereqTech then
@@ -1134,6 +1703,8 @@ function SetBuildingsData(data)
 		-- Help
 		item.help = GetHelpTextForBuilding(item.ID, true, false, false).."[NEWLINE]";
 		AppendIDAndTypeToHelp(item)
+		AppendClassToHelp(item)
+
 		if item.isNationalWonder then
 			item.priority = 1;
 			item.subtitle = L("TXT_KEY_IGE_NATIONAL_WONDER");

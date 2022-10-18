@@ -69,7 +69,8 @@ function GetYieldString(item)
 		for _, row in pairs(lookup) do
 			local yield = 0;
 			local yieldType = 0;
-			local suffix = " on ";
+			local onName = L("TXT_KEY_IGE_CAUSE_ON");
+			local suffix = " "..onName.." ";
 			for _, improvedResource in pairs(row) do
 				yield = improvedResource.yield;
 				yieldType = improvedResource.yieldType;
@@ -87,7 +88,21 @@ function GetYieldString(item)
 end
 
 -------------------------------------------------------------------------------------------------
-local yieldChangeColors = { BUILDING = "[COLOR_BUILDING_TEXT]", TECH = "[COLOR_TECH_TEXT]", IMPROVEMENT = "[COLOR_HIGHLIGHT_TEXT]" }
+local yieldChangeColors = {
+	TECH = "[COLOR_RESEARCH_STORED]",
+	ERA = "[COLOR:100:210:255:255]",
+	PLOT = "[COLOR:50:230:150:255]",
+	TERRAIN = "[COLOR:35:200:100:255]",
+	FEATURE = "[COLOR:35:180:80:255]",
+	RESOURCE = "[COLOR:100:250:30:255]",
+	IMPROVEMENT = "[COLOR:130:255:50:255]",
+	ROUTE = "[COLOR:220:220:220:255]",
+	BUILDING = "[COLOR:255:240:90:255]",
+	BUILDING_GLOBAL = "[COLOR:255:255:50:255]",
+	CORPORATION = "[COLOR_YIELD_FOOD]",
+	POLICY = "[COLOR_MAGENTA]",
+	BELIEF = "[COLOR:220:230:255:255]",
+	TRAIT = "[COLOR:255:180:125:255]" }
 local yieldChangeTemplate = L("TXT_KEY_IGE_YIELD_CHANGE_TEMPLATE");
 local noYieldChangeTemplate = L("TXT_KEY_IGE_NO_YIELD_CHANGE_TEMPLATE");
 
@@ -97,10 +112,17 @@ function GetYieldChangeString(item)
 	if item.yieldChanges then
 		for i, v in ipairs(item.yieldChanges) do
 			local suffix = nil;
+			local preposition = nil;
 			local value = nil;
 			suffix = GetYieldIcon(v.yieldType)
 
 			local sourceName = yieldChangeColors[v.type]..v.name.."[ENDCOLOR]"
+			if v.cause then
+				preposition = v.cause
+			end
+			if v.prefix then
+				sourceName = v.prefix.." "..sourceName
+			end
 			if v.suffix then
 				sourceName = sourceName.." ("..v.suffix..")"
 			end
@@ -108,7 +130,7 @@ function GetYieldChangeString(item)
 
 			if suffix then
 				local amount = GetYieldAmount(v.yield, suffix, true);
-				str = str..L("TXT_KEY_IGE_YIELD_CHANGE_TEMPLATE", amount, sourceName);
+				str = str..amount.." "..L("TXT_KEY_IGE_YIELD_CHANGE_TEMPLATE", preposition, sourceName);
 			else
 				str = str..L("TXT_KEY_IGE_NO_YIELD_CHANGE_TEMPLATE", sourceName);
 			end
