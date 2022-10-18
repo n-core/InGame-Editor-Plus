@@ -67,6 +67,13 @@ local function ClosePopups()
 	Controls.WonderPopup:SetHide(true);
 end
 
+
+-------------------------------------------------------------------------------------------------
+local function OnLoadScreenClosed()
+    Controls.MainButton:ChangeParent(ContextPtr:LookUpControl("/InGame/TopPanel/TopPanelInfoStack"))
+end 
+Events.LoadScreenClose.Add(OnLoadScreenClosed)
+
 -------------------------------------------------------------------------------------------------
 local function OpenCore()
 	if not initialized then
@@ -149,6 +156,7 @@ local function Open()
 		SetBusy(false);
 		print("SetBusy - done");
 		LuaEvents.IGE_Update();
+		Controls.MainButton:ChangeParent(ContextPtr:LookUpControl("TopPanel/TopPanelInfoStack"))
 	end
 end
 
@@ -182,6 +190,8 @@ local function Close(keepBulkUIHidden, takingSeat)
 		Map.RecalculateAreas();
 
 		SetBusy(false);
+		
+		Controls.MainButton:ChangeParent(ContextPtr:LookUpControl("/InGame/TopPanel/TopPanelInfoStack"))
 	end
 end
 Controls.CloseButton:RegisterCallback(Mouse.eLClick, function() Close(false, false) end);

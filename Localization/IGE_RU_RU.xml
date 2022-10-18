@@ -591,6 +591,48 @@
 		<Row Tag="TXT_KEY_IGE_COAST_OR_LAKE_HELP">
 			<Text>Создать берег или озеро.[NEWLINE]Озеро по размеру не более 9-ти водных клеток.</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_PLOT_NAME">
+			<Text>Клетка</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_GLOBAL_NAME">
+			<Text>Глобальный</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_SEA_NAME">
+			<Text>Море</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_NO_FRESH_WATER_NAME">
+			<Text>Нет пресной воды</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_UNIMPROVED_NAME">
+			<Text>Если не улучшено</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_ADJACENT_TO_NAME">
+			<Text>Рядом с</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_TO_ADJACENT_NAME">
+			<Text>К соседнему</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_EACH_ERA_NAME">
+			<Text>каждой эпохи</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_ON">
+			<Text>на</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_TO">
+			<Text>к</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_FROM">
+			<Text>из</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_WITH">
+			<Text>с</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_ADJACENT_TO">
+			<Text>если рядом с</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_TO_ADJACENT">
+			<Text>к соседнему</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_AFRICA">
 			<Text>Африка</Text>
 		</Row>
@@ -663,7 +705,7 @@
 
 		<!--IGE_API_Misc.lua -->
 		<Row Tag="TXT_KEY_IGE_YIELD_CHANGE_TEMPLATE">
-			<Text>{1_Amount} с {2_Cause}</Text>
+			<Text>{1_Preposition} {2_Cause}</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_NO_YIELD_CHANGE_TEMPLATE">
 			<Text>Нет бонусов от {1_Cause}</Text>

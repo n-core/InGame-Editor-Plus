@@ -591,6 +591,48 @@
 		<Row Tag="TXT_KEY_IGE_COAST_OR_LAKE_HELP">
 			<Text>Dies erschafft ein Küstenfeld oder See.[NEWLINE]Seen sind Wasserflächen, die kleiner als neun Felder sind.</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_PLOT_NAME">
+			<Text>Geländefeld</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_GLOBAL_NAME">
+			<Text>Global</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_SEA_NAME">
+			<Text>Meer</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_NO_FRESH_WATER_NAME">
+			<Text>Kein Süßwasser</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_UNIMPROVED_NAME">
+			<Text>Wenn Nicht Verbessert</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_ADJACENT_TO_NAME">
+			<Text>Neben</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_TO_ADJACENT_NAME">
+			<Text>Zur angrenzenden</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_EACH_ERA_NAME">
+			<Text>jeder Epoche</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_ON">
+			<Text>an</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_TO">
+			<Text>zu</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_FROM">
+			<Text>aus</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_WITH">
+			<Text>mit</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_ADJACENT_TO">
+			<Text>wenn neben</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_TO_ADJACENT">
+			<Text>zur angrenzenden</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_AFRICA">
 			<Text>Afrika</Text>
 		</Row>
@@ -663,7 +705,7 @@
 
 		<!--IGE_API_Misc.lua -->
 		<Row Tag="TXT_KEY_IGE_YIELD_CHANGE_TEMPLATE">
-			<Text>{1_Amount} mit {2_Cause}</Text>
+			<Text>{1_Preposition} {2_Cause}</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_NO_YIELD_CHANGE_TEMPLATE">
 			<Text>Kein Bonus von {1_Cause}</Text>

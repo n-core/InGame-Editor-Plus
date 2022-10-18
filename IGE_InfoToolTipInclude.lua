@@ -46,21 +46,21 @@ GetYieldTooltip = GetYieldTooltip or function(pCity, iYieldType, iBase, iTotal, 
 	-- Base Yield from terrain
 	local iYieldFromTerrain = pCity:GetBaseYieldRateFromTerrain(iYieldType);
 	if (iYieldFromTerrain ~= 0) then
-		strYieldBreakdown = strYieldBreakdown .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_YIELD_FROM_TERRAIN", iYieldFromTerrain, strIconString);
+		strYieldBreakdown = strYieldBreakdown .. "[ICON_BULLET]" .. L("TXT_KEY_YIELD_FROM_TERRAIN", iYieldFromTerrain, strIconString);
 		strYieldBreakdown = strYieldBreakdown .. "[NEWLINE]";
 	end
 	
 	-- Base Yield from Buildings
 	local iYieldFromBuildings = pCity:GetBaseYieldRateFromBuildings(iYieldType);
 	if (iYieldFromBuildings ~= 0) then
-		strYieldBreakdown = strYieldBreakdown .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_YIELD_FROM_BUILDINGS", iYieldFromBuildings, strIconString);
+		strYieldBreakdown = strYieldBreakdown .. "[ICON_BULLET]" .. L("TXT_KEY_YIELD_FROM_BUILDINGS", iYieldFromBuildings, strIconString);
 		strYieldBreakdown = strYieldBreakdown .. "[NEWLINE]";
 	end
 	
 	-- Base Yield from Specialists
 	local iYieldFromSpecialists = pCity:GetBaseYieldRateFromSpecialists(iYieldType);
 	if (iYieldFromSpecialists ~= 0) then
-		strYieldBreakdown = strYieldBreakdown .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_YIELD_FROM_SPECIALISTS", iYieldFromSpecialists, strIconString);
+		strYieldBreakdown = strYieldBreakdown .. "[ICON_BULLET]" .. L("TXT_KEY_YIELD_FROM_SPECIALISTS", iYieldFromSpecialists, strIconString);
 		strYieldBreakdown = strYieldBreakdown .. "[NEWLINE]";
 	end
 	
@@ -68,9 +68,9 @@ GetYieldTooltip = GetYieldTooltip or function(pCity, iYieldType, iBase, iTotal, 
 	local iYieldFromMisc = pCity:GetBaseYieldRateFromMisc(iYieldType);
 	if (iYieldFromMisc ~= 0) then
 		if (iYieldType == YieldTypes.YIELD_SCIENCE) then
-			strYieldBreakdown = strYieldBreakdown .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_YIELD_FROM_POP", iYieldFromMisc, strIconString);
+			strYieldBreakdown = strYieldBreakdown .. "[ICON_BULLET]" .. L("TXT_KEY_YIELD_FROM_POP", iYieldFromMisc, strIconString);
 		else
-			strYieldBreakdown = strYieldBreakdown .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_YIELD_FROM_MISC", iYieldFromMisc, strIconString);
+			strYieldBreakdown = strYieldBreakdown .. "[ICON_BULLET]" .. L("TXT_KEY_YIELD_FROM_MISC", iYieldFromMisc, strIconString);
 		end
 		strYieldBreakdown = strYieldBreakdown .. "[NEWLINE]";
 	end
@@ -81,7 +81,7 @@ GetYieldTooltip = GetYieldTooltip or function(pCity, iYieldType, iBase, iTotal, 
 		local iYieldFromPop = iYieldPerPop * pCity:GetPopulation();
 		iYieldFromPop = iYieldFromPop / 100;
 		
-		strYieldBreakdown = strYieldBreakdown .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_YIELD_FROM_POP_EXTRA", iYieldFromPop, strIconString);
+		strYieldBreakdown = strYieldBreakdown .. "[ICON_BULLET]" .. L("TXT_KEY_YIELD_FROM_POP_EXTRA", iYieldFromPop, strIconString);
 		strYieldBreakdown = strYieldBreakdown .. "[NEWLINE]";
 	end
 	
@@ -93,34 +93,34 @@ GetYieldTooltip = GetYieldTooltip or function(pCity, iYieldType, iBase, iTotal, 
 		iYieldEaten = pCity:FoodConsumption(true, 0);
 		if (iYieldEaten ~= 0) then
 			--strModifiers = strModifiers .. "[NEWLINE]";
-			--strModifiers = strModifiers .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_YIELD_EATEN_BY_POP", iYieldEaten, "[ICON_FOOD]");
+			--strModifiers = strModifiers .. "[ICON_BULLET]" .. L("TXT_KEY_YIELD_EATEN_BY_POP", iYieldEaten, "[ICON_FOOD]");
 			--strModifiers = strModifiers .. "[NEWLINE]----------------[NEWLINE]";
 			
-			strExtraBaseString = strExtraBaseString .. "   " .. Locale.ConvertTextKey("TXT_KEY_FOOD_USAGE", iBase, iYieldEaten);
+			strExtraBaseString = strExtraBaseString .. "   " .. L("TXT_KEY_FOOD_USAGE", iBase, iYieldEaten);
 			
 			local iFoodSurplus = pCity:GetYieldRate(YieldTypes.YIELD_FOOD) - iYieldEaten;
 			iBase = iFoodSurplus;
 			
 			--if (iFoodSurplus >= 0) then
-				--strModifiers = strModifiers .. Locale.ConvertTextKey("TXT_KEY_YIELD_AFTER_EATEN", iFoodSurplus, "[ICON_FOOD]");
+				--strModifiers = strModifiers .. L("TXT_KEY_YIELD_AFTER_EATEN", iFoodSurplus, "[ICON_FOOD]");
 			--else
-				--strModifiers = strModifiers .. Locale.ConvertTextKey("TXT_KEY_YIELD_AFTER_EATEN_NEGATIVE", iFoodSurplus, "[ICON_FOOD]");
+				--strModifiers = strModifiers .. L("TXT_KEY_YIELD_AFTER_EATEN_NEGATIVE", iFoodSurplus, "[ICON_FOOD]");
 			--end
 		end
 	end
 	
 	local strTotal;
 	if (iTotal >= 0) then
-		strTotal = Locale.ConvertTextKey("TXT_KEY_YIELD_TOTAL", iTotal, strIconString);
+		strTotal = L("TXT_KEY_YIELD_TOTAL", iTotal, strIconString);
 	else
-		strTotal = Locale.ConvertTextKey("TXT_KEY_YIELD_TOTAL_NEGATIVE", iTotal, strIconString);
+		strTotal = L("TXT_KEY_YIELD_TOTAL_NEGATIVE", iTotal, strIconString);
 	end
 	
 	strYieldBreakdown = strYieldBreakdown .. "----------------";
 	
 	-- Build combined string
 	if (iBase ~= iTotal or strExtraBaseString ~= "") then
-		local strBase = Locale.ConvertTextKey("TXT_KEY_YIELD_BASE", iBase, strIconString) .. strExtraBaseString;
+		local strBase = L("TXT_KEY_YIELD_BASE", iBase, strIconString) .. strExtraBaseString;
 		strYieldBreakdown = strYieldBreakdown .. "[NEWLINE]" .. strBase;
 	end
 	
@@ -144,34 +144,34 @@ GetHelpTextForUnit = GetHelpTextForUnit or function(iUnitID, bIncludeRequirement
 	local strHelpText = "";
 	
 	-- Name
-	strHelpText = strHelpText .. Locale.ToUpper(Locale.ConvertTextKey( pUnitInfo.Description ));
+	strHelpText = strHelpText .. Locale.ToUpper(L( pUnitInfo.Description ));
 	
 	-- Cost
 	strHelpText = strHelpText .. "[NEWLINE]----------------[NEWLINE]";
-	strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_COST", pActivePlayer:GetUnitProductionNeeded(iUnitID));
+	strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_COST", pActivePlayer:GetUnitProductionNeeded(iUnitID));
 	-- Moves
 	strHelpText = strHelpText .. "[NEWLINE]";
-	strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_MOVEMENT", pUnitInfo.Moves);
+	strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_MOVEMENT", pUnitInfo.Moves);
 	
 	-- Range
 	local iRange = pUnitInfo.Range;
 	if (iRange ~= 0) then
 		strHelpText = strHelpText .. "[NEWLINE]";
-		strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_RANGE", iRange);
+		strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_RANGE", iRange);
 	end
 	
 	-- Ranged Strength
 	local iRangedStrength = pUnitInfo.RangedCombat;
 	if (iRangedStrength ~= 0) then
 		strHelpText = strHelpText .. "[NEWLINE]";
-		strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_RANGED_STRENGTH", iRangedStrength);
+		strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_RANGED_STRENGTH", iRangedStrength);
 	end
 	
 	-- Strength
 	local iStrength = pUnitInfo.Combat;
 	if (iStrength ~= 0) then
 		strHelpText = strHelpText .. "[NEWLINE]";
-		strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_STRENGTH", iStrength);
+		strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_STRENGTH", iStrength);
 	end
 	
 	-- Resource Requirements
@@ -185,10 +185,10 @@ GetHelpTextForUnit = GetHelpTextForUnit or function(iUnitID, bIncludeRequirement
 			-- First resource required
 			if (iNumResourcesNeededSoFar == 0) then
 				strHelpText = strHelpText .. "[NEWLINE]";
-				strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_RESOURCES_REQUIRED");
-				strHelpText = strHelpText .. " " .. iNumResourceNeeded .. " " .. pResource.IconString .. " " .. Locale.ConvertTextKey(pResource.Description);
+				strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_RESOURCES_REQUIRED");
+				strHelpText = strHelpText .. " " .. iNumResourceNeeded .. " " .. pResource.IconString .. " " .. L(pResource.Description);
 			else
-				strHelpText = strHelpText .. ", " .. iNumResourceNeeded .. " " .. pResource.IconString .. " " .. Locale.ConvertTextKey(pResource.Description);
+				strHelpText = strHelpText .. ", " .. iNumResourceNeeded .. " " .. pResource.IconString .. " " .. L(pResource.Description);
 			end
 			
 			-- JON: Not using this for now, the formatting is better when everything is on the same line
@@ -201,7 +201,7 @@ GetHelpTextForUnit = GetHelpTextForUnit or function(iUnitID, bIncludeRequirement
 		print("Invalid unit help");
 		print(strHelpText);
 	else
-		local strWrittenHelpText = Locale.ConvertTextKey( pUnitInfo.Help );
+		local strWrittenHelpText = L( pUnitInfo.Help );
 		if (strWrittenHelpText ~= nil and strWrittenHelpText ~= "") then
 			-- Separator
 			strHelpText = strHelpText .. "[NEWLINE]----------------[NEWLINE]";
@@ -213,7 +213,7 @@ GetHelpTextForUnit = GetHelpTextForUnit or function(iUnitID, bIncludeRequirement
 	-- Requirements?
 	if (bIncludeRequirementsInfo) then
 		if (pUnitInfo.Requirements) then
-			strHelpText = strHelpText .. Locale.ConvertTextKey( pUnitInfo.Requirements );
+			strHelpText = strHelpText .. L( pUnitInfo.Requirements );
 		end
 	end
 	
@@ -236,20 +236,20 @@ GetHelpTextForBuilding = GetHelpTextForBuilding or function(iBuildingID, bExclud
 		
 		if (not bExcludeName) then
 			-- Name
-			strHelpText = strHelpText .. Locale.ToUpper(Locale.ConvertTextKey( pBuildingInfo.Description ));
+			strHelpText = strHelpText .. Locale.ToUpper(L( pBuildingInfo.Description ));
 			strHelpText = strHelpText .. "[NEWLINE]----------------[NEWLINE]";
 		end
 		
 		-- Cost
 		local iCost = pActivePlayer:GetBuildingProductionNeeded(iBuildingID);
-		strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_COST", iCost);
+		strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_COST", iCost);
 		
 		-- Maintenance
 		if (not bNoMaintenance) then
 			local iMaintenance = pBuildingInfo.GoldMaintenance;
 			if (iMaintenance ~= nil and iMaintenance ~= 0) then
 				strHelpText = strHelpText .. "[NEWLINE]";
-				strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_BUILDING_MAINTENANCE", iMaintenance);
+				strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_BUILDING_MAINTENANCE", iMaintenance);
 			end
 		end
 		
@@ -268,7 +268,7 @@ GetHelpTextForBuilding = GetHelpTextForBuilding or function(iBuildingID, bExclud
 	iHappinessTotal = iHappinessTotal + pActivePlayer:GetExtraBuildingHappinessFromPolicies(iBuildingID);
 	if (iHappinessTotal ~= 0) then
 		strHelpText = strHelpText .. "[NEWLINE]";
-		strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_BUILDING_HAPPINESS", iHappinessTotal);
+		strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_BUILDING_HAPPINESS", iHappinessTotal);
 	end
 	
 	-- Culture
@@ -280,21 +280,21 @@ GetHelpTextForBuilding = GetHelpTextForBuilding or function(iBuildingID, bExclud
 	end
 	if (iCulture ~= nil and iCulture ~= 0) then
 		strHelpText = strHelpText .. "[NEWLINE]";
-		strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_BUILDING_CULTURE", iCulture);
+		strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_BUILDING_CULTURE", iCulture);
 	end
 	
 	-- Defense
 	local iDefense = pBuildingInfo.Defense;
 	if (iDefense ~= nil and iDefense ~= 0) then
 		strHelpText = strHelpText .. "[NEWLINE]";
-		strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_BUILDING_DEFENSE", iDefense / 100);
+		strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_BUILDING_DEFENSE", iDefense / 100);
 	end
 	
 	-- Food
 	local iFood = Game.GetBuildingYieldChange(iBuildingID, YieldTypes.YIELD_FOOD);
 	if (iFood ~= nil and iFood ~= 0) then
 		strHelpText = strHelpText .. "[NEWLINE]";
-		strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_BUILDING_FOOD", iFood);
+		strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_BUILDING_FOOD", iFood);
 	end
 	
 	-- Gold Mod
@@ -303,14 +303,14 @@ GetHelpTextForBuilding = GetHelpTextForBuilding or function(iBuildingID, bExclud
 	
 	if (iGold ~= nil and iGold ~= 0) then
 		strHelpText = strHelpText .. "[NEWLINE]";
-		strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_BUILDING_GOLD", iGold);
+		strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_BUILDING_GOLD", iGold);
 	end
 	
 	-- Gold Change
 	iGold = Game.GetBuildingYieldChange(iBuildingID, YieldTypes.YIELD_GOLD);
 	if (iGold ~= nil and iGold ~= 0) then
 		strHelpText = strHelpText .. "[NEWLINE]";
-		strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_BUILDING_GOLD_CHANGE", iGold);
+		strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_BUILDING_GOLD_CHANGE", iGold);
 	end
 	
 	
@@ -320,14 +320,14 @@ GetHelpTextForBuilding = GetHelpTextForBuilding or function(iBuildingID, bExclud
 	iScience = iScience + pActivePlayer:GetPolicyBuildingClassYieldModifier(buildingClassID, YieldTypes.YIELD_SCIENCE);
 	if (iScience ~= nil and iScience ~= 0) then
 		strHelpText = strHelpText .. "[NEWLINE]";
-		strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_BUILDING_SCIENCE", iScience);
+		strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_BUILDING_SCIENCE", iScience);
 	end
 	
 	-- Science
 	local iScienceChange = Game.GetBuildingYieldChange(iBuildingID, YieldTypes.YIELD_SCIENCE);
 	if (iScienceChange ~= nil and iScienceChange ~= 0) then
 		strHelpText = strHelpText .. "[NEWLINE]";
-		strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_BUILDING_SCIENCE_CHANGE", iScienceChange);
+		strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_BUILDING_SCIENCE_CHANGE", iScienceChange);
 	end
 	
 	-- Production
@@ -335,14 +335,14 @@ GetHelpTextForBuilding = GetHelpTextForBuilding or function(iBuildingID, bExclud
 	iProduction = iProduction + pActivePlayer:GetPolicyBuildingClassYieldModifier(buildingClassID, YieldTypes.YIELD_PRODUCTION);
 	if (iProduction ~= nil and iProduction ~= 0) then
 		strHelpText = strHelpText .. "[NEWLINE]";
-		strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_BUILDING_PRODUCTION", iProduction);
+		strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_BUILDING_PRODUCTION", iProduction);
 	end
 
 	-- Production Change
 	local iProd = Game.GetBuildingYieldChange(iBuildingID, YieldTypes.YIELD_PRODUCTION);
 	if (iProd ~= nil and iProd ~= 0) then
 		strHelpText = strHelpText .. "[NEWLINE]";
-		strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_BUILDING_PRODUCTION_CHANGE", iProd);
+		strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_BUILDING_PRODUCTION_CHANGE", iProd);
 	end
 	
 	-- Faith
@@ -350,7 +350,7 @@ GetHelpTextForBuilding = GetHelpTextForBuilding or function(iBuildingID, bExclud
 		local iFaith = Game.GetBuildingYieldChange(iBuildingID, YieldTypes.YIELD_FAITH); -- G&K
 		if (iFaith ~= nil and iFaith ~= 0) then
 			strHelpText = strHelpText .. "[NEWLINE]";
-			strHelpText = strHelpText .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_BUILDING_FAITH", iCulture);
+			strHelpText = strHelpText .. L("TXT_KEY_PRODUCTION_BUILDING_FAITH", iCulture);
 		end
 	end
 
@@ -360,7 +360,7 @@ GetHelpTextForBuilding = GetHelpTextForBuilding or function(iBuildingID, bExclud
 		local iNumPoints = pBuildingInfo.GreatPeopleRateChange;
 		if (iNumPoints > 0) then
 			strHelpText = strHelpText .. "[NEWLINE]";
-			strHelpText = strHelpText .. "[ICON_GREAT_PEOPLE] " .. Locale.ConvertTextKey(GameInfo.Specialists[specialistType].GreatPeopleTitle) .. " " .. iNumPoints;
+			strHelpText = strHelpText .. "[ICON_GREAT_PEOPLE] " .. L(GameInfo.Specialists[specialistType].GreatPeopleTitle) .. " " .. iNumPoints;
 		end
 		
 		if(pBuildingInfo.SpecialistCount > 0) then
@@ -368,7 +368,7 @@ GetHelpTextForBuilding = GetHelpTextForBuilding or function(iBuildingID, bExclud
 			
 			-- Append a key such as TXT_KEY_SPECIALIST_ARTIST_SLOTS
 			local specialistSlotsKey = GameInfo.Specialists[specialistType].Description .. "_SLOTS";
-			strHelpText = strHelpText .. "[ICON_GREAT_PEOPLE] " .. Locale.ConvertTextKey(specialistSlotsKey) .. " " .. pBuildingInfo.SpecialistCount;
+			strHelpText = strHelpText .. "[ICON_GREAT_PEOPLE] " .. L(specialistSlotsKey) .. " " .. pBuildingInfo.SpecialistCount;
 		end
 		
 		
@@ -376,7 +376,7 @@ GetHelpTextForBuilding = GetHelpTextForBuilding or function(iBuildingID, bExclud
 	
 	-- Pre-written Help text
 	if (pBuildingInfo.Help ~= nil) then
-		local strWrittenHelpText = Locale.ConvertTextKey( pBuildingInfo.Help );
+		local strWrittenHelpText = L( pBuildingInfo.Help );
 		if (strWrittenHelpText ~= nil and strWrittenHelpText ~= "") then
 			-- Separator
 			strHelpText = strHelpText .. "[NEWLINE]----------------[NEWLINE]";
@@ -394,14 +394,14 @@ GetFoodTooltip = GetFoodTooltip or function(pCity)
 	local strFoodToolTip = "";
 	
 	if (not OptionsManager.IsNoBasicHelp()) then
-		strFoodToolTip = strFoodToolTip .. Locale.ConvertTextKey("TXT_KEY_FOOD_HELP_INFO");
+		strFoodToolTip = strFoodToolTip .. L("TXT_KEY_FOOD_HELP_INFO");
 		strFoodToolTip = strFoodToolTip .. "[NEWLINE][NEWLINE]";
 	end
 	
 	local fFoodProgress = pCity:GetFoodTimes100() / 100;
 	local iFoodNeeded = pCity:GrowthThreshold();
 	
-	strFoodToolTip = strFoodToolTip .. Locale.ConvertTextKey("TXT_KEY_FOOD_PROGRESS", fFoodProgress, iFoodNeeded);
+	strFoodToolTip = strFoodToolTip .. L("TXT_KEY_FOOD_PROGRESS", fFoodProgress, iFoodNeeded);
 	
 	strFoodToolTip = strFoodToolTip .. "[NEWLINE][NEWLINE]";
 	strFoodToolTip = strFoodToolTip .. GetYieldTooltipHelper(pCity, iYieldType, "[ICON_FOOD]");
@@ -416,7 +416,7 @@ GetGoldTooltip = GetGoldTooltip or function(pCity)
 
 	local strGoldToolTip = "";
 	if (not OptionsManager.IsNoBasicHelp()) then
-		strGoldToolTip = strGoldToolTip .. Locale.ConvertTextKey("TXT_KEY_GOLD_HELP_INFO");
+		strGoldToolTip = strGoldToolTip .. L("TXT_KEY_GOLD_HELP_INFO");
 		strGoldToolTip = strGoldToolTip .. "[NEWLINE][NEWLINE]";
 	end
 	
@@ -431,13 +431,13 @@ GetScienceTooltip = GetScienceTooltip or function(pCity)
 	local strScienceToolTip = "";
 
 	if (Game.IsOption(GameOptionTypes.GAMEOPTION_NO_SCIENCE)) then
-		strScienceToolTip = Locale.ConvertTextKey("TXT_KEY_TOP_PANEL_SCIENCE_OFF_TOOLTIP");
+		strScienceToolTip = L("TXT_KEY_TOP_PANEL_SCIENCE_OFF_TOOLTIP");
 	else
 
 		local iYieldType = YieldTypes.YIELD_SCIENCE;
 	
 		if (not OptionsManager.IsNoBasicHelp()) then
-			strScienceToolTip = strScienceToolTip .. Locale.ConvertTextKey("TXT_KEY_SCIENCE_HELP_INFO");
+			strScienceToolTip = strScienceToolTip .. L("TXT_KEY_SCIENCE_HELP_INFO");
 			strScienceToolTip = strScienceToolTip .. "[NEWLINE][NEWLINE]";
 		end
 	
@@ -459,11 +459,11 @@ GetProductionTooltip = GetProductionTooltip or function(pCity)
 	-- Basic explanation of production
 	local strProductionHelp = "";
 	if (not OptionsManager.IsNoBasicHelp()) then
-		strProductionHelp = strProductionHelp .. Locale.ConvertTextKey("TXT_KEY_PRODUCTION_HELP_INFO");
+		strProductionHelp = strProductionHelp .. L("TXT_KEY_PRODUCTION_HELP_INFO");
 		strProductionHelp = strProductionHelp .. "[NEWLINE][NEWLINE]";
-		--Controls.ProductionButton:SetToolTipString(Locale.ConvertTextKey("TXT_KEY_CITYVIEW_CHANGE_PROD_TT"));
+		--Controls.ProductionButton:SetToolTipString(L("TXT_KEY_CITYVIEW_CHANGE_PROD_TT"));
 	else
-		--Controls.ProductionButton:SetToolTipString(Locale.ConvertTextKey("TXT_KEY_CITYVIEW_CHANGE_PROD"));
+		--Controls.ProductionButton:SetToolTipString(L("TXT_KEY_CITYVIEW_CHANGE_PROD"));
 	end
 	
 	return strProductionHelp .. strProductionBreakdown;
@@ -475,7 +475,7 @@ GetCultureTooltip = GetCultureTooltip or function(pCity)
 	local strCultureToolTip = "";
 	
 	if (not OptionsManager.IsNoBasicHelp()) then
-		strCultureToolTip = strCultureToolTip .. Locale.ConvertTextKey("TXT_KEY_CULTURE_HELP_INFO");
+		strCultureToolTip = strCultureToolTip .. L("TXT_KEY_CULTURE_HELP_INFO");
 		strCultureToolTip = strCultureToolTip .. "[NEWLINE][NEWLINE]";
 	end
 	
@@ -492,7 +492,7 @@ GetCultureTooltip = GetCultureTooltip or function(pCity)
 			strCultureToolTip = strCultureToolTip .. "[NEWLINE]";
 		end
 		
-		strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_CULTURE_FROM_BUILDINGS", iCultureFromBuildings);
+		strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. L("TXT_KEY_CULTURE_FROM_BUILDINGS", iCultureFromBuildings);
 	end
 	
 	-- Culture from Policies
@@ -506,7 +506,7 @@ GetCultureTooltip = GetCultureTooltip or function(pCity)
 			strCultureToolTip = strCultureToolTip .. "[NEWLINE]";
 		end
 		
-		strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_CULTURE_FROM_POLICIES", iCultureFromPolicies);
+		strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. L("TXT_KEY_CULTURE_FROM_POLICIES", iCultureFromPolicies);
 	end
 	
 	-- Culture from Specialists
@@ -520,7 +520,7 @@ GetCultureTooltip = GetCultureTooltip or function(pCity)
 			strCultureToolTip = strCultureToolTip .. "[NEWLINE]";
 		end
 		
-		strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_CULTURE_FROM_SPECIALISTS", iCultureFromSpecialists);
+		strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. L("TXT_KEY_CULTURE_FROM_SPECIALISTS", iCultureFromSpecialists);
 	end
 	
 	-- Culture from Terrain
@@ -539,7 +539,7 @@ GetCultureTooltip = GetCultureTooltip or function(pCity)
 			strCultureToolTip = strCultureToolTip .. "[NEWLINE]";
 		end
 		
-		strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_CULTURE_FROM_TERRAIN", iCultureFromTerrain);
+		strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. L("TXT_KEY_CULTURE_FROM_TERRAIN", iCultureFromTerrain);
 	end
 
 	-- Culture from Traits
@@ -553,21 +553,21 @@ GetCultureTooltip = GetCultureTooltip or function(pCity)
 			strCultureToolTip = strCultureToolTip .. "[NEWLINE]";
 		end
 		
-		strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_CULTURE_FROM_TRAITS", iCultureFromTraits);
+		strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. L("TXT_KEY_CULTURE_FROM_TRAITS", iCultureFromTraits);
 	end
 	
 	-- Empire Culture modifier
 	local iAmount = Players[pCity:GetOwner()]:GetCultureCityModifier();
 	if (iAmount ~= 0) then
 		strCultureToolTip = strCultureToolTip .. "[NEWLINE][NEWLINE]";
-		strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_CULTURE_PLAYER_MOD", iAmount);
+		strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. L("TXT_KEY_CULTURE_PLAYER_MOD", iAmount);
 	end
 	
 	-- City Culture modifier
 	local iAmount = pCity:GetCultureRateModifier();
 	if (iAmount ~= 0) then
 		strCultureToolTip = strCultureToolTip .. "[NEWLINE][NEWLINE]";
-		strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_CULTURE_CITY_MOD", iAmount);
+		strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. L("TXT_KEY_CULTURE_CITY_MOD", iAmount);
 	end
 	
 	-- Culture Wonders modifier
@@ -576,7 +576,7 @@ GetCultureTooltip = GetCultureTooltip or function(pCity)
 		
 		if (iAmount ~= 0) then
 			strCultureToolTip = strCultureToolTip .. "[NEWLINE][NEWLINE]";
-			strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. Locale.ConvertTextKey("TXT_KEY_CULTURE_WONDER_BONUS", iAmount);
+			strCultureToolTip = strCultureToolTip .. "[ICON_BULLET]" .. L("TXT_KEY_CULTURE_WONDER_BONUS", iAmount);
 		end
 	end
 	
@@ -586,12 +586,12 @@ GetCultureTooltip = GetCultureTooltip or function(pCity)
 	local iCultureNeeded = pCity:GetJONSCultureThreshold();
 
 	strCultureToolTip = strCultureToolTip .. "[NEWLINE][NEWLINE]";
-	strCultureToolTip = strCultureToolTip .. Locale.ConvertTextKey("TXT_KEY_CULTURE_INFO", iCultureStored, iCultureNeeded);
+	strCultureToolTip = strCultureToolTip .. L("TXT_KEY_CULTURE_INFO", iCultureStored, iCultureNeeded);
 	
 	if iCulturePerTurn > 0 then
 		local iCultureDiff = iCultureNeeded - iCultureStored;
 		local iCultureTurns = math.ceil(iCultureDiff / iCulturePerTurn);
-		strCultureToolTip = strCultureToolTip .. " " .. Locale.ConvertTextKey("TXT_KEY_CULTURE_TURNS", iCultureTurns);
+		strCultureToolTip = strCultureToolTip .. " " .. L("TXT_KEY_CULTURE_TURNS", iCultureTurns);
 	end
 	
 	return strCultureToolTip;
@@ -600,25 +600,25 @@ end
 -------------------------------------------------------------------------------------------------
 GetIGEHelpTextForUnit = function(row, activePlayer)
 	local help = "";
-	help = help..Locale.ConvertTextKey("TXT_KEY_PRODUCTION_COST", activePlayer:GetUnitProductionNeeded(row.ID));
-	help = help.."[NEWLINE]"..Locale.ConvertTextKey("TXT_KEY_PRODUCTION_MOVEMENT", row.Moves);
+	help = help..L("TXT_KEY_PRODUCTION_COST", activePlayer:GetUnitProductionNeeded(row.ID));
+	help = help.."[NEWLINE]"..L("TXT_KEY_PRODUCTION_MOVEMENT", row.Moves);
 	if (row.Range ~= 0) then
-		help = help.."[NEWLINE]"..Locale.ConvertTextKey("TXT_KEY_PRODUCTION_RANGE", row.Range);
+		help = help.."[NEWLINE]"..L("TXT_KEY_PRODUCTION_RANGE", row.Range);
 	end
 	if (row.RangedCombat ~= 0) then
-		help = help.."[NEWLINE]"..Locale.ConvertTextKey("TXT_KEY_PRODUCTION_RANGED_STRENGTH", row.RangedCombat);
+		help = help.."[NEWLINE]"..L("TXT_KEY_PRODUCTION_RANGED_STRENGTH", row.RangedCombat);
 	end
 	if (row.Combat ~= 0) then
-		help = help.."[NEWLINE]"..Locale.ConvertTextKey("TXT_KEY_PRODUCTION_STRENGTH", row.Combat);
+		help = help.."[NEWLINE]"..L("TXT_KEY_PRODUCTION_STRENGTH", row.Combat);
 	end
 	if row.Help then
-		local subHelp = Locale.ConvertTextKey(row.Help);
+		local subHelp = L(row.Help);
 		if (strWrittenHelpText ~= nil and strWrittenHelpText ~= "") then
 			help = help.."[NEWLINE]"..subHelp;
 		end
 	end
 	if (row.Requirements) then
-		help = help.."[NEWLINE]"..Locale.ConvertTextKey(row.Requirements);
+		help = help.."[NEWLINE]"..L(row.Requirements);
 	end
 	return help
 end
@@ -628,7 +628,7 @@ GetIGEHelpTextForTech = function(tech)
 	local help = "";
 
 	if #tech.prereqs > 0 then
-		help = Locale.ConvertTextKey("TXT_KEY_IGE_TECH_PREREQ").." "..implode(tech.prereqs, "name", ", ");
+		help = L("TXT_KEY_IGE_TECH_PREREQ").." "..implode(tech.prereqs, "name", ", ");
 	end
 
 	if #tech.buildings > 0 then

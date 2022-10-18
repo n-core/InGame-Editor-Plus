@@ -590,6 +590,48 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_COAST_OR_LAKE_HELP">
 			<Text>Creerà un lago o una costa.[NEWLINE]I laghi sono aree di acqua di grandezza minore a nove esagoni</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_PLOT_NAME">
+			<Text>Esagono</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_GLOBAL_NAME">
+			<Text>Globale</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_SEA_NAME">
+			<Text>Mare</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_NO_FRESH_WATER_NAME">
+			<Text>Niente acqua dolce</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_UNIMPROVED_NAME">
+			<Text>Se non migliorato</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_ADJACENT_TO_NAME">
+			<Text>Adiacente alla</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_TO_ADJACENT_NAME">
+			<Text>All'adiacente</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_EACH_ERA_NAME">
+			<Text>ogni Era</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_ON">
+			<Text>su</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_TO">
+			<Text>a</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_FROM">
+			<Text>da</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_WITH">
+			<Text>con</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_ADJACENT_TO">
+			<Text>se adiacente alla</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_TO_ADJACENT">
+			<Text>all'adiacente</Text>
 		</Row>		
 		<Row Tag="TXT_KEY_IGE_AFRICA">
 			<Text>Africa</Text>
@@ -663,7 +705,7 @@
 
 		<!--IGE_API_Misc.lua -->
 		<Row Tag="TXT_KEY_IGE_YIELD_CHANGE_TEMPLATE">
-			<Text>{1_Amount} con {2_Cause}</Text>
+			<Text>{1_Preposition} {2_Cause}</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_NO_YIELD_CHANGE_TEMPLATE">
 			<Text>Nessun bonus da {1_Cause}</Text>

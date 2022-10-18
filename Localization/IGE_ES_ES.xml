@@ -169,7 +169,7 @@
 			<Text>Cantidad de recursos estratégicos.</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_CITY_ON_PLOT">
-			<Text>[COLOR_NEGATIVE_TEXT]¡Hay una ciudad en esta casilla![ENDCOLOR]</Text>
+			<Text>[COLOR_NEGATIVE_TEXT]¡Hay una ciudad en esta hexágono![ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_CANNOT_PLACE_FEATURE">
 			<Text>[COLOR_NEGATIVE_TEXT]¡No se pueden colocar accidentes![ENDCOLOR]</Text>
@@ -223,10 +223,10 @@
 		
 		<!--IGE_CitiesPanel.xml-->
 		<Row Tag="TXT_KEY_IGE_NO_UNIT_ON_PLOT">
-			<Text>[COLOR_POSITIVE_TEXT]No hay una unidad en esta casilla[ENDCOLOR]</Text>
+			<Text>[COLOR_POSITIVE_TEXT]No hay una unidad en esta hexágono[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_NO_CITY_ON_PLOT">
-			<Text>[COLOR_POSITIVE_TEXT]No hay una ciudad en esta casilla[ENDCOLOR]</Text>
+			<Text>[COLOR_POSITIVE_TEXT]No hay una ciudad en esta hexágono[ENDCOLOR]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_DISBAND_UNIT_BUTTON">
 			<Text>Suprimir</Text>
@@ -591,6 +591,48 @@
 		<Row Tag="TXT_KEY_IGE_COAST_OR_LAKE_HELP">
 			<Text>Creara una costa o un lago según corresponda.[NEWLINE]Los lagos son áreas de agua de menos de nueve hexágonos.</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_PLOT_NAME">
+			<Text>Hexágono</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_GLOBAL_NAME">
+			<Text>Global</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_SEA_NAME">
+			<Text>Mar</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_NO_FRESH_WATER_NAME">
+			<Text>Sin Agua dulce</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_UNIMPROVED_NAME">
+			<Text>Si no mejora</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_ADJACENT_TO_NAME">
+			<Text>Adyacente a la</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_TO_ADJACENT_NAME">
+			<Text>Al adyacente</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_EACH_ERA_NAME">
+			<Text>cada Era</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_ON">
+			<Text>en</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_TO">
+			<Text>para</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_FROM">
+			<Text>de</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_WITH">
+			<Text>con</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_ADJACENT_TO">
+			<Text>si es adyacente a</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_TO_ADJACENT">
+			<Text>al adyacente</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_AFRICA">
 			<Text>África</Text>
 		</Row>
@@ -663,7 +705,7 @@
 
 		<!--IGE_API_Misc.lua -->
 		<Row Tag="TXT_KEY_IGE_YIELD_CHANGE_TEMPLATE">
-			<Text>{1_Amount} con {2_Cause}</Text>
+			<Text>{1_Preposition} {2_Cause}</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_NO_YIELD_CHANGE_TEMPLATE">
 			<Text>Sin bonificación de {1_Cause}</Text>

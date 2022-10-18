@@ -591,6 +591,48 @@
 		<Row Tag="TXT_KEY_IGE_COAST_OR_LAKE_HELP">
 			<Text>近海や湖を作ります。[NEWLINE]9マスより小さな水域が湖になります。</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_PLOT_NAME">
+			<Text>地区</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_GLOBAL_NAME">
+			<Text>グローバル</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_SEA_NAME">
+			<Text>海</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_NO_FRESH_WATER_NAME">
+			<Text>淡水なし</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_UNIMPROVED_NAME">
+			<Text>改善されない場合</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_ADJACENT_TO_NAME">
+			<Text>に隣接</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_TO_ADJACENT_NAME">
+			<Text>隣接する</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_EACH_ERA_NAME">
+			<Text>各時代</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_ON">
+			<Text>の上</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_TO">
+			<Text>に</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_FROM">
+			<Text>から</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_WITH">
+			<Text>と</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_ADJACENT_TO">
+			<Text>に隣接している場合</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_CAUSE_TO_ADJACENT">
+			<Text>隣接する</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_AFRICA">
 			<Text>アフリカ</Text>
 		</Row>
@@ -663,7 +705,7 @@
 
 		<!--IGE_API_Misc.lua -->
 		<Row Tag="TXT_KEY_IGE_YIELD_CHANGE_TEMPLATE">
-			<Text>{1_Amount} ({2_Cause}が必要)[NEWLINE]</Text>
+			<Text>({2_Cause}{1_Preposition})[NEWLINE]</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_NO_YIELD_CHANGE_TEMPLATE">
 			<Text>{1_Cause}からのボーナスはありません。[NEWLINE]</Text>
