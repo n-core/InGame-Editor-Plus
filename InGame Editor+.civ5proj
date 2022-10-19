@@ -55,7 +55,7 @@
         <MaxVersion>999</MaxVersion>
       </Association>
     </ModReferences>
-    <Homepage>http://forums.civfanatics.com/showthread.php?p=10812084</Homepage>
+    <Homepage>https://forums.civfanatics.com/threads/ingame-editor-for-vp.679650/</Homepage>
     <ModContent>
       <Content xmlns="">
         <Type>InGameUIAddin</Type>
