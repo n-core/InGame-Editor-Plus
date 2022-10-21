@@ -461,7 +461,6 @@ function SetPlotTypesData(data)
 			end
 			v.subtitle = GetYieldString(v);
 
-		-- Yield changes
 		-- Yield changes from Buildings
 			for row in GameInfo.Building_PlotYieldChanges(v.condition) do
 				local building = GameInfo.Buildings[row.BuildingType]
@@ -544,7 +543,7 @@ function SetFeaturesData(data, options)
 		item.validTerrains = {};
 		item.yieldChanges = {};
 		item.yields = {};
-		
+
 		-- Texture
 		item.textureOffset, item.texture = IconLookup( row.PortraitIndex, largeSize, row.IconAtlas );	
 		item.smallTextureOffset, item.smallTexture = IconLookup( row.PortraitIndex, smallSize, row.IconAtlas );	
@@ -552,8 +551,14 @@ function SetFeaturesData(data, options)
 		-- Check if it's a natural wonder (for YieldChangesNaturalWonder)
 		local isNaturalWonder = false;
 		for row in GameInfo.Features(item.nwCondition) do
-			if row.NaturalWonder --[[or row.PseudoNaturalWonder == 1]] then -- I had to disable the thing because the tables isn't affecting PseudoNaturalWonder
-				isNaturalWonder = true;
+			if IGE_HasCommunityPatch then
+				if row.NaturalWonder --[[or row.PseudoNaturalWonder == 1]] then -- I had to disable the thing because the tables isn't affecting PseudoNaturalWonder
+					isNaturalWonder = true;
+				end
+			else
+				if row.NaturalWonder then
+					isNaturalWonder = true;
+				end
 			end
 		end
 
@@ -825,7 +830,9 @@ function SetResourcesData(data, options)
 		for row in GameInfo.Resources(item.resCondition) do
 			if	row.Type == "RESOURCE_IA_LAKE_FISH" or
 				row.Type == "RESOURCE_IA_SALT_LAKE" or
-				row.Type == "RESOURCE_TROPICAL_FISH" then maritime = true; end
+				row.Type == "RESOURCE_TROPICAL_FISH" then
+					maritime = true;
+			end
 		end
 
 		-- Valid features
@@ -1581,7 +1588,10 @@ function SetUnitsData(data)
 
 		-- Hide Space Ship units if Science Victory is disabled
 		if Game.IsOption(GameOptionTypes.GAMEOPTION_NO_SCIENCE) then
-			if item.combatClass == "UNITCOMBAT_SPACESHIP_PART" then valid = false end 
+			
+			for row in GameInfo.Units("CombatClass = 'UNITCOMBAT_SPACESHIP_PART'") do
+				if item.type == row.Type then valid = false end
+			end
 		end
 
 		--Diplomacy units
@@ -1755,24 +1765,24 @@ function SetBuildingsData(data)
 			if tech then
 				item.prereq = tech;
 				item.era = tech.era;
-				if (IGE_HasCommunityPatch) and (item.dummybuildings) then
-					table.insert(tech.dummybuildings, item);
-				elseif item.isNationalWonder then
+				if item.isNationalWonder then
 					table.insert(tech.nationalwonders, item);
-				elseif (IGE_HasGodsAndKings) and (item.beliefbuildings) then
-					table.insert(tech.beliefbuildings, item);
 				elseif (IGE_HasVoxPopuli) and (item.isPotalaPalace) then
 					table.insert(tech.wonders, item);
 				elseif item.isWonder then
 					table.insert(tech.wonders, item);
+				elseif (IGE_HasBraveNewWorld) and (item.isProjectWonder) then
+					table.insert(tech.projectwonders, item);
+				elseif (IGE_HasGodsAndKings) and (item.beliefbuildings) then
+					table.insert(tech.beliefbuildings, item);
+				elseif (IGE_HasCommunityPatch) and (item.dummybuildings) then
+					table.insert(tech.dummybuildings, item);
 				elseif (IGE_HasVoxPopuli) and (item.isCorpHQ) then
 					table.insert(tech.corphqs, item);
 				elseif (IGE_HasVoxPopuli) and (item.corpoffices) then
 					table.insert(tech.corpoffices, item);
 				elseif (IGE_HasVoxPopuli) and (item.corpfranchises) then
 					table.insert(tech.corpfranchises, item);
-				elseif (IGE_HasBraveNewWorld) and (item.isProjectWonder) then
-					table.insert(tech.projectwonders, item);
 				elseif item.isFree then
 					table.insert(tech.freebuildings, item);
 				else
@@ -1788,21 +1798,24 @@ function SetBuildingsData(data)
 
 		-- Insert
 		if valid then
-			if (IGE_HasCommunityPatch) and (item.dummybuildings) then
-				table.insert(data.dummybuildings, item);
-				table.insert(item.era.dummybuildings, item);
-			elseif item.isNationalWonder then
+			if item.isNationalWonder then
 				table.insert(data.nationalwonders, item);
 				table.insert(item.era.nationalwonders, item);
-			elseif (IGE_HasGodsAndKings) and (item.beliefbuildings) then
-				table.insert(data.beliefbuildings, item);
-				table.insert(item.era.beliefbuildings, item);
 			elseif (IGE_HasVoxPopuli) and (item.isPotalaPalace) then
 				table.insert(data.wonders, item);
 				table.insert(item.era.wonders, item);
 			elseif item.isWonder then
 				table.insert(data.wonders, item);
 				table.insert(item.era.wonders, item);
+			elseif (IGE_HasBraveNewWorld) and (item.isProjectWonder) then
+				table.insert(data.projectwonders, item);
+				table.insert(item.era.projectwonders, item);
+			elseif (IGE_HasGodsAndKings) and (item.beliefbuildings) then
+				table.insert(data.beliefbuildings, item);
+				table.insert(item.era.beliefbuildings, item);
+			elseif (IGE_HasCommunityPatch) and (item.dummybuildings) then
+				table.insert(data.dummybuildings, item);
+				table.insert(item.era.dummybuildings, item);
 			elseif (IGE_HasVoxPopuli) and (item.corpoffices) then
 				table.insert(data.corpoffices, item);
 				table.insert(item.era.corpoffices, item);
@@ -1812,9 +1825,6 @@ function SetBuildingsData(data)
 			elseif (IGE_HasVoxPopuli) and (item.isCorpHQ) then
 				table.insert(data.corphqs, item);
 				table.insert(item.era.corphqs, item);
-			elseif (IGE_HasBraveNewWorld) and (item.isProjectWonder) then
-				table.insert(data.projectwonders, item);
-				table.insert(item.era.projectwonders, item);
 			elseif item.isFree then
 				table.insert(data.freebuildings, item);
 				table.insert(item.era.freebuildings, item);
