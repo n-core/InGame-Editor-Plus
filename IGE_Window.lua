@@ -11,6 +11,27 @@ local mouseHandlers = {};
 local mouseMode = 0;
 --local busy = false;
 
+-- Set non-EUI IGE button position here
+local mainButtonAnchorXY = "R,T";					-- X: L(eft), R(ight), C(enter)	|| Y: T(op), B(ottom), C(enter)
+local mainButtonOffsetX = 340;						-- X location
+local mainButtonOffsetY = 6;						-- Y location
+
+-- Set non-EUI IGE options panel position here
+local optionPanelAnchorXY = "R,T";					-- X: L(eft), R(ight), C(enter)	|| Y: T(op), B(ottom), C(enter)
+local optionPanelOffsetX = mainButtonOffsetX - 85;	-- X location
+local optionPanelOffsetY = mainButtonOffsetY + 10;	-- Y location
+
+if IGE_EUI then
+	-- Set EUI IGE button position here
+	mainButtonAnchorXY = "L,T";						-- X: L(eft), R(ight), C(enter)	|| Y: T(op), B(ottom), C(enter)
+	mainButtonOffsetX = 5;							-- X location
+	mainButtonOffsetY = 0;							-- Y location
+
+	-- Set EUI IGE options panel position here
+	optionPanelAnchorXY = "L,T";					-- X: L(eft), R(ight), C(enter)	|| Y: T(op), B(ottom), C(enter)
+	optionPanelOffsetX = mainButtonOffsetX + 360;	-- X location
+	optionPanelOffsetY = mainButtonOffsetY + 16;	-- Y location
+end
 
 --===============================================================================================
 -- INIT-SHOW-HIDE
@@ -70,7 +91,15 @@ end
 
 -------------------------------------------------------------------------------------------------
 local function OnLoadScreenClosed()
-    Controls.MainButton:ChangeParent(ContextPtr:LookUpControl("/InGame/TopPanel/TopPanelInfoStack"))
+	if IGE_EUI then
+		Controls.MainButton:ChangeParent(ContextPtr:LookUpControl("/InGame/TopPanel/TopPanelInfoStack"));
+	end
+	Controls.MainButton:SetAnchor(mainButtonAnchorXY);
+	Controls.MainButton:SetOffsetVal(mainButtonOffsetX, mainButtonOffsetY);
+	Controls.MainButton:ReprocessAnchoring();
+	Controls.OptionsPanel:SetAnchor(optionPanelAnchorXY);
+	Controls.OptionsPanel:SetOffsetVal(optionPanelOffsetX, optionPanelOffsetY);
+	Controls.OptionsPanel:ReprocessAnchoring();
 end 
 Events.LoadScreenClose.Add(OnLoadScreenClosed)
 
@@ -156,7 +185,15 @@ local function Open()
 		SetBusy(false);
 		print("SetBusy - done");
 		LuaEvents.IGE_Update();
-		Controls.MainButton:ChangeParent(ContextPtr:LookUpControl("TopPanel/TopPanelInfoStack"))
+		if IGE_EUI then
+			Controls.MainButton:ChangeParent(ContextPtr:LookUpControl("TopPanel/TopPanelInfoStack"));
+		end
+		Controls.MainButton:SetAnchor(mainButtonAnchorXY);
+		Controls.MainButton:SetOffsetVal(mainButtonOffsetX, mainButtonOffsetY);
+		Controls.MainButton:ReprocessAnchoring();
+		Controls.OptionsPanel:SetAnchor(optionPanelAnchorXY);
+		Controls.OptionsPanel:SetOffsetVal(optionPanelOffsetX, optionPanelOffsetY);
+		Controls.OptionsPanel:ReprocessAnchoring();
 	end
 end
 
@@ -190,8 +227,15 @@ local function Close(keepBulkUIHidden, takingSeat)
 		Map.RecalculateAreas();
 
 		SetBusy(false);
-		
-		Controls.MainButton:ChangeParent(ContextPtr:LookUpControl("/InGame/TopPanel/TopPanelInfoStack"))
+		if IGE_EUI then
+			Controls.MainButton:ChangeParent(ContextPtr:LookUpControl("/InGame/TopPanel/TopPanelInfoStack"));
+		end
+		Controls.MainButton:SetAnchor(mainButtonAnchorXY);
+		Controls.MainButton:SetOffsetVal(mainButtonOffsetX, mainButtonOffsetY);
+		Controls.MainButton:ReprocessAnchoring();
+		Controls.OptionsPanel:SetAnchor(optionPanelAnchorXY);
+		Controls.OptionsPanel:SetOffsetVal(optionPanelOffsetX, optionPanelOffsetY);
+		Controls.OptionsPanel:ReprocessAnchoring();
 	end
 end
 Controls.CloseButton:RegisterCallback(Mouse.eLClick, function() Close(false, false) end);

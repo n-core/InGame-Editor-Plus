@@ -21,6 +21,12 @@ else
 	IGE_HasBraveNewWorld = false;
 end
 
+--add check if you use Enhance User Interface
+IGE_EUI = false;
+for row in DB.Query("SELECT * FROM Language_en_US WHERE Tag = 'TXT_KEY_EUI_UNIT_FOUND'") do
+	IGE_EUI = true;
+end
+
 --add check for Community Patch or Pick 'n' Mix - Various Mod Components (both shares the same ModID)
 local communityPatchID = "d1b6328c-ff44-4b0d-aad7-c657f83610cd";
 if IsModActive(communityPatchID) then --Check if Community Patch or Pick 'n' Mix - Various Mod Components is enabled
