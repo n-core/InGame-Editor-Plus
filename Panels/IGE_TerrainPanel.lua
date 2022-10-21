@@ -410,10 +410,10 @@ local function UpdateCore(data)
 		Controls.ImprovementItems:SetHide(not isCity);
 		Controls.OwnershipList:SetHide(not isCity);
 	
-		Controls.ImprovementsStack:CalculateSize(currentCity);
-		Controls.ImprovementsStack:ReprocessAnchoring(currentCity);
-		Controls.FeaturesStack:CalculateSize(currentCity);
-		Controls.FeaturesStack:ReprocessAnchoring(currentCity);
+		Controls.ImprovementsStack:CalculateSize();
+		Controls.ImprovementsStack:ReprocessAnchoring();
+		Controls.FeaturesStack:CalculateSize();
+		Controls.FeaturesStack:ReprocessAnchoring();
 		
 		local improvementwidth = Controls.ImprovementItems:GetSizeX();
 		local improvementheight = Controls.ImprovementItems:GetSizeY();
