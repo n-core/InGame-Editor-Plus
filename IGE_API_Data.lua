@@ -1765,24 +1765,24 @@ function SetBuildingsData(data)
 			if tech then
 				item.prereq = tech;
 				item.era = tech.era;
-				if (IGE_HasCommunityPatch) and (item.dummybuildings) then
-					table.insert(tech.dummybuildings, item);
-				elseif item.isNationalWonder then
+				if item.isNationalWonder then
 					table.insert(tech.nationalwonders, item);
-				elseif (IGE_HasGodsAndKings) and (item.beliefbuildings) then
-					table.insert(tech.beliefbuildings, item);
 				elseif (IGE_HasVoxPopuli) and (item.isPotalaPalace) then
 					table.insert(tech.wonders, item);
 				elseif item.isWonder then
 					table.insert(tech.wonders, item);
+				elseif (IGE_HasBraveNewWorld) and (item.isProjectWonder) then
+					table.insert(tech.projectwonders, item);
+				elseif (IGE_HasGodsAndKings) and (item.beliefbuildings) then
+					table.insert(tech.beliefbuildings, item);
+				elseif (IGE_HasCommunityPatch) and (item.dummybuildings) then
+					table.insert(tech.dummybuildings, item);
 				elseif (IGE_HasVoxPopuli) and (item.isCorpHQ) then
 					table.insert(tech.corphqs, item);
 				elseif (IGE_HasVoxPopuli) and (item.corpoffices) then
 					table.insert(tech.corpoffices, item);
 				elseif (IGE_HasVoxPopuli) and (item.corpfranchises) then
 					table.insert(tech.corpfranchises, item);
-				elseif (IGE_HasBraveNewWorld) and (item.isProjectWonder) then
-					table.insert(tech.projectwonders, item);
 				elseif item.isFree then
 					table.insert(tech.freebuildings, item);
 				else
@@ -1798,21 +1798,24 @@ function SetBuildingsData(data)
 
 		-- Insert
 		if valid then
-			if (IGE_HasCommunityPatch) and (item.dummybuildings) then
-				table.insert(data.dummybuildings, item);
-				table.insert(item.era.dummybuildings, item);
-			elseif item.isNationalWonder then
+			if item.isNationalWonder then
 				table.insert(data.nationalwonders, item);
 				table.insert(item.era.nationalwonders, item);
-			elseif (IGE_HasGodsAndKings) and (item.beliefbuildings) then
-				table.insert(data.beliefbuildings, item);
-				table.insert(item.era.beliefbuildings, item);
 			elseif (IGE_HasVoxPopuli) and (item.isPotalaPalace) then
 				table.insert(data.wonders, item);
 				table.insert(item.era.wonders, item);
 			elseif item.isWonder then
 				table.insert(data.wonders, item);
 				table.insert(item.era.wonders, item);
+			elseif (IGE_HasBraveNewWorld) and (item.isProjectWonder) then
+				table.insert(data.projectwonders, item);
+				table.insert(item.era.projectwonders, item);
+			elseif (IGE_HasGodsAndKings) and (item.beliefbuildings) then
+				table.insert(data.beliefbuildings, item);
+				table.insert(item.era.beliefbuildings, item);
+			elseif (IGE_HasCommunityPatch) and (item.dummybuildings) then
+				table.insert(data.dummybuildings, item);
+				table.insert(item.era.dummybuildings, item);
 			elseif (IGE_HasVoxPopuli) and (item.corpoffices) then
 				table.insert(data.corpoffices, item);
 				table.insert(item.era.corpoffices, item);
@@ -1822,9 +1825,6 @@ function SetBuildingsData(data)
 			elseif (IGE_HasVoxPopuli) and (item.isCorpHQ) then
 				table.insert(data.corphqs, item);
 				table.insert(item.era.corphqs, item);
-			elseif (IGE_HasBraveNewWorld) and (item.isProjectWonder) then
-				table.insert(data.projectwonders, item);
-				table.insert(item.era.projectwonders, item);
 			elseif item.isFree then
 				table.insert(data.freebuildings, item);
 				table.insert(item.era.freebuildings, item);
