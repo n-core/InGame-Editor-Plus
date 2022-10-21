@@ -461,7 +461,6 @@ function SetPlotTypesData(data)
 			end
 			v.subtitle = GetYieldString(v);
 
-		-- Yield changes
 		-- Yield changes from Buildings
 			for row in GameInfo.Building_PlotYieldChanges(v.condition) do
 				local building = GameInfo.Buildings[row.BuildingType]
@@ -544,7 +543,7 @@ function SetFeaturesData(data, options)
 		item.validTerrains = {};
 		item.yieldChanges = {};
 		item.yields = {};
-		
+
 		-- Texture
 		item.textureOffset, item.texture = IconLookup( row.PortraitIndex, largeSize, row.IconAtlas );	
 		item.smallTextureOffset, item.smallTexture = IconLookup( row.PortraitIndex, smallSize, row.IconAtlas );	
@@ -552,8 +551,14 @@ function SetFeaturesData(data, options)
 		-- Check if it's a natural wonder (for YieldChangesNaturalWonder)
 		local isNaturalWonder = false;
 		for row in GameInfo.Features(item.nwCondition) do
-			if row.NaturalWonder --[[or row.PseudoNaturalWonder == 1]] then -- I had to disable the thing because the tables isn't affecting PseudoNaturalWonder
-				isNaturalWonder = true;
+			if IGE_HasCommunityPatch then
+				if row.NaturalWonder --[[or row.PseudoNaturalWonder == 1]] then -- I had to disable the thing because the tables isn't affecting PseudoNaturalWonder
+					isNaturalWonder = true;
+				end
+			else
+				if row.NaturalWonder then
+					isNaturalWonder = true;
+				end
 			end
 		end
 
@@ -825,7 +830,9 @@ function SetResourcesData(data, options)
 		for row in GameInfo.Resources(item.resCondition) do
 			if	row.Type == "RESOURCE_IA_LAKE_FISH" or
 				row.Type == "RESOURCE_IA_SALT_LAKE" or
-				row.Type == "RESOURCE_TROPICAL_FISH" then maritime = true; end
+				row.Type == "RESOURCE_TROPICAL_FISH" then
+					maritime = true;
+			end
 		end
 
 		-- Valid features
@@ -1581,7 +1588,10 @@ function SetUnitsData(data)
 
 		-- Hide Space Ship units if Science Victory is disabled
 		if Game.IsOption(GameOptionTypes.GAMEOPTION_NO_SCIENCE) then
-			if item.combatClass == "UNITCOMBAT_SPACESHIP_PART" then valid = false end 
+			
+			for row in GameInfo.Units("CombatClass = 'UNITCOMBAT_SPACESHIP_PART'") do
+				if item.type == row.Type then valid = false end
+			end
 		end
 
 		--Diplomacy units
