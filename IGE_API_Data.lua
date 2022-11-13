@@ -550,13 +550,13 @@ function SetFeaturesData(data, options)
 
 		-- Check if it's a natural wonder (for YieldChangesNaturalWonder)
 		local isNaturalWonder = false;
-		for row in GameInfo.Features(item.nwCondition) do
+		for subRow in GameInfo.Features(item.nwCondition) do
 			if IGE_HasCommunityPatch then
-				if row.NaturalWonder --[[or row.PseudoNaturalWonder == 1]] then -- I had to disable the thing because the tables isn't affecting PseudoNaturalWonder
+				if subRow.NaturalWonder --[[or subRow.PseudoNaturalWonder == 1]] then -- I had to disable the thing because the tables isn't affecting PseudoNaturalWonder
 					isNaturalWonder = true;
 				end
 			else
-				if row.NaturalWonder then
+				if subRow.NaturalWonder then
 					isNaturalWonder = true;
 				end
 			end
@@ -1584,22 +1584,21 @@ function SetUnitsData(data)
 		end
 
 		-- Space Ship units
-		item.spaceunits = (row.CombatClass == "UNITCOMBAT_SPACESHIP_PART");
+		item.spaceunits = (row.DefaultUnitAI == "UNITAI_SPACESHIP_PART");
 
 		-- Hide Space Ship units if Science Victory is disabled
 		if Game.IsOption(GameOptionTypes.GAMEOPTION_NO_SCIENCE) then
-			
-			for row in GameInfo.Units("CombatClass = 'UNITCOMBAT_SPACESHIP_PART'") do
-				if item.type == row.Type then valid = false end
+			for subRow in GameInfo.Units("DefaultUnitAI = 'UNITAI_SPACESHIP_PART'") do
+				if subRow.Type then valid = false end
 			end
 		end
 
-		--Diplomacy units
+		-- Diplomacy units
 		item.diplomacy = ((row.DefaultUnitAI == "UNITAI_MESSENGER") or (row.DefaultUnitAI == "UNITAI_DIPLOMAT"));
 
+		-- Religious units
 		--new method, to support new religious units
 		if IGE_HasGodsAndKings then
-			-- Religious units
 			item.religious = (row.ReligiousStrength > 0);
 		end
 
