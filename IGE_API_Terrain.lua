@@ -435,7 +435,7 @@ function SetFeature(feature, plot)
 
 			elseif feature.type == "FEATURE_CRATER" then
 				plot:SetPlotType(PlotTypes.PLOT_MOUNTAIN);
-				if terrainType ~= TerrainTypes.TERRAIN_DESERT and terrainType ~= TerrainTypes.TERRAIN_TUNDRA then
+				if terrainType ~= TerrainTypes.TERRAIN_DESERT or terrainType ~= TerrainTypes.TERRAIN_TUNDRA or terrainType ~= TerrainTypes.TERRAIN_PLAINS then
 					plot:SetTerrainType(TerrainTypes.TERRAIN_DESERT);
 				end
 
@@ -450,7 +450,9 @@ function SetFeature(feature, plot)
 
 			elseif feature.type == "FEATURE_MESA" then
 				plot:SetPlotType(PlotTypes.PLOT_MOUNTAIN);
-				plot:SetTerrainType(TerrainTypes.TERRAIN_DESERT);
+				if terrainType ~= TerrainTypes.TERRAIN_DESERT or terrainType ~= TerrainTypes.TERRAIN_PLAINS then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_DESERT);
+				end
 
 			elseif feature.type == "FEATURE_REEF" then
 				if not isOcean then return end
@@ -466,7 +468,9 @@ function SetFeature(feature, plot)
 
 			elseif feature.type == "FEATURE_POTOSI" then
 				plot:SetPlotType(PlotTypes.PLOT_MOUNTAIN);
-				plot:SetTerrainType(TerrainTypes.TERRAIN_PLAINS);
+				if terrainType ~= TerrainTypes.TERRAIN_PLAINS or terrainType ~= TerrainTypes.TERRAIN_GRASS or terrainType ~= TerrainTypes.TERRAIN_DESERT  or terrainType ~= TerrainTypes.TERRAIN_TUNDRA then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_PLAINS);
+				end
 
 			elseif feature.type == "FEATURE_EL_DORADO" then
 				plot:SetPlotType(PlotTypes.PLOT_LAND);
@@ -478,6 +482,52 @@ function SetFeature(feature, plot)
 				plot:SetTerrainType(TerrainTypes.TERRAIN_PLAINS);
 			end
 			CheckConsistency(plot)
+		end
+		if IGE_HasGodsAndKings and feature.naturalWonder then
+			if feature.type == "FEATURE_SRI_PADA" then
+				plot:SetPlotType(PlotTypes.PLOT_MOUNTAIN);
+				if terrainType ~= TerrainTypes.TERRAIN_GRASS or terrainType ~= TerrainTypes.TERRAIN_PLAINS then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_GRASS);
+				end
+
+			elseif feature.type == "FEATURE_MT_SINAI" then
+				plot:SetPlotType(PlotTypes.PLOT_MOUNTAIN);
+				if terrainType ~= TerrainTypes.TERRAIN_DESERT or terrainType ~= TerrainTypes.TERRAIN_PLAINS then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_DESERT);
+				end
+
+			elseif feature.type == "FEATURE_MT_KAILASH" then
+				plot:SetPlotType(PlotTypes.PLOT_MOUNTAIN);
+				if terrainType ~= TerrainTypes.TERRAIN_GRASS or terrainType ~= TerrainTypes.TERRAIN_PLAINS or terrainType ~= TerrainTypes.TERRAIN_TUNDRA then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_TUNDRA);
+				end
+
+			elseif feature.type == "FEATURE_ULURU" then
+				plot:SetPlotType(PlotTypes.PLOT_MOUNTAIN);
+				if terrainType ~= TerrainTypes.TERRAIN_DESERT or terrainType ~= TerrainTypes.TERRAIN_PLAINS then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_DESERT);
+				end
+			end
+		end
+		if IGE_HasBraveNewWorld and feature.naturalWonder then
+			if feature.type == "FEATURE_LAKE_VICTORIA" then
+				plot:SetPlotType(PlotTypes.PLOT_LAND);
+				if terrainType ~= TerrainTypes.TERRAIN_DESERT or terrainType ~= TerrainTypes.TERRAIN_PLAINS then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_PLAINS);
+				end
+
+			elseif feature.type == "FEATURE_KILIMANJARO" then
+				plot:SetPlotType(PlotTypes.PLOT_MOUNTAIN);
+				if terrainType ~= TerrainTypes.TERRAIN_GRASS or terrainType ~= TerrainTypes.TERRAIN_PLAINS or terrainType ~= TerrainTypes.TERRAIN_TUNDRA then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_GRASS);
+				end
+
+			elseif feature.type == "FEATURE_SOLOMONS_MINES" then
+				plot:SetPlotType(PlotTypes.PLOT_LAND);
+				if terrainType ~= TerrainTypes.TERRAIN_DESERT or terrainType ~= TerrainTypes.TERRAIN_PLAINS then
+					plot:SetTerrainType(TerrainTypes.TERRAIN_DESERT);
+				end
+			end
 		end
 		if IGE_HasMoreWondersVP and feature.pseudonaturalWonder then
 			if feature.type == "FEATURE_NEW_REEF_A" then
@@ -522,7 +572,7 @@ function SetFeature(feature, plot)
 
 			elseif feature.type == "FEATURE_RETBA" then
 				plot:SetPlotType(PlotTypes.PLOT_LAND);
-				if terrainType ~= TerrainTypes.TERRAIN_DESERT and terrainType ~= TerrainTypes.TERRAIN_PLAINS and terrainType ~= TerrainTypes.TERRAIN_GRASS then
+				if terrainType ~= TerrainTypes.TERRAIN_PLAINS or terrainType ~= TerrainTypes.TERRAIN_DESERT or terrainType ~= TerrainTypes.TERRAIN_GRASS then
 					plot:SetTerrainType(TerrainTypes.TERRAIN_PLAINS);
 				end
 
