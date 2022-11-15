@@ -1584,14 +1584,16 @@ function SetUnitsData(data)
 		end
 
 		-- Space Ship units
-		item.spaceunits = (row.DefaultUnitAI == "UNITAI_SPACESHIP_PART");
+		item.spaceshipunits = (row.DefaultUnitAI == "UNITAI_SPACESHIP_PART");
 
-		-- Hide Space Ship units if Science Victory is disabled
-		if Game.IsOption(GameOptionTypes.GAMEOPTION_NO_SCIENCE) then
+		--[[ Hide Space Ship units if Science Victory is disabled
+		if (not PreGame.IsVictory(GameInfo.Victories["VICTORY_SPACE_RACE"].ID)) then
 			for subRow in GameInfo.Units("DefaultUnitAI = 'UNITAI_SPACESHIP_PART'") do
-				if subRow.Type then valid = false end
+				if subRow.Type then
+					valid = false;
+				end
 			end
-		end
+		end--]]
 
 		-- Diplomacy units
 		item.diplomacy = ((row.DefaultUnitAI == "UNITAI_MESSENGER") or (row.DefaultUnitAI == "UNITAI_DIPLOMAT"));
