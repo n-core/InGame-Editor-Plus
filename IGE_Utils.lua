@@ -21,15 +21,20 @@ else
 	IGE_HasBraveNewWorld = false;
 end
 
---add check if you use Enhance User Interface
-IGE_EUI = false;
-for row in DB.Query("SELECT * FROM Language_en_US WHERE Tag = 'TXT_KEY_EUI_UNIT_FOUND'") do
-	IGE_EUI = true;
+if (PreGame.IsVictory(GameInfo.Victories["VICTORY_SPACE_RACE"].ID)) then --Check if Science Victory is enabled
+	IGE_ScienceVictory = true;
+else
+	IGE_ScienceVictory = false;
 end
 
---add check for Community Patch or Pick 'n' Mix - Various Mod Components (both shares the same ModID)
+IGE_EUI = false;
+for row in DB.Query("SELECT * FROM Language_en_US WHERE Tag = 'TXT_KEY_EUI_UNIT_FOUND'") do
+	IGE_EUI = true; --Check if you use Enhance User Interface
+end
+
+--add check for Community Patch
 local communityPatchID = "d1b6328c-ff44-4b0d-aad7-c657f83610cd";
-if IsModActive(communityPatchID) then --Check if Community Patch or Pick 'n' Mix - Various Mod Components is enabled
+if IsModActive(communityPatchID) then --Check if Community Patch is enabled
 	IGE_HasCommunityPatch = true;
 else
 	IGE_HasCommunityPatch = false;

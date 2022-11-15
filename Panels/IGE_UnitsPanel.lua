@@ -4,6 +4,7 @@ include("IGE_API_All");
 print("IGE_UnitsPanel");
 IGE = nil;
 
+local hideSpaceShipsNoScienceVictory = true; -- Set this to false if you want spaceship units to show even if you choose No Science Victory
 
 local civilianUnits = {};
 local civilianUnitManager = nil;
@@ -20,6 +21,10 @@ local greatPeopleGroupInstance = nil;
 local diplomacyUnits = {};
 local diplomacyUnitManager = nil;
 local diplomacyGroupInstance = nil;
+
+local spaceShipUnits = {};
+local spaceShipUnitManager = nil;
+local spaceShipGroupInstance = nil;
 
 local groupInstances = {};
 local unitItemManagers = {};
@@ -98,7 +103,6 @@ function OnInitialize()
 			diplomacyUnitManager = CreateInstanceManager("ListItemInstance", "Button", diplomacyGroupInstance.List );
 			diplomacyGroupInstance.Header:SetText(L("TXT_KEY_IGE_DIPLOMACY_UNITS"));
 		end
-		
 	end
 
 	if IGE_HasGodsAndKings then
@@ -124,7 +128,26 @@ function OnInitialize()
 			end
 		end
 	end
-	groupInstances[last].Separator:SetHide(true);
+	-- Hide Spaceship units if Science Victory is disabled
+	if hideSpaceShipsNoScienceVictory then
+		if IGE_ScienceVictory then
+			spaceShipGroupInstance = eraItemManager:GetInstance();
+			if spaceShipGroupInstance then
+				spaceShipUnitManager = CreateInstanceManager("ListItemInstance", "Button", spaceShipGroupInstance.List );
+				spaceShipGroupInstance.Header:SetText(L("TXT_KEY_IGE_SPACE_SHIP_UNITS"));
+			end
+			spaceShipGroupInstance.Separator:SetHide(true);
+		else
+			groupInstances[last].Separator:SetHide(true);
+		end
+	else
+		spaceShipGroupInstance = eraItemManager:GetInstance();
+		if spaceShipGroupInstance then
+			spaceShipUnitManager = CreateInstanceManager("ListItemInstance", "Button", spaceShipGroupInstance.List );
+			spaceShipGroupInstance.Header:SetText(L("TXT_KEY_IGE_SPACE_SHIP_UNITS"));
+		end
+		spaceShipGroupInstance.Separator:SetHide(true);
+	end
 
 	-- Extract civilian & religious units
 	for _, era in ipairs(data.eras) do
@@ -169,6 +192,9 @@ function OnInitialize()
 				elseif civilianClasses[unit.class]and (not archaeologyClasses[unit.class]) then unit.priority = 100 
 				elseif archaeologyClasses[unit.class] then unit.priority = 90 
 				end
+			elseif unit.spaceshipunits then
+				table.remove(units0, i);
+				table.insert(spaceShipUnits, unit);
 			else
 				if unit.landunits then unit.priority = 80 
 				elseif unit.seaunits then unit.priority = 70 
@@ -376,8 +402,20 @@ function OnUpdate()
 		UpdateUnitList(diplomacyUnits, diplomacyUnitManager, diplomacyGroupInstance);
 	end
 
-	-- Units
+	-- Civilian units
 	UpdateUnitList(civilianUnits, civilianUnitManager, civilianGroupInstance);
+
+	-- Space Ship units
+	-- Hide Space Ship units if Science Victory is disabled
+	if hideSpaceShipsNoScienceVictory then
+		if IGE_ScienceVictory then
+			UpdateUnitList(spaceShipUnits, spaceShipUnitManager, spaceShipGroupInstance);
+		end
+	else
+		UpdateUnitList(spaceShipUnits, spaceShipUnitManager, spaceShipGroupInstance);
+	end
+
+	-- Units
 	for i, era in ipairs(data.eras) do
 		if #era.units > 0 then
 			UpdateUnitList(era.units, unitItemManagers[i], groupInstances[i]);

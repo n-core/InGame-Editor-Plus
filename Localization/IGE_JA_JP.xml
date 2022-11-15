@@ -555,6 +555,9 @@
 		<Row Tag="TXT_KEY_IGE_GREAT_PEOPLE_UNITS">
 			<Text>偉人ユニット</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_SPACE_SHIP_UNITS">
+			<Text>宇宙船ユニット</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_DIPLOMACY_UNITS">
 			<Text>外交ユニット</Text>
 		</Row>

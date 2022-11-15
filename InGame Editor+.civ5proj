@@ -5,7 +5,7 @@
     <ProjectGuid>{66eadccc-2daf-466b-b97f-59a8942741ce}</ProjectGuid>
     <Name>InGame Editor+</Name>
     <Guid>170c8ed1-b516-4fe2-b571-befeac39d220</Guid>
-    <ModVersion>44</ModVersion>
+    <ModVersion>45</ModVersion>
     <Stability>Stable</Stability>
     <Teaser>[COLOR_GREEN]Change terrain, units, cities, ...[ENDCOLOR]</Teaser>
     <Description>[ICON_CAPITAL] IGE [ICON_CAPITAL]
@@ -42,9 +42,16 @@
     <ModReferences>
       <Association>
         <Type>Mod</Type>
+        <Name>Community Patch</Name>
+        <Id>d1b6328c-ff44-4b0d-aad7-c657f83610cd</Id>
+        <MinVersion>110</MinVersion>
+        <MaxVersion>999</MaxVersion>
+      </Association>
+      <Association>
+        <Type>Mod</Type>
         <Name>Vox Populi</Name>
         <Id>8411a7a8-dad3-4622-a18e-fcc18324c799</Id>
-        <MinVersion>14</MinVersion>
+        <MinVersion>15</MinVersion>
         <MaxVersion>999</MaxVersion>
       </Association>
       <Association>

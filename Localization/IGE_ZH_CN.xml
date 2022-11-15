@@ -555,6 +555,9 @@
 		<Row Tag="TXT_KEY_IGE_GREAT_PEOPLE_UNITS">
 			<Text>伟人单位</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_SPACE_SHIP_UNITS">
+			<Text>飞船单位</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_DIPLOMACY_UNITS">
 			<Text>外交单位</Text>
 		</Row>

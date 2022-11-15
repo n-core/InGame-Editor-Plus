@@ -555,6 +555,9 @@
 		<Row Tag="TXT_KEY_IGE_GREAT_PEOPLE_UNITS">
 			<Text>Unités de personnes formidables</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_SPACE_SHIP_UNITS">
+			<Text>Unités de vaisseau spatial</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_DIPLOMACY_UNITS">
 			<Text>Unités diplomatiques</Text>
 		</Row>
