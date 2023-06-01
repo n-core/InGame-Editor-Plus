@@ -116,7 +116,7 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_DISABLE_STRATEGIC_VIEW_HELP">
 			<Text>Quando IGE è aperto, la mappa strategica viene rimpiazzata con una "clone" che reagisce a tutte le modifiche del terreno. Su alcuni computer questo potrebbe causare crash quando si effettua uno zoom troppo lontano</Text>
-		</Row>    
+		</Row>
 		<Row Tag="TXT_KEY_IGE_AUTO_SAVE_HELP">
 			<Text>Salva la partita come 'IGEn' ogni volta che IGE viene aperto.[NEWLINE][COLOR_POSITIVE_TEXT]Disabilita questa opzione per incrementare la velocità di caricamento di IGE[ENDCOLOR]</Text>
 		</Row>
@@ -128,7 +128,7 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_RELOAD_BUTTON_HELP">
 			<Text>Salva e ricarica partita (Ctrl + F5).[NEWLINE][COLOR_NEGATIVE_TEXT]Un bug di Civ5 potrebbe far congelare la partite o crashare il programma su alcuni computer quando si carica un salvataggio ed il gioco è in utilizzo. Alcuni Mod potrebbero causare questo problema ma potrebbe succedere anche senza altri Mod in uso.[ENDCOLOR]</Text>
-		</Row>		
+		</Row>
 		<Row Tag="TXT_KEY_IGE_SAVE_BUTTON_HELP">
 			<Text>Salvataggio veloce come 'IGEn' (F5)</Text>
 		</Row>
@@ -236,6 +236,15 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_HEAL_UNIT_BUTTON">
 			<Text>Guarisci</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_ADD_MOVE_UNIT_BUTTON">
+			<Text>+1[ICON_MOVES] Movimento</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RESTORE_MOVES_UNIT_BUTTON">
+			<Text>Ripristina i movimenti</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RESET_ATTACK_UNIT_BUTTON">
+			<Text>Ripristina attacco</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_CITY_POPULATION">
 			<Text>Popolazione cittadina</Text>
@@ -635,7 +644,7 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_CAUSE_TO_ADJACENT">
 			<Text>all'adiacente</Text>
-		</Row>		
+		</Row>
 		<Row Tag="TXT_KEY_IGE_AFRICA">
 			<Text>Africa</Text>
 		</Row>
@@ -704,7 +713,7 @@
 		<Row Tag="TXT_KEY_IGE_TECHS_COMPATIBILITY_NIGHTS">
 			<Text>Civilization Nights</Text>
 		</Row>
-		
+
 
 		<!--IGE_API_Misc.lua -->
 		<Row Tag="TXT_KEY_IGE_YIELD_CHANGE_TEMPLATE">

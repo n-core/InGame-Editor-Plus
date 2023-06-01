@@ -77,7 +77,7 @@ function GetYieldString(item)
 				suffix = suffix..improvedResource.resource.iconString.." ";
 			end
 
-			if str ~= "" then 
+			if str ~= "" then
 				str = str.."[NEWLINE]";
 			end
 			local yieldIcon = GetYieldIcon(yieldType)
@@ -143,6 +143,71 @@ end
 --===============================================================================================
 -- OTHERS
 --===============================================================================================
+function GetScaledXP(iExperience, iLevel)
+	local iMultiplier = 0
+	local iScaledExperience = 0;
+	for iLevelLoop = 1, iLevel do
+		iMultiplier = iMultiplier + iLevelLoop
+	end
+	--print("GetScaledXP - iMultiplier = "..iMultiplier, "iLevel:", iLevel);
+
+	iScaledExperience = iExperience * iMultiplier;
+
+	-- In Vox Populi, XP requirement is scaled by game speed
+	local bBalanceCoreScalingXP = false;
+	if IGE_HasCommunityPatch then
+		bBalanceCoreScalingXP = Game.IsCustomModOption('BALANCE_CORE_SCALING_XP');
+		if bBalanceCoreScalingXP then
+			local iGameSpeed = Game.GetGameSpeedType();
+			local iGameSpeedScaling = GameInfo.GameSpeeds[iGameSpeed].TrainPercent;
+			iScaledExperience = (iScaledExperience * iGameSpeedScaling) / 100
+			--print("GetScaledXP - iGameSpeedScaling = "..iGameSpeedScaling / 100);
+		end
+	end
+
+	--print("GetScaledXP - iScaledExperience = "..iScaledExperience);
+	return math.floor(iScaledExperience);
+end
+
+-------------------------------------------------------------------------------------------------
+function GetXPForLevelScaled(iLevel)
+	local iXP = GameDefines.EXPERIENCE_PER_LEVEL or 10;
+
+	if iLevel == 1 then return 0 end
+	if iLevel == 2 then return GetScaledXP(iXP, 1) end
+	if iLevel == 3 then return GetScaledXP(iXP, 2) end
+
+	local iCurrentLevel = 3;
+	local iNewXP = GetScaledXP(iXP, iCurrentLevel - 1);
+	while iCurrentLevel < iLevel do
+		iNewXP = GetScaledXP(iXP, iCurrentLevel - 1);
+		iCurrentLevel = iCurrentLevel + 1;
+	end
+
+	print("GetXPForLevelScaled - "..iNewXP.." XP required for Level "..iLevel - 1);
+	return iNewXP;
+end
+
+-------------------------------------------------------------------------------------------------
+function GetLevelFromXPScaled(iExperience)
+	print("current xp = "..iExperience);
+	local iXP = GameDefines.EXPERIENCE_PER_LEVEL or 10;
+	local iScaledXP = GetScaledXP(iXP, 1)
+	if iExperience < iScaledXP then return 1 end
+
+	local iNextLevelXP = iScaledXP + 1;
+	local iCurrentLevel = 2;
+	while iExperience >= iNextLevelXP do
+		iNextLevelXP = GetScaledXP(iXP, iCurrentLevel);
+		iCurrentLevel = iCurrentLevel + 1;
+	end
+
+	print("GetLevelFromXPScaled - iCurrentLevel = "..iCurrentLevel);
+	return iCurrentLevel;
+end
+
+-------------------------------------------------------------------------------------------------
+-- N.Core: Old method, I just keep this here in case something break the new method
 function GetXPForLevel(level)
 	if level == 1 then return 0 end
 	if level == 2 then return 16 end

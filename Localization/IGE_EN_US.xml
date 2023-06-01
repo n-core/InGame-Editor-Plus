@@ -55,7 +55,7 @@
 			<Text>Click to change the active player.[NEWLINE]This selection affects civilization-dependant features (fog, ownership, etc).[NEWLINE][COLOR_NEGATIVE_TEXT]If you experience crashes when you select another player, right-click [ICON_CAPITAL]IGE[ICON_CAPITAL] and enable the safe mode.[ENDCOLOR]</Text>
 		</Row>
 
-		
+
 		<!-- Common -->
 		<Row Tag="TXT_KEY_IGE_NONE">
 			<Text>None</Text>
@@ -219,8 +219,8 @@
 		<Row Tag="TXT_KEY_IGE_OTHERS">
 			<Text>Others</Text>
 		</Row>
-		
-		
+
+
 		<!--IGE_CitiesPanel.xml-->
 		<Row Tag="TXT_KEY_IGE_NO_UNIT_ON_PLOT">
 			<Text>[COLOR_POSITIVE_TEXT]No unit on this plot[ENDCOLOR]</Text>
@@ -228,14 +228,27 @@
 		<Row Tag="TXT_KEY_IGE_NO_CITY_ON_PLOT">
 			<Text>[COLOR_POSITIVE_TEXT]No city on this plot[ENDCOLOR]</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_BUILDING_CONTROL_TT">
+			<Text>Left Click:[NEWLINE][ICON_BULLET][COLOR_HIGHLIGHT_TEXT]LCLICK[ENDCOLOR] to add/remove a building.[NEWLINE][ICON_BULLET][COLOR_HIGHLIGHT_TEXT]LCLICK+CTRL[ENDCOLOR] to add/remove a [COLOR_POSITIVE_TEXT]free[ENDCOLOR] building.[NEWLINE][ICON_BULLET][COLOR_HIGHLIGHT_TEXT]LCLICK+SHIFT[ENDCOLOR] to stack multiple buildings.[NEWLINE][ICON_BULLET][COLOR_HIGHLIGHT_TEXT]LCLICK+CTRL+SHIFT[ENDCOLOR] to stack multiple [COLOR_POSITIVE_TEXT]free[ENDCOLOR] buildings.[NEWLINE]
+[NEWLINE]Right Click:[NEWLINE][ICON_BULLET][COLOR_HIGHLIGHT_TEXT]RCLICK[ENDCOLOR] to remove all stacking buildings.[NEWLINE][ICON_BULLET][COLOR_HIGHLIGHT_TEXT]RCLICK+CTRL[ENDCOLOR] to remove all stacking [COLOR_POSITIVE_TEXT]free[ENDCOLOR] buildings.</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_DISBAND_UNIT_BUTTON">
 			<Text>Delete</Text>
-		</Row>			
+		</Row>
 		<Row Tag="TXT_KEY_IGE_PROMOTE_UNIT_BUTTON">
 			<Text>Promote</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_HEAL_UNIT_BUTTON">
 			<Text>Heal</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_ADD_MOVE_UNIT_BUTTON">
+			<Text>+1[ICON_MOVES] Move</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RESTORE_MOVES_UNIT_BUTTON">
+			<Text>Restore Moves</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RESET_ATTACK_UNIT_BUTTON">
+			<Text>Reset Attack</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_CITY_POPULATION">
 			<Text>City population.</Text>
@@ -260,10 +273,10 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_HEAL_CITY_BUTTON">
 			<Text>Heal</Text>
-		</Row>	
+		</Row>
 		<Row Tag="TXT_KEY_IGE_HEAL_CITY_BUTTON_HELP">
 			<Text>Refills this city's health points.</Text>
-		</Row>	
+		</Row>
 		<Row Tag="TXT_KEY_IGE_LOVE_KING_10_BUTTON">
 			<Text>We love the king (20t)</Text>
 		</Row>
@@ -435,8 +448,8 @@
 		<Row Tag="TXT_KEY_IGE_INVALID_BUTTON">
 			<Text>[COLOR_POSITIVE_TEXT]No valid candidate.[ENDCOLOR]</Text>
 		</Row>
-		
-	
+
+
 		<!--IGE_PlayersPanel.lua-->
 		<Row Tag="TXT_KEY_IGE_MEET">
 			<Text>Meet</Text>

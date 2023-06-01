@@ -237,6 +237,15 @@
 		<Row Tag="TXT_KEY_IGE_HEAL_UNIT_BUTTON">
 			<Text>ユニットの回復</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_ADD_MOVE_UNIT_BUTTON">
+			<Text>+1[ICON_MOVES] 移動</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RESTORE_MOVES_UNIT_BUTTON">
+			<Text>移動ポイントを復元する</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RESET_ATTACK_UNIT_BUTTON">
+			<Text>リセットアタック</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_CITY_POPULATION">
 			<Text>都市の人口</Text>
 		</Row>
