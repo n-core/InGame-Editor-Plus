@@ -39,13 +39,21 @@ function InitializeControls()
 			local itemManager, pipeManager = nil;
 			instances[i] = {};
 
-			if branch.canUseVanillaLogic then
+			if branch.canUseVanillaLogic and (not branch.ideologies) then
 				pipeManager = CreateInstanceManager("ConnectorInstance", "Root", BranchInstance.Panel);
 				itemManager = CreateInstanceManager("PolicyInstance", "Root", BranchInstance.Panel);
 
 				local xmin, xmax = UpdateGraph(branch.policies, itemManager, pipeManager, instances[i], 48, 48, 28, 68, 0, 0, false);
 				BranchInstance.Panel:SetSizeX(xmax - xmin);
 				BranchInstance.Panel:SetOffsetX(-xmin);
+			elseif branch.ideologies then
+				itemManager = CreateInstanceManager("FallbackPolicyInstance", "Button", BranchInstance.Panel);
+				local width = UpdateList(branch.policies, itemManager, ClickHandler, nil, instances[i]);
+				if width > 170 then
+					BranchInstance.BlackMask:SetSizeX(width + 20);
+					BranchInstance.ImageMask:SetSizeX(width + 20);
+					BranchInstance.Root:SetSizeX(width + 20);
+				end
 			else
 				itemManager = CreateInstanceManager("FallbackPolicyInstance", "Button", BranchInstance.Panel);
 				local width = UpdateList(branch.policies, itemManager, ClickHandler, nil, instances[i]);
@@ -146,7 +154,7 @@ end
 function UpdateCore()
     local pPlayer = IGE.currentPlayer;
     local pTeam = Teams[pPlayer:GetTeam()];
-    
+
 	-- Scan branches
 	for i, branch in ipairs(data.policyBranches) do
 		local BranchInstance = BranchInstances[i];
@@ -165,7 +173,7 @@ function UpdateCore()
 					canAdopt = canAdopt and pPlayer:HasPolicy(prereq.ID);
 				end
 
-				if branch.canUseVanillaLogic then
+				if branch.canUseVanillaLogic and (not branch.ideologies) then
 					instance.ButtonChrome:SetDisabled(hasPolicy or not canAdopt);
 
 					instance.Button:RegisterCallback(Mouse.eLClick, function() ClickHandler(policy) end);

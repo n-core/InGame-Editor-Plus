@@ -54,8 +54,8 @@
 		<Row Tag="TXT_KEY_IGE_ACTIVE_PLAYER_BUTTON_HELP">
 			<Text>Cliquez pour changer le joueur actif.[NEWLINE]Cette sélection affecte toutes les fonctionnalités qui dépendent d'une civilisation (brouillard, propriétaire d'une case, etc).[NEWLINE][COLOR_NEGATIVE_TEXT]Si vous subissez un crash en sélectionnant un autre joueur, cliquez droit sur [ICON_CAPITAL]IGE[ICON_CAPITAL] et activez le mode sans-échec.[ENDCOLOR]</Text>
 		</Row>
-		
-		
+
+
 		<!-- Common -->
 		<Row Tag="TXT_KEY_IGE_ERA">
 			<Text>Ère</Text>
@@ -145,7 +145,7 @@
 			<Text>Désactiver l'aperçu de la carte.</Text>
 		</Row>
 
-		
+
 		<!--IGE_Window.lua-->
 		<Row Tag="TXT_KEY_IGE_CONFIRM_SAVE_AND_RELOAD">
 			<Text>Sauvegarder puis recharger ?</Text>
@@ -157,7 +157,7 @@
 			<Text>Vous avez plusieurs versions de IGE sur votre disque dur.[NEWLINE]Cela interfère avec civ5 and empêchera IGE de fonctionner correctement.[NEWLINE]Effacez les anciennes versions pour résoudre le problème.</Text>
 		</Row>
 
-		
+
 		<!--IGE_TerrainPanel.xml-->
 		<Row Tag="TXT_KEY_IGE_PILLAGE_CB">
 			<Text>Pillé</Text>
@@ -219,8 +219,8 @@
 		<Row Tag="TXT_KEY_IGE_OTHERS">
 			<Text>Autres</Text>
 		</Row>
-		
-		
+
+
 		<!--IGE_CitiesPanel.xml-->
 		<Row Tag="TXT_KEY_IGE_NO_UNIT_ON_PLOT">
 			<Text>[COLOR_POSITIVE_TEXT]Aucune unité sur cet hexagone.[ENDCOLOR]</Text>
@@ -236,6 +236,15 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_HEAL_UNIT_BUTTON">
 			<Text>Soigner</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_ADD_MOVE_UNIT_BUTTON">
+			<Text>+1[ICON_MOVES] Mouvement</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RESTORE_MOVES_UNIT_BUTTON">
+			<Text>Restaurer les mouvements</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RESET_ATTACK_UNIT_BUTTON">
+			<Text>Réinitialiser l'attaque</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_CITY_POPULATION">
 			<Text>Population.</Text>
@@ -436,7 +445,7 @@
 			<Text>[COLOR_POSITIVE_TEXT]Pas de candidat valide.[ENDCOLOR]</Text>
 		</Row>
 
-		
+
 		<!--IGE_PlayersPanel.lua-->
 		<Row Tag="TXT_KEY_IGE_MEET">
 			<Text>Établir contact.</Text>

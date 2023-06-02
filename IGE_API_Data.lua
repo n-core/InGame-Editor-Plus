@@ -146,7 +146,7 @@ function SetPlayersData(data, options)
 				else
 					ReportBadField("MinorCivilizations", "MinorCivTrait", minorCivType);
 				end
-				item.textureOffset, item.texture = IconLookup(civInfo.PortraitIndex, largeSize, civInfo.AlphaIconAtlas);	
+				item.textureOffset, item.texture = IconLookup(civInfo.PortraitIndex, largeSize, civInfo.AlphaIconAtlas);
 			else
 				item.name = L(row:GetName());
 				item.type = row:GetLeaderType();
@@ -160,9 +160,9 @@ function SetPlayersData(data, options)
 					item.isBarbarians = true;
 				else
 					local leaderInfo = GameInfo.Leaders[item.leaderType];
-					item.textureOffset, item.texture = IconLookup(leaderInfo.PortraitIndex, largeSize, leaderInfo.IconAtlas);	
-					item.smallTextureOffset, item.smallTexture = IconLookup(civInfo.PortraitIndex, 32, civInfo.IconAtlas);	
-					item.civTextureOffset, item.civTexture = IconLookup(civInfo.PortraitIndex, 45, civInfo.IconAtlas);	
+					item.textureOffset, item.texture = IconLookup(leaderInfo.PortraitIndex, largeSize, leaderInfo.IconAtlas);
+					item.smallTextureOffset, item.smallTexture = IconLookup(civInfo.PortraitIndex, 32, civInfo.IconAtlas);
+					item.civTextureOffset, item.civTexture = IconLookup(civInfo.PortraitIndex, 45, civInfo.IconAtlas);
 				end
 			end
 
@@ -189,12 +189,12 @@ end
 
 -------------------------------------------------------------------------------------------------
 function SetTerrainsData(data)
-	if data.terrains then return end 
+	if data.terrains then return end
 	data.terrainsByTypes = {};
 	data.waterTerrains = {};
 	data.terrains = {};
 
-	for row in GameInfo.Terrains() do	
+	for row in GameInfo.Terrains() do
 		local item = {};
 		local name = L(row.Description);
 		local isCoast = (row.Type == "TERRAIN_COAST")
@@ -214,8 +214,8 @@ function SetTerrainsData(data)
 		item.yields = {};
 
 		-- Texture
-		item.textureOffset, item.texture = IconLookup( row.PortraitIndex, largeSize, row.IconAtlas );	
-		item.smallTextureOffset, item.smallTexture = IconLookup( row.PortraitIndex, smallSize, row.IconAtlas );	
+		item.textureOffset, item.texture = IconLookup( row.PortraitIndex, largeSize, row.IconAtlas );
+		item.smallTextureOffset, item.smallTexture = IconLookup( row.PortraitIndex, smallSize, row.IconAtlas );
 
 		-- Yield changes from Technologies
 		if IGE_HasCommunityPatch then
@@ -401,8 +401,8 @@ function SetRiverData()
 	river.note = BUG_NoGraphicalUpdate;
 
 	-- Texture
-	river.textureOffset, river.texture = IconLookup( row.PortraitIndex, largeSize, row.IconAtlas );	
-	river.smallTextureOffset, river.smallTexture = IconLookup( row.PortraitIndex, smallSize, row.IconAtlas );	
+	river.textureOffset, river.texture = IconLookup( row.PortraitIndex, largeSize, row.IconAtlas );
+	river.smallTextureOffset, river.smallTexture = IconLookup( row.PortraitIndex, smallSize, row.IconAtlas );
 
 	-- Yield changes
 	for row in GameInfo.Building_RiverPlotYieldChanges() do
@@ -545,8 +545,8 @@ function SetFeaturesData(data, options)
 		item.yields = {};
 
 		-- Texture
-		item.textureOffset, item.texture = IconLookup( row.PortraitIndex, largeSize, row.IconAtlas );	
-		item.smallTextureOffset, item.smallTexture = IconLookup( row.PortraitIndex, smallSize, row.IconAtlas );	
+		item.textureOffset, item.texture = IconLookup( row.PortraitIndex, largeSize, row.IconAtlas );
+		item.smallTextureOffset, item.smallTexture = IconLookup( row.PortraitIndex, smallSize, row.IconAtlas );
 
 		-- Check if it's a natural wonder (for YieldChangesNaturalWonder)
 		local isNaturalWonder = false;
@@ -726,7 +726,7 @@ function SetFeaturesData(data, options)
 			local terrain = data.terrainsByTypes[row.TerrainType];
 			item.validTerrains[terrain.ID] = terrain;
 		end
-				
+
 		-- Append to tables
 		data.featuresByTypes[item.type] = item;
 		if IGE_HasCommunityPatch then
@@ -734,13 +734,13 @@ function SetFeaturesData(data, options)
 				table.insert(data.naturalWonders, item);
 			elseif item.pseudonaturalWonder then
 				table.insert(data.naturalWonders, item);
-			else 
+			else
 				table.insert(data.features, item);
 			end
 		else
 			if item.naturalWonder then
 				table.insert(data.naturalWonders, item);
-			else 
+			else
 				table.insert(data.features, item);
 			end
 		end
@@ -748,7 +748,7 @@ function SetFeaturesData(data, options)
 			table.insert(data.naturalWonders, item);
 		elseif item.pseudonaturalWonder then
 			table.insert(data.naturalWonders, item);
-		else 
+		else
 			table.insert(data.features, item);
 		end--]]
 	end
@@ -802,9 +802,9 @@ function SetResourcesData(data, options)
 		--for k, v in pairs(row) do print(k); end
 
 		-- Texture
-		item.textureOffset, item.texture = IconLookup( row.PortraitIndex, largeSize, row.IconAtlas );				
-		item.smallTextureOffset, item.smallTexture = IconLookup( row.PortraitIndex, smallSize, row.IconAtlas );	
-			
+		item.textureOffset, item.texture = IconLookup( row.PortraitIndex, largeSize, row.IconAtlas );
+		item.smallTextureOffset, item.smallTexture = IconLookup( row.PortraitIndex, smallSize, row.IconAtlas );
+
 		-- Yields
 		for row in GameInfo.Resource_YieldChanges( item.condition ) do
 			item.yields[row.YieldType] = row.Yield;
@@ -881,7 +881,7 @@ function SetResourcesData(data, options)
 				end
 			end
 		end
-		if maritime then 
+		if maritime then
 			for row in GameInfo.Building_SeaResourceYieldChanges() do
 				if IsValidBuilding(row.BuildingType) then
 					local building = GameInfo.Buildings[row.BuildingType];
@@ -965,7 +965,7 @@ function SetResourcesData(data, options)
 		local valid = item.type ~= "RESOURCE_ARTIFACTS" and item.type ~= "RESOURCE_HIDDEN_ARTIFACTS"
 
 		-- Append to tables
-		if valid then 
+		if valid then
 			data.allResources[item.ID] = item;
 			data.resourcesByTypes[item.type] = item;
 			if item.usage == ResourceUsageTypes.RESOURCEUSAGE_BONUS then
@@ -985,8 +985,8 @@ function SetResourcesData(data, options)
 	data.allResources[3].baseQty = 6;		-- Oil
 	data.allResources[4].baseQty = 8;		-- Aluminium
 	data.allResources[5].baseQty = 8;		-- Uranium
-	for k, v in pairs(data.allResources) do 
-		data.allResources[k].qty = data.allResources[k].baseQty; 
+	for k, v in pairs(data.allResources) do
+		data.allResources[k].qty = data.allResources[k].baseQty;
 	end
 
 	-- Sort
@@ -1008,7 +1008,7 @@ function SetImprovementsData(data, options)
 	data.greatImprovements = {};
 	data.improvements = {};
 
-	for row in GameInfo.Improvements() do	
+	for row in GameInfo.Improvements() do
 		local item = {};
 		local name = L( row.Description );
 		item.ID = row.ID;
@@ -1060,7 +1060,7 @@ function SetImprovementsData(data, options)
 		-- Valid terrains
 		for row in GameInfo.Improvement_ValidTerrains(item.condition) do
 			local terrain = data.terrainsByTypes[row.TerrainType];
-			if terrain then 
+			if terrain then
 				item.validTerrains[terrain.ID] = terrain;
 			else
 				ReportBadRef("Improvement_ValidTerrains", row.TerrainType, item.type);
@@ -1070,7 +1070,7 @@ function SetImprovementsData(data, options)
 		-- Valid features
 		for row in GameInfo.Improvement_ValidFeatures(item.condition) do
 			local feature = data.featuresByTypes[row.FeatureType];
-			if feature then 
+			if feature then
 				item.validFeatures[feature.ID] = feature;
 			else
 				ReportBadRef("Improvement_ValidFeatures", row.FeatureType, item.type);
@@ -1219,7 +1219,7 @@ function SetImprovementsData(data, options)
 			item.type == "IMPROVEMENT_CITY_RUINS" or
 			item.type == "IMPROVEMENT_BARBARIAN_CAMP" or
 			item.type == "IMPROVEMENT_GOODY_HUT" or
-			item.type == "IMPROVEMENT_JFD_MACHU_PICCHU" then	
+			item.type == "IMPROVEMENT_JFD_MACHU_PICCHU" then
 			table.insert(data.greatImprovements, item);	-- GP's item, ruins, ancient ruins, barbarian camp (+mountain city with CP)
 		else
 			table.insert(data.improvements, item);
@@ -1240,7 +1240,7 @@ function SetRoutesData(data, options)
 	if data.routes then return end
 	data.routes = {};
 
-	for row in GameInfo.Routes() do	
+	for row in GameInfo.Routes() do
 		local item = {};
 		local name = L( row.Description );
 		item.ID = row.ID;
@@ -1272,13 +1272,14 @@ end
 --===============================================================================================
 local function SetErasData(data)
 	if data.eras then return end
-	data.defaultEra = { 
+	data.defaultEra = {
 		name="No era",
 		type="NO_ERA",
 		ID=-1,
 		priority=-1,
 		visible=true,
 		dummybuildings = {},
+		dummynationalwonders = {},
 		beliefbuildings = {},
 		buildings = {},
 		freebuildings = {},
@@ -1319,6 +1320,7 @@ local function SetErasData(data)
 		end
 		if IGE_HasCommunityPatch then
 			item.dummybuildings = {};
+			item.dummynationalwonders = {};
 		end
 		if IGE_HasVoxPopuli then
 			item.corphqs = {};
@@ -1386,6 +1388,7 @@ function SetTechnologiesData(data)
 		end
 		if IGE_HasCommunityPatch then
 			item.dummybuildings = {};
+			item.dummynationalwonders = {};
 		end
 		if IGE_HasVoxPopuli then
 			item.corphqs = {};
@@ -1434,7 +1437,7 @@ function CheckLayoutForTechs(data)
 			local valid = true;
 
 			-- Does it fit into a 10xN grid ?
-			if tech.gridY > 10 or tech.gridY <= 0 then 
+			if tech.gridY > 10 or tech.gridY <= 0 then
 				table.insert(errors, "gridY = "..(tech.gridY - 1).." for "..tech.name);
 				valid = false;
 			end
@@ -1446,7 +1449,7 @@ function CheckLayoutForTechs(data)
 
 			-- Is there something in the same cell ?
 			if valid then
-				if grid[tech.gridY][tech.gridX] then 
+				if grid[tech.gridY][tech.gridX] then
 					table.insert(errors, tech.name.." ("..tech.gridX..", "..tech.gridY..") overlaps with "..grid[tech.gridY][tech.gridX]);
 				end
 				grid[tech.gridY][tech.gridX] = tech.name;
@@ -1455,13 +1458,13 @@ function CheckLayoutForTechs(data)
 				for _, prereq in ipairs(tech.prereqs) do
 					if prereq.gridX > 0 and prereq.gridY > 0 and prereq.gridY <= 10 then
 						-- Prereq must be on a greater X
-						if prereq.gridX >= tech.gridX then 
+						if prereq.gridX >= tech.gridX then
 							table.insert(errors, "the connector from "..prereq.name.." to "..tech.name.." has a right-to-left orientation.");
 						end
 
 						-- Connectors occupy intermediate cells
 						for i = prereq.gridX + 1, tech.gridX - 1 do
-							if grid[prereq.gridY][i] then 
+							if grid[prereq.gridY][i] then
 								table.insert(errors, "the connector from "..prereq.name.." to "..tech.name.." overlaps with "..grid[prereq.gridY][i]);
 							end
 							--grid[prereq.gridY][i] = prereq.name.." - "..tech.name;
@@ -1474,7 +1477,7 @@ function CheckLayoutForTechs(data)
 
 	data.canUseVanillaLogicForTechs = (#errors == 0);
 	--data.canUseVanillaLogicForTechs = true;
-	if #errors > 0 then 
+	if #errors > 0 then
 		print("!!!!!!!!! Cannot use vanilla layout for techs. Causes: ");
 		for _, err in ipairs(errors) do
 			print(" * "..err);
@@ -1516,6 +1519,15 @@ function SetPromotionsData(data)
 		if row.PromotionPrereqOr2 then table.insert(item.prereqs2, row.PromotionPrereqOr2) end
 		if row.PromotionPrereqOr3 then table.insert(item.prereqs2, row.PromotionPrereqOr3) end
 		if row.PromotionPrereqOr4 then table.insert(item.prereqs2, row.PromotionPrereqOr4) end
+		if IGE_HasGodsAndKings or IGE_HasBraveNewWorld then
+			if row.PromotionPrereqOr5 then table.insert(item.prereqs2, row.PromotionPrereqOr5) end
+			if row.PromotionPrereqOr6 then table.insert(item.prereqs2, row.PromotionPrereqOr6) end
+		end
+		if IGE_HasBraveNewWorld then
+			if row.PromotionPrereqOr7 then table.insert(item.prereqs2, row.PromotionPrereqOr7) end
+			if row.PromotionPrereqOr8 then table.insert(item.prereqs2, row.PromotionPrereqOr8) end
+			if row.PromotionPrereqOr9 then table.insert(item.prereqs2, row.PromotionPrereqOr9) end
+		end
 
 		-- Insert into tables
 		table.insert(data.promotions, item);
@@ -1524,7 +1536,7 @@ function SetPromotionsData(data)
 
 	-- Update prereqs
 	for _, promotion in ipairs(data.promotions) do
-		if promotion.prereq then 
+		if promotion.prereq then
 			promotion.prereq = data.promotionsByTypes[promotion.prereq];
 		end
 
@@ -1533,7 +1545,7 @@ function SetPromotionsData(data)
 			promotion.prereqs2[i] = data.promotionsByTypes[type];
 		end
 	end
-end]]
+end--]]
 
 -------------------------------------------------------------------------------------------------
 function SetUnitsData(data)
@@ -1586,15 +1598,6 @@ function SetUnitsData(data)
 		-- Space Ship units
 		item.spaceshipunits = (row.DefaultUnitAI == "UNITAI_SPACESHIP_PART");
 
-		--[[ Hide Space Ship units if Science Victory is disabled
-		if (not PreGame.IsVictory(GameInfo.Victories["VICTORY_SPACE_RACE"].ID)) then
-			for subRow in GameInfo.Units("DefaultUnitAI = 'UNITAI_SPACESHIP_PART'") do
-				if subRow.Type then
-					valid = false;
-				end
-			end
-		end--]]
-
 		-- Diplomacy units
 		item.diplomacy = ((row.DefaultUnitAI == "UNITAI_MESSENGER") or (row.DefaultUnitAI == "UNITAI_DIPLOMAT"));
 
@@ -1610,7 +1613,6 @@ function SetUnitsData(data)
 							(item.class == "UNITCLASS_PROPHET") or
 							(item.class == "UNITCLASS_INQUISITOR")
 						);]]
-
 
 		-- Help text
 		item.help = GetIGEHelpTextForUnit(row, activePlayer).."[NEWLINE]"
@@ -1636,10 +1638,10 @@ function SetUnitsData(data)
 		-- Promotions
 		--[[
 		if item.combatClass then
-			for pRow in GameInfo.UnitPromotions_UnitCombats("UnitClassType = '"..item.combatClass.."'") do
+			for pRow in GameInfo.UnitPromotions_UnitCombats("UnitCombatType = '"..item.combatClass.."'") do
 				table.insert(item.promotions, promotionsByTypes[pRow.PromotionType]);
 			end
-		end]]
+		end--]]
 
 		-- Special hack for Reseed
 		if item.type == "RSD_BEACON" then valid = false end
@@ -1663,6 +1665,7 @@ function SetBuildingsData(data)
 	if data.wonders then return end
 	SetTechnologiesData(data);
 	data.dummybuildings = {};
+	data.dummynationalwonders = {};
 	data.beliefbuildings = {};
 	data.buildings = {};
 	data.freebuildings = {};
@@ -1694,7 +1697,7 @@ function SetBuildingsData(data)
 			ReportBadRef("Buildings", item.class, item.type);
 			valid = false;
 		end
-		
+
 		if IGE_HasGodsAndKings then
 			item.beliefbuildings = ((row.FaithCost > 0) and (row.Cost == -1) and not (item.isNationalWonder));
 		end
@@ -1703,6 +1706,13 @@ function SetBuildingsData(data)
 		end
 		if IGE_HasCommunityPatch then
 			item.dummybuildings = (row.IsDummy == 1);
+			--[[local dummyRow = GameInfo.BuildingClasses("DefaultBuilding = '"..item.dummybuildings.."'")();
+			if dummyRow then
+				item.isDummyNationalWonder = dummyRow.MaxPlayerInstances == 1;
+			else
+				ReportBadRef("Buildings", item.class, item.type);
+				valid = false;
+			end--]]
 		end
 		if IGE_HasVoxPopuli then
 			item.isPotalaPalace = (row.PolicyType == "POLICY_LHASA");
@@ -1731,7 +1741,9 @@ function SetBuildingsData(data)
 			item.subtitle = L("TXT_KEY_IGE_CORPORATION_OFFICE_SUBTITLE");
 		elseif (IGE_HasVoxPopuli) and (item.corpfranchises) then
 			item.subtitle = L("TXT_KEY_IGE_CORPORATION_FRANCHISE_SUBTITLE");
-		elseif (IGE_HasCommunityPatch) and ((item.dummybuildings) or (item.isFree)) then
+		elseif (IGE_HasCommunityPatch) and (item.dummybuildings) then
+			item.subtitle = L("TXT_KEY_IGE_DUMMY_BUILDING_SUBTITLE");
+		elseif item.isFree then
 			item.subtitle = L("TXT_KEY_IGE_DUMMY_BUILDING_SUBTITLE");
 		else
 			item.subtitle = "";
@@ -1766,7 +1778,9 @@ function SetBuildingsData(data)
 			if tech then
 				item.prereq = tech;
 				item.era = tech.era;
-				if item.isNationalWonder then
+				if (IGE_HasCommunityPatch) and ((item.dummybuildings) and (item.isNationalWonder)) then
+					table.insert(tech.dummynationalwonders, item);
+				elseif item.isNationalWonder then
 					table.insert(tech.nationalwonders, item);
 				elseif (IGE_HasVoxPopuli) and (item.isPotalaPalace) then
 					table.insert(tech.wonders, item);
@@ -1799,7 +1813,10 @@ function SetBuildingsData(data)
 
 		-- Insert
 		if valid then
-			if item.isNationalWonder then
+			if (IGE_HasCommunityPatch) and ((item.dummybuildings) and (item.isNationalWonder)) then
+				table.insert(data.dummynationalwonders, item);
+				table.insert(item.era.dummynationalwonders, item);
+			elseif item.isNationalWonder then
 				table.insert(data.nationalwonders, item);
 				table.insert(item.era.nationalwonders, item);
 			elseif (IGE_HasVoxPopuli) and (item.isPotalaPalace) then
@@ -1849,6 +1866,7 @@ function SetBuildingsData(data)
 	end
 	if IGE_HasCommunityPatch then
 		table.sort(data.dummybuildings, DefaultSort);
+		table.sort(data.dummynationalwonders, DefaultSort);
 	end
 	if IGE_HasGodsAndKings then
 		table.sort(data.beliefbuildings, DefaultSort);
@@ -1863,6 +1881,7 @@ function SetPoliciesData(data)
 	data.policyBranchesByTypes = {};
 	data.policyBranches = {};
 	data.policyByTypes = {};
+	--data.policyDummies = {};
 
  	for row in GameInfo.Policies() do
 		local item = {};
@@ -1876,6 +1895,7 @@ function SetPoliciesData(data)
 		item.gridY = row.GridY;
 		item.condition = "PolicyType = '" .. row.Type .. "'";
 		item.visible = item.gridX > 0 and item.gridY > 0;
+		item.isIdeology = false;
 		item.enabled = true;
 		item.prereqs = {};
 		AppendIDAndTypeToHelp(item)
@@ -1898,6 +1918,9 @@ function SetPoliciesData(data)
 					branch.openerType = branchData.FreePolicy;
 					branch.finisherType = branchData.FreeFinishingPolicy;
 					branch.type = branchType;
+					if IGE_HasBraveNewWorld then
+						branch.ideology = branchData.PurchaseByLevel;
+					end
 					branch.priority = 999 - branchData.ID;
 					branch.policies = {};
 
@@ -1912,6 +1935,13 @@ function SetPoliciesData(data)
 				item.branch = branch;
 				item.isOpener = (branch.openerType == item.type);
 				item.isFinisher = (branch.finisherType == item.type);
+				if IGE_HasBraveNewWorld then
+					item.isIdeology = (branch.ideology == true);
+					--item.tier1Tenet = item.isIdeology and row.Level == 1;
+					--item.tier2Tenet = item.isIdeology and row.Level == 2;
+					--item.tier3Tenet = item.isIdeology and row.Level == 3;
+					--item.tierOtherTenet = item.isIdeology and row.Level > 3;
+				end
 				item.visible = not (item.isOpener or item.isFinisher);
 				table.insert(branch.policies, item);
 			end
@@ -1959,31 +1989,38 @@ function CheckLayoutForPolicies(data)
 	for _, branch in ipairs(data.policyBranches) do
 		local grid = { {}, {}, {}, {}, {} };
 		local errors = {};
+		local ideologypolicies = {};
 
 		for _, policy in ipairs(branch.policies) do
 			if policy.visible then
 				local valid = true;
 
-				-- Does it fit into a 3x3 grid ?
-				if policy.gridX > 5 or policy.gridX <= 0 then 
-					table.insert(errors, "gridX = "..policy.gridX.." for "..policy.name);
+				-- Does it an ideology policy?
+				if policy.isIdeology then
+					table.insert(ideologypolicies, "branch = "..branch.name.." for = "..policy.name);
 					valid = false;
-				end
-				if policy.gridY > 3 or policy.gridY <= 0 then 
-					table.insert(errors, "gridY = "..policy.gridY.." for "..policy.name);
-					valid = false;
+				else
+					-- Does it fit into a 3x3 grid ?
+					if policy.gridX > 5 or policy.gridX <= 0 then
+						table.insert(errors, "gridX = "..policy.gridX.." for "..policy.name);
+						valid = false;
+					end
+					if policy.gridY > 3 or policy.gridY <= 0 then
+						table.insert(errors, "branch = "..policy.gridY.." for "..policy.name);
+						valid = false;
+					end
 				end
 
 				-- Check the column1 x row
 				if valid then
-					if grid[policy.gridX][policy.gridY] then 
+					if grid[policy.gridX][policy.gridY] then
 						table.insert(errors, policy.name.." (gridX="..policy.gridX..", gridY="..policy.gridY..") overlaps with another policy.");
 					end
 					grid[policy.gridX][policy.gridY] = true;
 
 					-- Evens indices are on two columns, so we check column2 x row
 					if policy.gridX % 2 == 0 then
-						if grid[policy.gridX + 1][policy.gridY] then 
+						if grid[policy.gridX + 1][policy.gridY] then
 							table.insert(errors, policy.name.." (gridX="..policy.gridX..", gridY="..policy.gridY..") overlaps with another policy.");
 						end
 						grid[policy.gridX + 1][policy.gridY] = true;
@@ -1994,12 +2031,21 @@ function CheckLayoutForPolicies(data)
 
 		-- Result
 		branch.canUseVanillaLogic = (#errors == 0);
-		if #errors > 0 then 
+		branch.ideologies = (#ideologypolicies > 0);
+		if #errors > 0 then
 			print("!!!!!!!!! Cannot use vanilla layout for policy branch "..branch.name..". Causes:");
 			for _, err in ipairs(errors) do
 				print(" * "..err);
 			end
 		end
+		--[[
+		if #ideologypolicies > 0 then
+			print("!!!!!!!!! Ideology branch "..branch.name..". Name:");
+			for _, ideo in ipairs(ideologypolicies) do
+				print(" * "..ideo);
+			end
+		end
+		--]]
 	end
 end
 

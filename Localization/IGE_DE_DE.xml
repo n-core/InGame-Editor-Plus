@@ -237,6 +237,15 @@
 		<Row Tag="TXT_KEY_IGE_HEAL_UNIT_BUTTON">
 			<Text>Heilen</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_ADD_MOVE_UNIT_BUTTON">
+			<Text>+1[ICON_MOVES] Bewegung</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RESTORE_MOVES_UNIT_BUTTON">
+			<Text>Bewegungen wiederherstellen</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RESET_ATTACK_UNIT_BUTTON">
+			<Text>Angriff zurücksetzen</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_CITY_POPULATION">
 			<Text>Bevölkerung</Text>
 		</Row>
@@ -260,7 +269,7 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_HEAL_CITY_BUTTON">
 			<Text>Trefferpunkte wiederherst.</Text>
-		</Row>    
+		</Row>
 		<Row Tag="TXT_KEY_IGE_HEAL_CITY_BUTTON_HELP">
 			<Text>Stellt die Trefferpunkte der Stadtverteidigung wieder her.</Text>
 		</Row>

@@ -4,7 +4,6 @@ include("IGE_API_All");
 print("IGE_CitiesPanel");
 IGE = nil;
 
-local freebuildingItemManagers = {};
 local buildingItemManagers = {};
 local nationalwonderItemManagers = {};
 local wonderItemManagers = {};
@@ -20,6 +19,8 @@ local projectItemManager = CreateInstanceManager("ProjectGroupInstance", "Stack"
 
 local dummyInstances = {};
 local dummybuildingItemManagers = {};
+local dummyNationalWonderItemManagers = {};
+local freebuildingItemManagers = {};
 local dummyItemManager = CreateInstanceManager("DummyGroupInstance", "Stack", Controls.DummyList );
 
 local corpInstances = {};
@@ -60,13 +61,17 @@ function OnInitialize()
 	Resize(Controls.Container);
 	Resize(Controls.ScrollPanel);
 	Resize(Controls.OuterContainer);
-	
+
+	-- Hide "Add +1 Move" button if Community Patch is detected, since it does not work thanks to a bugfix
+	--Controls.AddMoveUnitButton:SetHide(IGE_HasCommunityPatch);
+
 	-- Create eras instances
 	for i, v in ipairs(data.eras) do
 		if IGE_HasGodsAndKings then
 			if #v.beliefbuildings > 0 then
 				local beliefinstance = beliefItemManager:GetInstance();
 				if beliefinstance then
+					beliefinstance.HeaderBackground:SetToolTipString(L("TXT_KEY_IGE_BUILDING_CONTROL_TT"));
 					beliefinstance.Header:SetText(L("TXT_KEY_IGE_RELIGIOUS_BUILDINGS"));
 					beliefInstances[i] = beliefinstance;
 					beliefbuildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", beliefinstance.BeliefBuildingList );
@@ -77,6 +82,7 @@ function OnInitialize()
 			if #v.projectwonders > 0 then
 				local projectinstance = projectItemManager:GetInstance();
 				if projectinstance then
+					projectinstance.HeaderBackground:SetToolTipString(L("TXT_KEY_IGE_BUILDING_CONTROL_TT"));
 					projectinstance.Header:SetText(L("TXT_KEY_IGE_PROJECT_WONDERS"));
 					projectInstances[i] = projectinstance;
 					projectwonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", projectinstance.ProjectWonderList );
@@ -84,12 +90,14 @@ function OnInitialize()
 			end
 		end
 		if IGE_HasCommunityPatch then
-			if #v.dummybuildings + #v.freebuildings > 0 then
+			if #v.dummybuildings + #v.dummynationalwonders + #v.freebuildings > 0 then
 				local dummyinstance = dummyItemManager:GetInstance();
 				if dummyinstance then
+					dummyinstance.HeaderBackground:SetToolTipString(L("TXT_KEY_IGE_BUILDING_CONTROL_TT"));
 					dummyinstance.Header:SetText(L("TXT_KEY_IGE_DUMMY_BUILDINGS"));
 					dummyInstances[i] = dummyinstance;
 					dummybuildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", dummyinstance.DummyBuildingList );
+					dummyNationalWonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", dummyinstance.DummyNationalWonderList );
 					freebuildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", dummyinstance.FreeBuildingList );
 				end
 			end
@@ -98,6 +106,7 @@ function OnInitialize()
 			if #v.corpoffices + #v.corpfranchises + #v.corphqs  > 0 then
 				local corpinstance = corpItemManager:GetInstance();
 				if corpinstance then
+					corpinstance.HeaderBackground:SetToolTipString(L("TXT_KEY_IGE_BUILDING_CONTROL_TT"));
 					corpinstance.Header:SetText(L("TXT_KEY_IGE_CORPORATION_BUILDINGS"));
 					corpInstances[i] = corpinstance;
 					corpofficeItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", corpinstance.CorpOfficeList );
@@ -107,13 +116,14 @@ function OnInitialize()
 			end
 		end
 		if #v.buildings + #v.nationalwonders + #v.wonders > 0 then
-		local instance = eraItemManager:GetInstance();
-			if instance then
-				instance.Header:SetText(v.name);
-				groupInstances[i] = instance;
-				buildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.BuildingList );
-				nationalwonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.NationalWonderList );
-				wonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", instance.WonderList );
+		local buildingerainstance = eraItemManager:GetInstance();
+			if buildingerainstance then
+				buildingerainstance.HeaderBackground:SetToolTipString(L("TXT_KEY_IGE_BUILDING_CONTROL_TT"));
+				buildingerainstance.Header:SetText(v.name);
+				groupInstances[i] = buildingerainstance;
+				buildingItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", buildingerainstance.BuildingList );
+				nationalwonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", buildingerainstance.NationalWonderList );
+				wonderItemManagers[i] = CreateInstanceManager("ListItemInstance", "Button", buildingerainstance.WonderList );
 			end
 		end
 	end
@@ -161,7 +171,7 @@ local function UpdateUnits()
 		-- Label
 		if (pUnit:HasName()) then
 			local desc = L("TXT_KEY_PLOTROLL_UNIT_DESCRIPTION_CIV", pOwner:GetCivilizationAdjectiveKey(), pUnit:GetNameKey());
-			item.label = string.format("%s (%s)", pUnit:GetNameNoDesc(), desc); 
+			item.label = string.format("%s (%s)", pUnit:GetNameNoDesc(), desc);
 		else
 			item.label = L("TXT_KEY_PLOTROLL_UNIT_DESCRIPTION_CIV", pOwner:GetCivilizationAdjectiveKey(), pUnit:GetNameKey());
 		end
@@ -170,7 +180,7 @@ local function UpdateUnits()
 		if (strength > 0) then
 			item.label = item.label..", [ICON_STRENGTH]" .. pUnit:GetBaseCombatStrength();
 		end
-			
+
 		local damage = pUnit:GetDamage();
 		if (damage > 0) then
 			item.label = item.label..", " .. L("TXT_KEY_PLOTROLL_UNIT_HP", GameDefines["MAX_HIT_POINTS"] - damage);
@@ -213,13 +223,20 @@ end
 -------------------------------------------------------------------------------------------------
 function UpdateBuildingList(buildings, manager, instance, prefix)
 	for _, v in ipairs(buildings) do
-		local count = currentCity:GetNumRealBuilding(v.ID);
-		v.label = (count > 1) and prefix..v.name.." x"..count or v.name;
-		v.enabled = currentCity:CanConstruct(v.ID, 1, 1, 1) or count ~= 0;
-		v.selected = count ~= 0;
+		local iRealCount = currentCity:GetNumRealBuilding(v.ID);
+		local iFreeCount = currentCity:GetNumFreeBuilding(v.ID);
+		v.label =  ((iFreeCount >= 1
+				and  iRealCount >= 1)	and "("..iRealCount.."+[COLOR_POSITIVE_TEXT]"..iFreeCount.."[ENDCOLOR]) "..prefix.."[COLOR_HIGHLIGHT_TEXT]"..v.name.."[ENDCOLOR]")
+				or ((iFreeCount > 1)	and "([COLOR_POSITIVE_TEXT]"..iFreeCount.."x[ENDCOLOR]) "..prefix..v.name)
+				or ((iRealCount > 1)	and "("..iRealCount.."x) "..prefix..v.name)
+				or ((iFreeCount == 1)	and "([COLOR_POSITIVE_TEXT]"..L("TXT_KEY_FREE").."[ENDCOLOR]) "..prefix..v.name)
+				or ((iRealCount == 1)	and prefix..v.name)
+				or v.name;
+		v.enabled = currentCity:CanConstruct(v.ID, 1, 1, 1) or (iRealCount ~= 0 or iFreeCount ~= 0);
+		v.selected = iRealCount ~= 0 or iFreeCount ~= 0;
 	end
 
-	UpdateHierarchizedList(buildings, manager, BuildingClickHandler);
+	UpdateHierarchizedList(buildings, manager, BuildingClickHandler, BuildingRightClickHandler);
 end
 
 -------------------------------------------------------------------------------------------------
@@ -245,7 +262,7 @@ function UpdateConversionList(cityReligionID, playerReligionID)
 
 	-- Collect founded religions
 	local foundedReligions = {}
-	for iPlayer = 0, GameDefines.MAX_MAJOR_CIVS - 1 do	
+	for iPlayer = 0, GameDefines.MAX_MAJOR_CIVS - 1 do
 		local pPlayer = Players[iPlayer];
 		if (pPlayer:IsEverAlive() and pPlayer:HasCreatedReligion()) then
 			foundedReligions[pPlayer:GetReligionCreatedByPlayer()] = true;
@@ -262,9 +279,9 @@ function UpdateConversionList(cityReligionID, playerReligionID)
 			local instance = conversionsManager:GetInstance();
 			if instance then
 				instance.Header:SetText(v.iconString);
-				local update = HookNumericBox("Conversion", 
-					function() return currentCity:GetNumFollowers(v.ID) end, 
-					function(amount) SetFollowers(v.ID, amount) end, 
+				local update = HookNumericBox("Conversion",
+					function() return currentCity:GetNumFollowers(v.ID) end,
+					function(amount) SetFollowers(v.ID, amount) end,
 					0, currentCity:GetPopulation(), 1, instance);
 				update(currentCity:GetNumFollowers(v.ID));
 				instance.MinButton:RegisterCallback(Mouse.eLClick, function() SetMinFollowers(v.ID) end);
@@ -327,9 +344,10 @@ local function UpdateCityUI()
 			end
 		end
 		if IGE_HasCommunityPatch then
-			if #era.dummybuildings + #era.freebuildings > 0 then
+			if #era.dummybuildings + #era.dummynationalwonders + #era.freebuildings > 0 then
 				local dummyinstance = dummyInstances[i];
 				UpdateBuildingList(era.dummybuildings, dummybuildingItemManagers[i], dummyinstance, "");
+				UpdateBuildingList(era.dummynationalwonders, dummyNationalWonderItemManagers[i], dummyinstance, "");
 				UpdateBuildingList(era.freebuildings, freebuildingItemManagers[i], dummyinstance, "");
 				dummyinstance.BottomStack:CalculateSize();
 				dummyinstance.BottomStack:SetOffsetX(8);
@@ -340,9 +358,9 @@ local function UpdateCityUI()
 		if IGE_HasVoxPopuli then
 			if #era.corpoffices + #era.corpfranchises + #era.corphqs > 0 then
 				local corpinstance = corpInstances[i];
-				UpdateBuildingList(era.corpoffices, corpofficeItemManagers[i], corpinstance, "");
-				UpdateBuildingList(era.corpfranchises, corpfranchiseItemManagers[i], corpinstance, "");
-				UpdateBuildingList(era.corphqs, corpHQItemManagers[i], corpinstance, "[ICON_CITY_STATE]");
+				UpdateBuildingList(era.corpoffices, corpofficeItemManagers[i], corpinstance, "[ICON_INVEST]");
+				UpdateBuildingList(era.corpfranchises, corpfranchiseItemManagers[i], corpinstance, "[ICON_INVEST]");
+				UpdateBuildingList(era.corphqs, corpHQItemManagers[i], corpinstance, "[ICON_GOLDEN_AGE]");
 				corpinstance.BottomStack:CalculateSize();
 				corpinstance.BottomStack:SetOffsetX(8);
 				local width = corpinstance.BottomStack:GetSizeX();
@@ -353,13 +371,13 @@ local function UpdateCityUI()
 			local instance = groupInstances[i];
 			UpdateBuildingList(era.buildings, buildingItemManagers[i], instance, "");
 			UpdateBuildingList(era.nationalwonders, nationalwonderItemManagers[i], instance, "[ICON_CAPITAL]");
-			UpdateBuildingList(era.wonders, wonderItemManagers[i], instance, "[ICON_CAPITAL]");
+			UpdateBuildingList(era.wonders, wonderItemManagers[i], instance, "[ICON_GOLDEN_AGE]");
 			instance.BottomStack:CalculateSize();
 			instance.BottomStack:SetOffsetX(8);
 			local width = instance.BottomStack:GetSizeX();
 			instance.HeaderBackground:SetSizeX(width + 24);
 		end
-	end	
+	end
 
 	if IGE_HasGodsAndKings then
 		local playerReligionID = IGE.currentPlayer:GetReligionCreatedByPlayer();
@@ -439,7 +457,7 @@ function OnUpdate()
 		Controls.PlotSelectionPrompt:SetHide(currentPlot ~= nil);
 		Controls.Container:SetHide(currentPlot == nil);
 	end
-	if (currentPlot ~= nil) and (not isTeleporting) then 
+	if (currentPlot ~= nil) and (not isTeleporting) then
 		UpdateUnits();
 		UpdateCityUI();
 	end
@@ -565,7 +583,7 @@ function SetFollowers(religionID, num)
 				toConvert = toConvert - 1;
 			end
 		end
-	end	
+	end
 
 	SetReligionState(state);
 	preserveSortOrder = true;
@@ -597,11 +615,16 @@ end
 
 -------------------------------------------------------------------------------------------------
 function BuildingClickHandler(building)
-	local count = currentCity:GetNumRealBuilding(building.ID);
-	if building.noLimit then
-		currentCity:SetNumRealBuilding(building.ID, count + 1);
-	else
-		currentCity:SetNumRealBuilding(building.ID, count == 1 and 0 or 1);
+	local iFreeCount = currentCity:GetNumFreeBuilding(building.ID);
+	local iRealCount = currentCity:GetNumRealBuilding(building.ID);
+	if (building.noLimit or UI.ShiftKeyDown()) and UI.CtrlKeyDown() then
+		currentCity:SetNumFreeBuilding(building.ID, iFreeCount + 1);
+	elseif UI.CtrlKeyDown() then
+		currentCity:SetNumFreeBuilding(building.ID, iFreeCount >= 1 and iFreeCount - 1 or 1);
+	elseif (building.noLimit or UI.ShiftKeyDown()) and not UI.CtrlKeyDown() then
+		currentCity:SetNumRealBuilding(building.ID, iRealCount + 1);
+	elseif not UI.CtrlKeyDown()  then
+		currentCity:SetNumRealBuilding(building.ID, iRealCount >= 1 and iRealCount - 1 or 1);
 	end
 	InvalidateCity();
 
@@ -615,9 +638,12 @@ end
 
 -------------------------------------------------------------------------------------------------
 function BuildingRightClickHandler(building)
-	local count = currentCity:GetNumRealBuilding(building.ID);
-	if count ~= 0 then
-		currentCity:SetNumRealBuilding(building.ID, count - 1);
+	local iFreeCount = currentCity:GetNumFreeBuilding(building.ID);
+	local iRealCount = currentCity:GetNumRealBuilding(building.ID);
+	if UI.CtrlKeyDown()  then
+		currentCity:SetNumFreeBuilding(building.ID, iFreeCount == 0);
+	elseif not UI.CtrlKeyDown()  then
+		currentCity:SetNumRealBuilding(building.ID, iRealCount == 0);
 	end
 
 	InvalidateCity();
@@ -625,7 +651,7 @@ end
 
 -------------------------------------------------------------------------------------------------
 function OnDisbandUnitClick()
-	currentUnit:Kill();	
+	currentUnit:Kill();
 	Events.SerialEventGameDataDirty();
 	OnUpdate();
 end
@@ -633,9 +659,9 @@ Controls.DisbandUnitButton:RegisterCallback(Mouse.eLClick, OnDisbandUnitClick);
 
 -------------------------------------------------------------------------------------------------
 function OnPromoteUnitClick()
-	local level = GetLevelFromXP(currentUnit:GetExperience());
-	local xp = GetXPForLevel(level + 1);
-	currentUnit:SetExperience(xp);
+	local iLevel = GetLevelFromXPScaled(currentUnit:GetExperience());
+	local iXP = GetXPForLevelScaled(iLevel + 1);
+	currentUnit:SetExperience(iXP);
 	currentUnit:SetPromotionReady(true);
 	Events.SerialEventGameDataDirty();
 	OnUpdate();
@@ -650,6 +676,46 @@ end
 Controls.HealUnitButton:RegisterCallback(Mouse.eLClick, OnHealUnitClick);
 
 -------------------------------------------------------------------------------------------------
+function OnAddMoveUnitClick()
+	local iMaxMoves = currentUnit:MaxMoves();
+	local iMovesLeft = currentUnit:MovesLeft();
+	-- If Community Patch is detected, limit "Add +1 Move" button to only add +1 more move than the maximum move limit
+	-- Since it does not work thanks to a bugfix
+	if IGE_HasCommunityPatch and iMovesLeft <= iMaxMoves + 60 then
+		currentUnit:SetMoves(iMovesLeft + 60);
+	else
+		currentUnit:SetMoves(iMovesLeft + 60);
+	end
+	Events.SerialEventGameDataDirty();
+	OnUpdate();
+end
+Controls.AddMoveUnitButton:RegisterCallback(Mouse.eLClick, OnAddMoveUnitClick);
+
+-------------------------------------------------------------------------------------------------
+function OnRestoreMovesUnitClick()
+	local iMaxMoves = currentUnit:MaxMoves();
+	local iMovesLeft = currentUnit:MovesLeft();
+	if iMovesLeft <= iMaxMoves then
+		currentUnit:SetMoves(iMaxMoves);
+	end
+	Events.SerialEventGameDataDirty();
+	OnUpdate();
+end
+Controls.RestoreMovesUnitButton:RegisterCallback(Mouse.eLClick, OnRestoreMovesUnitClick);
+
+-------------------------------------------------------------------------------------------------
+function OnResetAttackUnitClick()
+	local iMovesLeft = currentUnit:MovesLeft();
+	currentUnit:SetMadeAttack(false);
+	if iMovesLeft <= 0 then
+		currentUnit:SetMoves(iMovesLeft + 60);
+	end
+	Events.SerialEventGameDataDirty();
+	OnUpdate();
+end
+Controls.ResetAttackUnitButton:RegisterCallback(Mouse.eLClick, OnResetAttackUnitClick);
+
+-------------------------------------------------------------------------------------------------
 function OnCityNameChange(name)
 	currentCity:SetName(name);
 	OnUpdate();
@@ -660,7 +726,7 @@ Controls.CityNameBox:RegisterCallback(OnCityNameChange);
 function OnDisbandCityClick()
 	local playerID = currentCity:GetOwner();
 	local pPlayer = Players[playerID];
-	--pPlayer:Disband(currentCity);	
+	--pPlayer:Disband(currentCity);
 	local plot = currentCity:Plot()
 	local hexpos = ToHexFromGrid(Vector2(plot:GetX(), plot:GetY()));
 	local cityID = currentCity:GetID()
@@ -675,7 +741,7 @@ Controls.DisbandCityButton:RegisterCallback(Mouse.eLClick, OnDisbandCityClick);
 function OnCaptureCityClick()
 	if IGE.currentPlayerID ~= currentCity:GetOwner() then
 		local pPlayer = Players[IGE.currentPlayerID];
-		pPlayer:AcquireCity(currentCity);	
+		pPlayer:AcquireCity(currentCity);
 	end
 	InvalidateCity();
 end
@@ -731,10 +797,10 @@ function SetWeLoveTheKing(turns)
 
 	if IGE.currentPlayerID == currentCity:GetOwner() then
 		IGE.currentPlayer:AddNotification(
-			NotificationTypes.NOTIFICATION_DISCOVERED_LUXURY_RESOURCE, 
+			NotificationTypes.NOTIFICATION_DISCOVERED_LUXURY_RESOURCE,
 			L("TXT_KEY_NOTIFICATION_CITY_WLTKD", goldRow.Description, currentCity:GetNameKey()),
-			L("TXT_KEY_NOTIFICATION_SUMMARY_CITY_WLTKD", currentCity:GetNameKey()), 
-			currentCity:GetX(), currentCity:GetY(), 
+			L("TXT_KEY_NOTIFICATION_SUMMARY_CITY_WLTKD", currentCity:GetNameKey()),
+			currentCity:GetX(), currentCity:GetY(),
 			goldRow.ID);
 	end
 
@@ -841,12 +907,12 @@ end
 ContextPtr:SetInputHandler(InputHandler);
 
 ------------------------------------------------------------------------------------------------
-UpdatePopulation = HookNumericBox("Population", 
-	function() return currentCity:GetPopulation() end, 
-	function(amount) 
+UpdatePopulation = HookNumericBox("Population",
+	function() return currentCity:GetPopulation() end,
+	function(amount)
 		if amount ~= currentCity:GetPopulation() then
 			currentCity:SetPopulation(amount, true)
 			LuaEvents.IGE_Update();
 		end
-	end, 
+	end,
 	0, nil, 1);

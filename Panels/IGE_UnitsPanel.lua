@@ -174,10 +174,10 @@ function OnInitialize()
 			elseif unit.diplomacy then
 				table.remove(units0, i);
 				table.insert(diplomacyUnits, unit);
-				if emissaryClasses[unit.class] then unit.priority = 99 
-				elseif envoyClasses[unit.class] then unit.priority = 97 
-				elseif diplomatClasses[unit.class] then unit.priority = 95 
-				elseif ambassadorClasses[unit.class] then unit.priority = 93 
+				if emissaryClasses[unit.class] then unit.priority = 99
+				elseif envoyClasses[unit.class] then unit.priority = 97
+				elseif diplomatClasses[unit.class] then unit.priority = 95
+				elseif ambassadorClasses[unit.class] then unit.priority = 93
 				end
 			elseif unit.isGreatPeople then
 				table.remove(units0, i);
@@ -185,20 +185,20 @@ function OnInitialize()
 			elseif unit.settlingunits or civilianClasses[unit.class] then
 				table.remove(units0, i);
 				table.insert(civilianUnits, unit);
-				if settlerClasses[unit.class] then unit.priority = 150 
-				elseif pioneerClasses[unit.class] then unit.priority = 135 
-				elseif colonistClasses[unit.class] then unit.priority = 120 
-				elseif unit.settlingunits and ((not settlerClasses[unit.class]) or (not pioneerClasses[unit.class]) or (not colonistClasses[unit.class])) then unit.priority = 110 
-				elseif civilianClasses[unit.class]and (not archaeologyClasses[unit.class]) then unit.priority = 100 
-				elseif archaeologyClasses[unit.class] then unit.priority = 90 
+				if settlerClasses[unit.class] then unit.priority = 150
+				elseif pioneerClasses[unit.class] then unit.priority = 135
+				elseif colonistClasses[unit.class] then unit.priority = 120
+				elseif unit.settlingunits and ((not settlerClasses[unit.class]) or (not pioneerClasses[unit.class]) or (not colonistClasses[unit.class])) then unit.priority = 110
+				elseif civilianClasses[unit.class]and (not archaeologyClasses[unit.class]) then unit.priority = 100
+				elseif archaeologyClasses[unit.class] then unit.priority = 90
 				end
 			elseif unit.spaceshipunits then
 				table.remove(units0, i);
 				table.insert(spaceShipUnits, unit);
 			else
-				if unit.landunits then unit.priority = 80 
-				elseif unit.seaunits then unit.priority = 70 
-				elseif unit.airunits then unit.priority = 60 
+				if unit.landunits then unit.priority = 80
+				elseif unit.seaunits then unit.priority = 70
+				elseif unit.airunits then unit.priority = 60
 				end
 				i = i + 1;
 			end
@@ -268,7 +268,7 @@ function TryPurchaseReligiousUnit(pPlayer, plot, start)
 					local cityPlot = city:Plot();
 					for i = 0, cityPlot:GetNumUnits() -1, 1 do
 						local unit = cityPlot:GetUnit(i);
-						
+
 						if unit and (unit:GetUnitType() == currentUnit.ID and unit:GetReligion() == currentUnit.religion) then
 							if (unit.SetReligion) then
 								print("Woot ! Firaxis finally added a SetReligion");
@@ -312,7 +312,7 @@ function CreateUnit(plot)
 		pUnit = pPlayer:InitUnit(currentUnit.ID, plot:GetX(), plot:GetY());
 
 		if currentLevel ~= 1 then
-			local xp = GetXPForLevel(currentLevel);
+			local xp = (currentLevel > 2 and GetXPForLevelScaled(currentLevel + 1)) or GetXPForLevelScaled(currentLevel);
 			pUnit:SetExperience(xp);
 			pUnit:SetPromotionReady(true);
 		end
@@ -347,14 +347,14 @@ end
 --===============================================================================================
 -- UPDATE
 --===============================================================================================
-UpdateLevel = HookNumericBox("Level", 
-	function() return currentLevel end, 
-	function(amount) currentLevel = amount end, 
+UpdateLevel = HookNumericBox("Level",
+	function() return currentLevel end,
+	function(amount) currentLevel = amount end,
 	1, nil, 1);
 
 -------------------------------------------------------------------------------------------------
 function UpdateUnitList(units, itemManager, instance)
-	for _, unit in ipairs(units) do 
+	for _, unit in ipairs(units) do
 		unit.selected = (unit == currentUnit);
 		unit.label = unit.name;
 	end
@@ -420,7 +420,7 @@ function OnUpdate()
 		if #era.units > 0 then
 			UpdateUnitList(era.units, unitItemManagers[i], groupInstances[i]);
 		end
-	end	
+	end
 
 	-- Resize
 	local availableWidth = Controls.Container:GetSizeX();

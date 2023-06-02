@@ -9,6 +9,7 @@ local function IsModActive(iModID)
 	end
 	return false
 end
+
 if Map.GetPlot(0,0).GetCulture then	--Check if you have Gods & Kings DLC
 	IGE_HasGodsAndKings = false;
 else
@@ -32,25 +33,31 @@ for row in DB.Query("SELECT * FROM Language_en_US WHERE Tag = 'TXT_KEY_EUI_UNIT_
 	IGE_EUI = true; --Check if you use Enhance User Interface
 end
 
---add check for Community Patch
-local communityPatchID = "d1b6328c-ff44-4b0d-aad7-c657f83610cd";
-if IsModActive(communityPatchID) then --Check if Community Patch is enabled
+--add check for Community Patch or Various Mod Components
+local sDLLID = "d1b6328c-ff44-4b0d-aad7-c657f83610cd";
+if IsModActive(sDLLID) and Game.GetCustomModOption('COMMUNITY_PATCH') ~= nil then --Check if Community Patch is enabled
 	IGE_HasCommunityPatch = true;
 else
 	IGE_HasCommunityPatch = false;
 end
 
+if IsModActive(sDLLID) and Game.GetCustomModOption('COMMUNITY_PATCH') == nil then --Check if VMC is enabled
+	IGE_HasVMC = true;
+else
+	IGE_HasVMC = false;
+end
+
 --add check for Vox Populi
-local voxPopuliID = "8411a7a8-dad3-4622-a18e-fcc18324c799";
-if IsModActive(voxPopuliID) then --Check if Vox Populi is enabled
+local sVoxPopuliID = "8411a7a8-dad3-4622-a18e-fcc18324c799";
+if IsModActive(sVoxPopuliID) then --Check if Vox Populi is enabled
 	IGE_HasVoxPopuli = true;
 else
 	IGE_HasVoxPopuli = false;
 end
 
 --add check for More Wonders for VP mod
-local moreWondersVPID = "3e151552-1683-4881-b736-8ee89226f599";
-if IsModActive(moreWondersVPID) then --Check if More Wonders for VP is enabled
+local sMoreWondersVPID = "3e151552-1683-4881-b736-8ee89226f599";
+if IsModActive(sMoreWondersVPID) then --Check if More Wonders for VP is enabled
 	IGE_HasMoreWondersVP = true;
 else
 	IGE_HasMoreWondersVP = false;
@@ -89,7 +96,7 @@ end
 
 -------------------------------------------------------------------------------------------------
 function dump(x)
-	if x == nil then 
+	if x == nil then
 		print("nil");
 	elseif type(x) == "table" then
 		for k, v in pairs(x) do
@@ -151,7 +158,7 @@ function getStackTrace()
 		if not info then break end
 		if info.what == "C" then   -- is a C function?
 			table.insert(trace, "C function");
-		else   
+		else
 			-- a Lua function
 			local userStr = getFileName(info.source)..": "..info.currentline;
 			if (info.name and string.len(info.name)) then

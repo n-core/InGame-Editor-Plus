@@ -55,7 +55,7 @@
 			<Text>Clic para cambiar de jugador activo.[NEWLINE]Cambiaran las características que dependen de cada civilización (niebla de guerra, fronteras, etc.).[NEWLINE][COLOR_NEGATIVE_TEXT]Si el juego se cierra al intentar controlar otro jugador, has clic derecho en [ICON_CAPITAL]IGE[ICON_CAPITAL] y activa el modo seguro.[ENDCOLOR]</Text>
 		</Row>
 
-		
+
 		<!-- Common -->
 		<Row Tag="TXT_KEY_IGE_NONE">
 			<Text>Ninguno</Text>
@@ -70,7 +70,7 @@
 			<Text>[COLOR_POSITIVE_TEXT]Usar el mapa estratégico (F10) permite ver los cambios de terreno inmediatamente.[ENDCOLOR]</Text>
 		</Row>
 
-		
+
 		<!--IGE_Window.xml-->
 		<Row Tag="TXT_KEY_IGE_IGE">
 			<Text>[ICON_CAPITAL] IGE [ICON_CAPITAL]</Text>
@@ -104,7 +104,7 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_CLEAN_UP_FILES_HELP">
 			<Text>Esta opción permite a IGE eliminar archivos IGE ("IGE1", etc) que tengan el mismo nombre.[NEWLINE][COLOR_NEGATIVE_TEXT]Borrar estos archivos puede causar el cierre del juego en algunos computadores (otro error más de civ5).[ENDCOLOR]</Text>
-		</Row>		
+		</Row>
 		<Row Tag="TXT_KEY_IGE_SHOW_UNKNOWN_RESOURCES">
 			<Text>Mostrar recursos desconocidos</Text>
 		</Row>
@@ -145,7 +145,7 @@
 			<Text>Deja de mirar el mapa.</Text>
 		</Row>
 
-		
+
 		<!--IGE_Window.lua-->
 		<Row Tag="TXT_KEY_IGE_CONFIRM_SAVE_AND_RELOAD">
 			<Text>¿Quieres guardar y recargar el juego?</Text>
@@ -219,8 +219,8 @@
 		<Row Tag="TXT_KEY_IGE_OTHERS">
 			<Text>Otros</Text>
 		</Row>
-		
-		
+
+
 		<!--IGE_CitiesPanel.xml-->
 		<Row Tag="TXT_KEY_IGE_NO_UNIT_ON_PLOT">
 			<Text>[COLOR_POSITIVE_TEXT]No hay una unidad en esta hexágono[ENDCOLOR]</Text>
@@ -230,12 +230,21 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_DISBAND_UNIT_BUTTON">
 			<Text>Suprimir</Text>
-		</Row>			
+		</Row>
 		<Row Tag="TXT_KEY_IGE_PROMOTE_UNIT_BUTTON">
 			<Text>Ascender</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_HEAL_UNIT_BUTTON">
 			<Text>Curar</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_ADD_MOVE_UNIT_BUTTON">
+			<Text>+1[ICON_MOVES] Movimiento</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RESTORE_MOVES_UNIT_BUTTON">
+			<Text>Restaurar Movimientos</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RESET_ATTACK_UNIT_BUTTON">
+			<Text>Restablecer ataque</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_CITY_POPULATION">
 			<Text>Población de la ciudad.</Text>
@@ -260,10 +269,10 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_HEAL_CITY_BUTTON">
 			<Text>Curar</Text>
-		</Row>	
+		</Row>
 		<Row Tag="TXT_KEY_IGE_HEAL_CITY_BUTTON_HELP">
 			<Text>Cura los puntos de vida de la ciudad.</Text>
-		</Row>	
+		</Row>
 		<Row Tag="TXT_KEY_IGE_LOVE_KING_10_BUTTON">
 			<Text>Amamos al rey (20t)</Text>
 		</Row>
@@ -435,8 +444,8 @@
 		<Row Tag="TXT_KEY_IGE_INVALID_BUTTON">
 			<Text>[COLOR_POSITIVE_TEXT]No hay candidatos validos.[ENDCOLOR]</Text>
 		</Row>
-		
-	
+
+
 		<!--IGE_PlayersPanel.lua-->
 		<Row Tag="TXT_KEY_IGE_MEET">
 			<Text>Conoce</Text>
@@ -715,6 +724,6 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_SAVED_AS">
 			<Text>Juego guardado como '{1_FileName}'.</Text>
-		</Row>		
+		</Row>
 	</Language_ES_ES>
 </GameData>

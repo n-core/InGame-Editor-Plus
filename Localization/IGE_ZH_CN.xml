@@ -215,7 +215,7 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_IMPROVEMENTS">
 			<Text>地域设施</Text>
-		</Row>		
+		</Row>
 		<Row Tag="TXT_KEY_IGE_OTHERS">
 			<Text>其它</Text>
 		</Row>
@@ -230,22 +230,31 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_DISBAND_UNIT_BUTTON">
 			<Text>解散单位</Text>
-		</Row>	
+		</Row>
 		<Row Tag="TXT_KEY_IGE_PROMOTE_UNIT_BUTTON">
 			<Text>单位获得晋升</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_HEAL_UNIT_BUTTON">
 			<Text>治疗单位</Text>
 		</Row>
+		<Row Tag="TXT_KEY_IGE_ADD_MOVE_UNIT_BUTTON">
+			<Text>+1[ICON_MOVES] 运动</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RESTORE_MOVES_UNIT_BUTTON">
+			<Text>恢复运动</Text>
+		</Row>
+		<Row Tag="TXT_KEY_IGE_RESET_ATTACK_UNIT_BUTTON">
+			<Text>重置攻击</Text>
+		</Row>
 		<Row Tag="TXT_KEY_IGE_CITY_POPULATION">
 			<Text>城市人口。</Text>
 		</Row>
 		<Row Tag="TXT_KEY_IGE_HURRY_CITY_BUTTON">
 			<Text>加速生产</Text>
-		</Row>	
+		</Row>
 		<Row Tag="TXT_KEY_IGE_HURRY_CITY_BUTTON_HELP">
 			<Text>加速城市生产。[NEWLINE]当前正在建造的项目将在下一回合完成。</Text>
-		</Row>	
+		</Row>
 		<Row Tag="TXT_KEY_IGE_CAPTURE_CITY_BUTTON">
 			<Text>占领</Text>
 		</Row>
@@ -260,10 +269,10 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_HEAL_CITY_BUTTON">
 			<Text>恢复城防</Text>
-		</Row>	
+		</Row>
 		<Row Tag="TXT_KEY_IGE_HEAL_CITY_BUTTON_HELP">
 			<Text>恢复该城市的城防。</Text>
-		</Row>	
+		</Row>
 		<Row Tag="TXT_KEY_IGE_LOVE_KING_10_BUTTON">
 			<Text>我们热爱领袖（20回合）！</Text>
 		</Row>
@@ -284,7 +293,7 @@
 		</Row>
 		<Row Tag="TXT_KEY_IGE_NEVER_LOST_CITY_CB">
 			<Text>本文明城市（未被攻占）</Text>
-		</Row>	
+		</Row>
 		<Row Tag="TXT_KEY_IGE_NEVER_LOST_CITY_CB_HELP">
 			<Text>将城市标记为本文明建立的城市并且未被其他势力攻占。</Text>
 		</Row>
@@ -435,7 +444,7 @@
 		<Row Tag="TXT_KEY_IGE_INVALID_BUTTON">
 			<Text>[COLOR_POSITIVE_TEXT]不存在任何有效操作！[ENDCOLOR]</Text>
 		</Row>
-		
+
 
 		<!--IGE_PlayersPanel.lua-->
 		<Row Tag="TXT_KEY_IGE_MEET">

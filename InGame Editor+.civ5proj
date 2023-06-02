@@ -5,7 +5,7 @@
     <ProjectGuid>{66eadccc-2daf-466b-b97f-59a8942741ce}</ProjectGuid>
     <Name>InGame Editor+</Name>
     <Guid>170c8ed1-b516-4fe2-b571-befeac39d220</Guid>
-    <ModVersion>45</ModVersion>
+    <ModVersion>46</ModVersion>
     <Stability>Stable</Stability>
     <Teaser>[COLOR_GREEN]Change terrain, units, cities, ...[ENDCOLOR]</Teaser>
     <Description>[ICON_CAPITAL] IGE [ICON_CAPITAL]
@@ -13,7 +13,7 @@
 [NEWLINE]
 [NEWLINE][COLOR_GREEN]Frequent problems[ENDCOLOR]
 [NEWLINE][ICON_BULLET] IGE does not load/appear in-game. [COLOR_NEGATIVE_TEXT]Do NOT[ENDCOLOR] click back. Click [COLOR_POSITIVE_TEXT]Next[ENDCOLOR]. [COLOR_NEGATIVE_TEXT]Do NOT[ENDCOLOR] click back. Click [COLOR_POSITIVE_TEXT]Solo[ENDCOLOR].
-[NEWLINE][ICON_BULLET] IGE does not load/appear in-game (bis). You've enabled another mod that's incompatible with save game you tried to reload. Civ V disabled all mods
+[NEWLINE][ICON_BULLET] IGE does not load/appear in-game (bis). You've enabled another mod that's incompatible with save game you tried to reload. The game disabled all mods other than the ones that are needed for the save. 
 [NEWLINE][ICON_BULLET] The UI is messed up/I have weird bugs. [COLOR_NEGATIVE_TEXT]*Delete*[ENDCOLOR] older versions and empty your cache folder ([COLOR:160:170:180:255]/My Documents/My Games/Civ V/cache[ENDCOLOR]).
 [NEWLINE][ICON_BULLET] Game crashes when I select another player in IGE. Right-click the IGE button and enable '[COLOR_POSITIVE_TEXT]safe mode[ENDCOLOR]'.
 [NEWLINE]
